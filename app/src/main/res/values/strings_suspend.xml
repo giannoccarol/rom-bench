@@ -2,4 +2,135 @@
 <resources>
     <string name="suspend_title">Suspend &amp; wakelocks</string>
     <string name="suspend_subtitle">Deep sleep, alarms from suspend, doze</string>
+
+    <!-- Result titles -->
+    <string name="suspend_t_boot">Deep sleep since boot</string>
+    <string name="suspend_t_kernel">Kernel suspend interface</string>
+    <string name="suspend_t_stats">Suspend statistics</string>
+    <string name="suspend_t_sources">Kernel wakeup sources</string>
+    <string name="suspend_t_pm">Power manager state</string>
+    <string name="suspend_t_doze">Doze (device idle)</string>
+    <string name="suspend_t_dump">Wake locks (dumpsys power)</string>
+    <string name="suspend_t_exact">Exact alarms</string>
+    <string name="suspend_t_sleep_test">Deep sleep with the screen off</string>
+    <string name="suspend_t_alarm">Alarm wakes the phone from suspend</string>
+    <string name="suspend_t_wakelock">Partial wakelock keeps the CPU awake</string>
+
+    <!-- Boot -->
+    <string name="suspend_boot_summary">Deep sleep %1$s of the %2$s since boot</string>
+    <string name="suspend_boot_recent">Booted less than 30 minutes ago: too early to judge standby.</string>
+    <string name="suspend_boot_never">Never suspended since boot</string>
+    <string name="suspend_boot_never_usb">The phone is on external power: with USB or adb connected many phones never suspend (USB and charger wakelocks). Run the guided test unplugged.</string>
+    <string name="suspend_boot_never_reason">Nothing reached deep sleep since boot: a wakelock or kernel wakeup source is held all the time, or every suspend attempt aborts (see suspend statistics and wakeup sources).</string>
+
+    <!-- Kernel -->
+    <string name="suspend_kernel_ok">Suspend states: %1$s</string>
+    <string name="suspend_kernel_unreadable">/sys/power not readable</string>
+    <string name="suspend_kernel_unreadable_reason">SELinux hides /sys/power from apps on this build; nothing wrong by itself.</string>
+    <string name="suspend_kernel_no_state">No usable suspend state: %1$s</string>
+    <string name="suspend_kernel_no_state_reason">/sys/power/state lists neither mem nor freeze: the kernel is built without CONFIG_SUSPEND or the platform PM driver did not register.</string>
+    <string name="suspend_kernel_s2idle">Only suspend-to-idle: %1$s</string>
+    <string name="suspend_kernel_s2idle_reason">mem_sleep offers only s2idle: the SoC never enters its real low power state (PSCI / platform suspend ops missing), standby drains faster.</string>
+    <string name="suspend_kernel_autosleep">/sys/power/autosleep is \"%1$s\": the kernel suspends on its own instead of system_suspend, unusual on Android.</string>
+
+    <!-- Suspend stats -->
+    <string name="suspend_stats_summary">%1$s suspends, %2$s failed</string>
+    <string name="suspend_stats_missing">No suspend statistics</string>
+    <string name="suspend_stats_missing_reason">/sys/power/suspend_stats needs a newer kernel; on older kernels the statistics live only in debugfs, which this app never reads.</string>
+    <string name="suspend_stats_failing">Suspend aborts often. Last failing device %1$s (errno %2$s, step %3$s): its suspend callback refuses, usually a driver with pending work or a busy IRQ.</string>
+    <string name="suspend_stats_none">The kernel never completed a suspend since boot.</string>
+
+    <!-- Wakeup sources -->
+    <string name="suspend_sources_summary">%1$s wakeup sources, %2$s active now</string>
+    <string name="suspend_sources_sub">Kernel and userspace wakelocks seen by the kernel</string>
+    <string name="suspend_sources_unreadable">Wakeup sources not readable</string>
+    <string name="suspend_sources_unreadable_reason">/sys/class/wakeup needs kernel 4.19 or later (or a backport) and may be blocked by SELinux; older kernels expose wakeup sources only in debugfs, which this app never reads. With DUMP granted, the wake locks check shows the framework side.</string>
+    <string name="suspend_sources_stuck">Held for a long time: %1$s. A driver keeps the system awake (stuck wake IRQ, modem or Wi-Fi wakelock, sensor hub).</string>
+    <string name="suspend_sources_stuck_usb">Held for a long time: %1$s. External power is connected, which often holds such sources; check again on battery.</string>
+    <string name="suspend_sources_active">Active now (%1$s)</string>
+    <string name="suspend_sources_none_active">None.</string>
+    <string name="suspend_sources_top">Longest total time</string>
+
+    <!-- Power manager -->
+    <string name="suspend_pm_summary">Thermal status %1$s</string>
+    <string name="suspend_pm_missing">PowerManager not available</string>
+    <string name="suspend_pm_hot">The thermal HAL reports severe heat: the device throttles and the measurements here are not representative.</string>
+
+    <!-- Doze -->
+    <string name="suspend_doze_on">Doze enabled</string>
+    <string name="suspend_doze_deep_only">Deep doze enabled, light doze disabled</string>
+    <string name="suspend_doze_off">Doze disabled</string>
+    <string name="suspend_doze_off_reason">config_enableAutoPowerModes is false (the AOSP default): apps are never put into doze and standby drains. Set it to true in the device framework overlay.</string>
+    <string name="suspend_doze_unknown">Doze state not readable</string>
+    <string name="suspend_need_dump">Grant DUMP from a PC (see Settings) to read it from dumpsys.</string>
+
+    <!-- dumpsys power -->
+    <string name="suspend_dump_skip">Not run: DUMP not granted</string>
+    <string name="suspend_dump_empty">dumpsys power returned nothing</string>
+    <string name="suspend_dump_summary">%1$s wake locks (%2$s partial), wakefulness %3$s</string>
+
+    <!-- Exact alarms -->
+    <string name="suspend_exact_ok">Exact alarms allowed</string>
+    <string name="suspend_exact_denied">Exact alarms not allowed</string>
+    <string name="suspend_exact_denied_reason">The guided test needs exact alarms: allow them in Settings, Apps, Special app access, Alarms &amp; reminders.</string>
+
+    <!-- Live counters -->
+    <string name="suspend_counters_title">Sleep counters</string>
+    <string name="suspend_counters_sub">Deep sleep is the gap between the elapsed and the awake clock</string>
+    <string name="suspend_ui_deep_sleep">deep sleep</string>
+    <string name="suspend_ui_asleep">asleep</string>
+    <string name="suspend_ui_since_boot">since boot</string>
+    <string name="suspend_ui_power">Power</string>
+    <string name="suspend_ui_usb_hint">External power is connected: many phones do not suspend while charging over USB.</string>
+
+    <!-- Guided test -->
+    <string name="suspend_test_title">Guided suspend test</string>
+    <string name="suspend_test_sub">Does the phone sleep with the screen off, and does an alarm wake it on time?</string>
+    <string name="suspend_test_duration">Duration</string>
+    <string name="suspend_test_minutes">%1$d min</string>
+    <string name="suspend_test_grant_exact">Allow exact alarms</string>
+    <string name="suspend_test_start">Start</string>
+    <string name="suspend_test_step1">1. Unplug the USB cable (adb keeps many phones awake).</string>
+    <string name="suspend_test_step2">2. Press the power button to turn the screen off.</string>
+    <plurals name="suspend_test_step3">
+        <item quantity="one">3. Leave the phone alone for %1$d minute: an alarm wakes it at the end, the screen may stay off.</item>
+        <item quantity="other">3. Leave the phone alone for %1$d minutes: an alarm wakes it at the end, the screen may stay off.</item>
+    </plurals>
+    <string name="suspend_test_step4">4. Come back to this screen: the results are computed automatically.</string>
+    <string name="suspend_test_remaining">until the alarm</string>
+    <string name="suspend_test_due">due</string>
+    <string name="suspend_test_waiting_alarm">Waiting for the alarm; if it never arrives the test is evaluated two minutes after the due time.</string>
+    <string name="suspend_test_evaluate">Evaluate now</string>
+    <string name="suspend_test_too_short">Window too short (%1$s) to judge</string>
+    <string name="suspend_test_slept">Asleep %1$s of %2$s</string>
+    <string name="suspend_test_plugged">External power was connected during the test, which often prevents suspend. Repeat on battery.</string>
+    <string name="suspend_test_partial">Partly awake: a wakelock or frequent wakeups interrupt deep sleep. Look at the wakeup sources and last_resume_reason.</string>
+    <string name="suspend_test_never">Never reached deep sleep in %1$s</string>
+    <string name="suspend_test_never_reason">With the screen off and on battery the kernel never suspended: a wakelock is held (dumpsys power, wakeup sources) or every suspend attempt aborts (a driver refusing suspend).</string>
+    <string name="suspend_alarm_on_time">Alarm fired %1$s s after the due time</string>
+    <string name="suspend_alarm_late">Alarm fired %1$s s late</string>
+    <string name="suspend_alarm_late_reason">The wake-up came late: doze deferral or a slow resume (a driver taking long in its resume callback).</string>
+    <string name="suspend_alarm_very_late_reason">The RTC wake alarm did not wake the SoC: the phone woke for another reason later. Check that the RTC driver (e.g. rtc-pm8xxx) is a wakeup source and that the alarm IRQ is enabled for wake.</string>
+    <string name="suspend_alarm_missing">The alarm never fired</string>
+    <string name="suspend_alarm_missing_reason">The exact alarm did not arrive within two minutes of its due time: the RTC alarm cannot wake the device from suspend (alarmtimer/RTC wake IRQ), or the app was force-stopped.</string>
+    <string name="suspend_alarm_not_proven">The phone hardly slept, so this does not prove wake-up from suspend.</string>
+    <string name="suspend_alarm_early">Stopped before the alarm was due</string>
+
+    <!-- Wakelock demo -->
+    <string name="suspend_wl_title">Wakelock demo</string>
+    <string name="suspend_wl_sub">A partial wakelock must keep the CPU running with the screen off</string>
+    <plurals name="suspend_wl_hint">
+        <item quantity="one">Hold the wakelock, turn the screen off for a minute or more, then come back and release it. While it is held the awake clock must keep pace with the elapsed one. It is released automatically after %1$d minute or when you leave this screen.</item>
+        <item quantity="other">Hold the wakelock, turn the screen off for a minute or more, then come back and release it. While it is held the awake clock must keep pace with the elapsed one. It is released automatically after %1$d minutes or when you leave this screen.</item>
+    </plurals>
+    <string name="suspend_wl_hold">Hold wakelock</string>
+    <string name="suspend_wl_release">Release</string>
+    <string name="suspend_wl_held">held</string>
+    <string name="suspend_wl_uptime">awake</string>
+    <string name="suspend_wl_screen_off">Screen off while held</string>
+    <string name="suspend_wl_screen_on">Held %1$s with the screen on</string>
+    <string name="suspend_wl_screen_on_reason">The screen stayed on, which keeps the phone awake anyway: turn it off for at least 20 s while the wakelock is held.</string>
+    <string name="suspend_wl_ok">CPU stayed awake for %1$s with the screen off</string>
+    <string name="suspend_wl_fail">Suspended for %1$s despite the wakelock</string>
+    <string name="suspend_wl_fail_reason">The kernel suspended while a partial wakelock was held: the framework wakelock does not reach the kernel (system_suspend, /sys/power/wake_lock permissions or SELinux).</string>
 </resources>
