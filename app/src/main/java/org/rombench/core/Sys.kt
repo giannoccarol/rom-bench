@@ -84,13 +84,14 @@ object Sys {
         val p = ProcessBuilder(*cmd).redirectErrorStream(false).start()
         val outReader = StringBuilder()
         val errSb = StringBuilder()
-        val tOut = Thread { p.inputStream.bufferedReader().use { r -> r.forEachLine { outReader.appendLine(it) } } }
-        val tErr = Thread { p.errorStream.bufferedReader().use { r -> r.forEachLine { errSb.appendLine(it) } } }
+        // Readers must never throw: destroying the process on timeout interrupts their reads.
+        val tOut = Thread { runCatching { p.inputStream.bufferedReader().use { r -> r.forEachLine { outReader.appendLine(it) } } } }
+        val tErr = Thread { runCatching { p.errorStream.bufferedReader().use { r -> r.forEachLine { errSb.appendLine(it) } } } }
         tOut.start(); tErr.start()
         val done = p.waitFor(timeoutMs, TimeUnit.MILLISECONDS)
         if (!done) p.destroyForcibly()
-        tOut.join(500); tErr.join(500)
-        ExecResult(if (done) p.exitValue() else -1, outReader.toString(), errSb.toString())
+        tOut.join(1000); tErr.join(1000)
+        ExecResult(if (done) p.exitValue() else -1, synchronized(outReader) { outReader.toString() }, errSb.toString())
     } catch (e: Exception) {
         Log.w(TAG, "exec ${cmd.joinToString(" ")} failed: $e")
         ExecResult(-2, "", e.toString())

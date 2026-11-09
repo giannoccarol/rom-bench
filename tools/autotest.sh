@@ -8,7 +8,8 @@
 #   -p PACKAGE org.rombench (release) or org.rombench.debug (debug build); default: autodetect
 #
 # The phone must be unlocked with the screen on (camera, display and audio checks need it).
-# Nothing on the ROM is changed: the script only installs the app, grants its permissions
+# On Android 13+ the phone may ask "Allow access to all device logs?": tap Allow so the agent
+# report can include logs. Nothing on the ROM is changed: the script only installs the app, grants its permissions
 # (including DUMP and READ_LOGS for the dumpsys/logcat extras) and reads its files.
 set -euo pipefail
 
@@ -55,8 +56,14 @@ for _ in $(seq 1 180); do
     dev=$("${ADB[@]}" shell getprop ro.product.device | tr -d '\r')
     dest="$OUT/$dev-$(date +%Y%m%d-%H%M%S)"
     mkdir -p "$dest"
-    for f in latest.txt latest.md latest.bbcode.txt latest.json; do get "$f" > "$dest/$f"; done
+    for f in latest.txt latest.md latest.bbcode.txt latest.json latest.agent.json; do get "$f" > "$dest/$f"; done
+    # Logs taken from the PC side too (not redacted: they stay on this computer).
+    "${ADB[@]}" logcat -d -b all -v threadtime > "$dest/logcat-all.txt" 2>/dev/null || true
+    "${ADB[@]}" shell dmesg > "$dest/dmesg.txt" 2>&1 || true
+    "${ADB[@]}" shell getprop > "$dest/getprop.txt" 2>/dev/null || true
     echo "Report saved in $dest"
+    echo "  latest.agent.json : analysis for AI agents (problems, services, SELinux denials, logs if READ_LOGS)"
+    echo "  logcat-all.txt, dmesg.txt, getprop.txt : raw logs read through adb"
     grep -E '^(Fail|\[FAIL\]|\[WARN\])' "$dest/latest.txt" || true
     exit 0
   fi

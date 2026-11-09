@@ -7,6 +7,8 @@ enum class ReportFormat(val ext: String, val mime: String, val label: String) {
     MARKDOWN("md", "text/markdown", "Markdown"),
     BBCODE("bbcode.txt", "text/plain", "BBCode (XDA)"),
     JSON("json", "application/json", "JSON"),
+    /** Results + analysis context + Android logs for AI agents; built by [AgentReport]. */
+    AGENT("agent.json", "application/json", "Agent JSON + logs"),
 }
 
 private fun Status.mark() = when (this) {
@@ -40,7 +42,7 @@ object Formats {
         ReportFormat.TEXT -> text(r, withDetails)
         ReportFormat.MARKDOWN -> markdown(r, withDetails)
         ReportFormat.BBCODE -> bbcode(r, withDetails)
-        ReportFormat.JSON -> r.toJson().toString(2)
+        ReportFormat.JSON, ReportFormat.AGENT -> r.toJson().toString(2)
     }
 
     private fun countsLine(r: Report) = Status.entries.joinToString("  ") { "${it.word()}: ${r.counts[it] ?: 0}" }

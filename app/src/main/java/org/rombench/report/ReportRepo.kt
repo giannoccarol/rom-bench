@@ -30,9 +30,10 @@ object ReportRepo {
     fun exportLatest(ctx: Context, report: Report) {
         try {
             val ext = ctx.getExternalFilesDir("reports") ?: return
-            ReportFormat.entries.forEach { fmt ->
+            ReportFormat.entries.filter { it != ReportFormat.AGENT }.forEach { fmt ->
                 File(ext, "latest.${fmt.ext}").writeText(Formats.render(report, fmt))
             }
+            File(ext, "latest.agent.json").writeText(AgentReport.build(ctx, report).toString(2))
             File(ext, "latest.done").writeText(report.generated.toString())
         } catch (e: Exception) {
             Log.w("RomBench", "external export failed", e)
@@ -50,12 +51,16 @@ object ReportRepo {
 
     fun delete(entry: Entry) = entry.file.delete()
 
+    /** Text of a report in a format; the agent format also collects logs (slow, call off the main thread). */
+    fun render(ctx: Context, report: Report, fmt: ReportFormat, withDetails: Boolean = true): String =
+        if (fmt == ReportFormat.AGENT) AgentReport.build(ctx, report).toString(2) else Formats.render(report, fmt, withDetails)
+
     /** Writes a rendered report into cache/share for the share sheet (FileProvider). */
-    fun shareFile(ctx: Context, report: Report, fmt: ReportFormat): File {
+    fun shareFile(ctx: Context, report: Report, fmt: ReportFormat, text: String = render(ctx, report, fmt)): File {
         val d = File(ctx.cacheDir, "share").apply { mkdirs() }
         d.listFiles()?.forEach { it.delete() }
         val name = SimpleDateFormat("yyyyMMdd-HHmm", Locale.US).format(Date(report.generated))
         val dev = (report.deviceValue("Device") ?: "device").replace(Regex("[^A-Za-z0-9_-]"), "_")
-        return File(d, "rombench-$dev-$name.${fmt.ext}").apply { writeText(Formats.render(report, fmt)) }
+        return File(d, "rombench-$dev-$name.${fmt.ext}").apply { writeText(text) }
     }
 }

@@ -51,7 +51,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import org.rombench.R
-import org.rombench.report.Formats
 import org.rombench.report.Report
 import org.rombench.report.ReportFormat
 import org.rombench.report.ReportRepo
@@ -74,7 +73,11 @@ fun ReportScreen(file: String?, onBack: () -> Unit) {
             else runCatching { Report.fromJson(JSONObject(File(File(ctx.filesDir, "reports"), file).readText())) }.getOrNull()
         }
     }
-    val rendered = remember(report, fmt, details) { report?.let { Formats.render(it, fmt, details) } ?: "" }
+    val rendered by produceState("", report, fmt, details) {
+        value = ""
+        val r = report ?: return@produceState
+        value = withContext(Dispatchers.IO) { runCatching { ReportRepo.render(ctx, r, fmt, details) }.getOrElse { it.toString() } }
+    }
     val saver = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("*/*")) { uri ->
         if (uri != null) runCatching {
             ctx.contentResolver.openOutputStream(uri)?.use { it.write(rendered.toByteArray()) }
@@ -94,11 +97,11 @@ fun ReportScreen(file: String?, onBack: () -> Unit) {
                 }, enabled = report != null) { Icon(Icons.Outlined.ContentCopy, stringResource(R.string.copy)) }
                 IconButton(onClick = {
                     val r = report ?: return@IconButton
-                    saver.launch(ReportRepo.shareFile(ctx, r, fmt).name)
-                }, enabled = report != null) { Icon(Icons.Outlined.Save, stringResource(R.string.save_file)) }
+                    saver.launch(ReportRepo.shareFile(ctx, r, fmt, rendered).name)
+                }, enabled = report != null && rendered.isNotEmpty()) { Icon(Icons.Outlined.Save, stringResource(R.string.save_file)) }
                 IconButton(onClick = {
                     val r = report ?: return@IconButton
-                    val f = ReportRepo.shareFile(ctx, r, fmt)
+                    val f = ReportRepo.shareFile(ctx, r, fmt, rendered)
                     val uri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.files", f)
                     val send = Intent(Intent.ACTION_SEND).setType(fmt.mime)
                         .putExtra(Intent.EXTRA_STREAM, uri)
@@ -106,7 +109,7 @@ fun ReportScreen(file: String?, onBack: () -> Unit) {
                         .putExtra(Intent.EXTRA_TEXT, if (rendered.length < 60_000) rendered else null)
                         .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     ctx.startActivity(Intent.createChooser(send, ctx.getString(R.string.share)))
-                }, enabled = report != null) { Icon(Icons.Outlined.Share, stringResource(R.string.share)) }
+                }, enabled = report != null && rendered.isNotEmpty()) { Icon(Icons.Outlined.Share, stringResource(R.string.share)) }
             },
         )
     }) { pad ->
@@ -134,7 +137,7 @@ fun ReportScreen(file: String?, onBack: () -> Unit) {
                 Modifier.fillMaxWidth().weight(1f).navigationBarsPadding().padding(bottom = 12.dp),
                 shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerHighest,
             ) {
-                if (report == null) Box(contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+                if (report == null || rendered.isEmpty()) Box(contentAlignment = Alignment.Center) { CircularProgressIndicator() }
                 else SelectionContainer {
                     Text(
                         rendered, style = Mono,
