@@ -2,4 +2,137 @@
 <resources>
     <string name="suspend_title">Sospensione e wakelock</string>
     <string name="suspend_subtitle">Sospensione profonda, sveglie, doze</string>
+
+    <!-- Result titles -->
+    <string name="suspend_t_boot">Sospensione profonda dall\'avvio</string>
+    <string name="suspend_t_kernel">Interfaccia di sospensione del kernel</string>
+    <string name="suspend_t_stats">Statistiche di sospensione</string>
+    <string name="suspend_t_sources">Sorgenti di risveglio del kernel</string>
+    <string name="suspend_t_pm">Stato del power manager</string>
+    <string name="suspend_t_doze">Doze (inattività del dispositivo)</string>
+    <string name="suspend_t_dump">Wake lock (dumpsys power)</string>
+    <string name="suspend_t_exact">Sveglie esatte</string>
+    <string name="suspend_t_sleep_test">Sospensione profonda a schermo spento</string>
+    <string name="suspend_t_alarm">La sveglia risveglia il telefono dalla sospensione</string>
+    <string name="suspend_t_wakelock">Un wakelock parziale tiene sveglia la CPU</string>
+
+    <!-- Boot -->
+    <string name="suspend_boot_summary">Sospensione profonda %1$s delle %2$s dall\'avvio</string>
+    <string name="suspend_boot_recent">Avviato da meno di 30 minuti: è presto per giudicare lo standby.</string>
+    <string name="suspend_boot_never">Mai sospeso dall\'avvio</string>
+    <string name="suspend_boot_never_usb">Il telefono è alimentato dall\'esterno: con USB o adb collegati molti telefoni non si sospendono mai (wakelock di USB e caricatore). Eseguire la prova guidata senza cavo.</string>
+    <string name="suspend_boot_never_reason">Dall\'avvio nulla ha raggiunto la sospensione profonda: un wakelock o una sorgente di risveglio del kernel resta sempre attiva, oppure ogni tentativo di sospensione si interrompe (vedere le statistiche di sospensione e le sorgenti di risveglio).</string>
+
+    <!-- Kernel -->
+    <string name="suspend_kernel_ok">Stati di sospensione: %1$s</string>
+    <string name="suspend_kernel_unreadable">/sys/power non leggibile</string>
+    <string name="suspend_kernel_unreadable_reason">Su questa build SELinux nasconde /sys/power alle app: di per sé non è un problema.</string>
+    <string name="suspend_kernel_no_state">Nessuno stato di sospensione utilizzabile: %1$s</string>
+    <string name="suspend_kernel_no_state_reason">/sys/power/state non elenca né mem né freeze: il kernel è compilato senza CONFIG_SUSPEND o il driver PM della piattaforma non si è registrato.</string>
+    <string name="suspend_kernel_s2idle">Solo suspend-to-idle: %1$s</string>
+    <string name="suspend_kernel_s2idle_reason">mem_sleep offre solo s2idle: il SoC non entra mai nel vero stato a basso consumo (PSCI o suspend ops della piattaforma mancanti) e lo standby consuma di più.</string>
+    <string name="suspend_kernel_autosleep">/sys/power/autosleep vale \"%1$s\": il kernel si sospende da solo invece che tramite system_suspend, insolito su Android.</string>
+
+    <!-- Suspend stats -->
+    <string name="suspend_stats_summary">%1$s sospensioni, %2$s fallite</string>
+    <string name="suspend_stats_missing">Nessuna statistica di sospensione</string>
+    <string name="suspend_stats_missing_reason">/sys/power/suspend_stats richiede un kernel più recente; sui kernel vecchi le statistiche sono solo in debugfs, che questa app non legge mai.</string>
+    <string name="suspend_stats_failing">La sospensione si interrompe spesso. Ultimo dispositivo che ha fallito: %1$s (errno %2$s, fase %3$s). La sua callback di suspend rifiuta, di solito un driver con lavoro in sospeso o un IRQ occupato.</string>
+    <string name="suspend_stats_none">Dall\'avvio il kernel non ha mai completato una sospensione.</string>
+
+    <!-- Wakeup sources -->
+    <string name="suspend_sources_summary">%1$s sorgenti di risveglio, %2$s attive ora</string>
+    <string name="suspend_sources_sub">Wakelock del kernel e dello spazio utente visti dal kernel</string>
+    <string name="suspend_sources_unreadable">Sorgenti di risveglio non leggibili</string>
+    <string name="suspend_sources_unreadable_reason">/sys/class/wakeup richiede il kernel 4.19 o successivo (o un backport) e può essere bloccato da SELinux; i kernel più vecchi espongono le sorgenti solo in debugfs, che questa app non legge mai. Con DUMP concesso il controllo dei wake lock mostra il lato del framework.</string>
+    <string name="suspend_sources_stuck">Attive da molto tempo: %1$s. Un driver tiene sveglio il sistema (IRQ di risveglio bloccato, wakelock del modem o del Wi-Fi, sensor hub).</string>
+    <string name="suspend_sources_stuck_usb">Attive da molto tempo: %1$s. L\'alimentazione esterna è collegata e spesso tiene attive queste sorgenti: ricontrollare a batteria.</string>
+    <string name="suspend_sources_active">Attive ora (%1$s)</string>
+    <string name="suspend_sources_none_active">Nessuna.</string>
+    <string name="suspend_sources_top">Tempo totale più lungo</string>
+
+    <!-- Power manager -->
+    <string name="suspend_pm_summary">Stato termico %1$s</string>
+    <string name="suspend_pm_missing">PowerManager non disponibile</string>
+    <string name="suspend_pm_hot">L\'HAL termico segnala un forte riscaldamento: il dispositivo rallenta e le misure qui non sono rappresentative.</string>
+
+    <!-- Doze -->
+    <string name="suspend_doze_on">Doze attivo</string>
+    <string name="suspend_doze_deep_only">Doze profondo attivo, doze leggero disattivato</string>
+    <string name="suspend_doze_off">Doze disattivato</string>
+    <string name="suspend_doze_off_reason">config_enableAutoPowerModes è false (il valore predefinito di AOSP): le app non entrano mai in doze e lo standby consuma. Impostarlo a true nell\'overlay del framework del dispositivo.</string>
+    <string name="suspend_doze_unknown">Stato del doze non leggibile</string>
+    <string name="suspend_need_dump">Concedere DUMP da un PC (vedi Impostazioni) per leggerlo da dumpsys.</string>
+
+    <!-- dumpsys power -->
+    <string name="suspend_dump_skip">Non eseguito: DUMP non concesso</string>
+    <string name="suspend_dump_empty">dumpsys power non ha restituito nulla</string>
+    <string name="suspend_dump_summary">%1$s wake lock (%2$s parziali), stato %3$s</string>
+
+    <!-- Exact alarms -->
+    <string name="suspend_exact_ok">Sveglie esatte consentite</string>
+    <string name="suspend_exact_denied">Sveglie esatte non consentite</string>
+    <string name="suspend_exact_denied_reason">La prova guidata ha bisogno delle sveglie esatte: consentirle in Impostazioni, App, Accesso speciale per le app, Sveglie e promemoria.</string>
+
+    <!-- Live counters -->
+    <string name="suspend_counters_title">Contatori del sonno</string>
+    <string name="suspend_counters_sub">La sospensione profonda è la differenza tra il tempo trascorso e il tempo da sveglio</string>
+    <string name="suspend_ui_deep_sleep">sospensione</string>
+    <string name="suspend_ui_asleep">sospeso</string>
+    <string name="suspend_ui_since_boot">dall\'avvio</string>
+    <string name="suspend_ui_power">Alimentazione</string>
+    <string name="suspend_ui_usb_hint">L\'alimentazione esterna è collegata: molti telefoni non si sospendono mentre si caricano via USB.</string>
+
+    <!-- Guided test -->
+    <string name="suspend_test_title">Prova guidata di sospensione</string>
+    <string name="suspend_test_sub">Il telefono dorme a schermo spento e una sveglia lo risveglia in orario?</string>
+    <string name="suspend_test_duration">Durata</string>
+    <string name="suspend_test_minutes">%1$d min</string>
+    <string name="suspend_test_grant_exact">Consenti le sveglie esatte</string>
+    <string name="suspend_test_start">Avvia</string>
+    <string name="suspend_test_step1">1. Scollegare il cavo USB (adb tiene svegli molti telefoni).</string>
+    <string name="suspend_test_step2">2. Premere il tasto di accensione per spegnere lo schermo.</string>
+    <plurals name="suspend_test_step3">
+        <item quantity="one">3. Lasciare il telefono fermo per %1$d minuto: alla fine una sveglia lo risveglia, lo schermo può restare spento.</item>
+        <item quantity="many">3. Lasciare il telefono fermo per %1$d minuti: alla fine una sveglia lo risveglia, lo schermo può restare spento.</item>
+        <item quantity="other">3. Lasciare il telefono fermo per %1$d minuti: alla fine una sveglia lo risveglia, lo schermo può restare spento.</item>
+    </plurals>
+    <string name="suspend_test_step4">4. Tornare in questa schermata: i risultati vengono calcolati da soli.</string>
+    <string name="suspend_test_remaining">alla sveglia</string>
+    <string name="suspend_test_due">scaduta</string>
+    <string name="suspend_test_waiting_alarm">In attesa della sveglia; se non arriva la prova viene valutata due minuti dopo l\'ora prevista.</string>
+    <string name="suspend_test_evaluate">Valuta ora</string>
+    <string name="suspend_test_too_short">Intervallo troppo breve (%1$s) per giudicare</string>
+    <string name="suspend_test_slept">Sospeso il %1$s di %2$s</string>
+    <string name="suspend_test_plugged">Durante la prova era collegata l\'alimentazione esterna, che spesso impedisce la sospensione. Ripetere a batteria.</string>
+    <string name="suspend_test_partial">In parte sveglio: un wakelock o risvegli frequenti interrompono la sospensione profonda. Guardare le sorgenti di risveglio e last_resume_reason.</string>
+    <string name="suspend_test_never">Mai in sospensione profonda in %1$s</string>
+    <string name="suspend_test_never_reason">A schermo spento e a batteria il kernel non si è mai sospeso: un wakelock è attivo (dumpsys power, sorgenti di risveglio) oppure ogni tentativo si interrompe (un driver che rifiuta la sospensione).</string>
+    <string name="suspend_alarm_on_time">La sveglia è scattata %1$s s dopo l\'ora prevista</string>
+    <string name="suspend_alarm_late">La sveglia è scattata con %1$s s di ritardo</string>
+    <string name="suspend_alarm_late_reason">Il risveglio è arrivato in ritardo: rinvio del doze o ripresa lenta (un driver che impiega molto nella sua callback di resume).</string>
+    <string name="suspend_alarm_very_late_reason">La sveglia RTC non ha risvegliato il SoC: il telefono si è svegliato più tardi per un altro motivo. Controllare che il driver RTC (per esempio rtc-pm8xxx) sia una sorgente di risveglio e che l\'IRQ dell\'allarme sia abilitato al risveglio.</string>
+    <string name="suspend_alarm_missing">La sveglia non è mai scattata</string>
+    <string name="suspend_alarm_missing_reason">La sveglia esatta non è arrivata entro due minuti dall\'ora prevista: l\'allarme RTC non riesce a risvegliare il dispositivo dalla sospensione (alarmtimer o IRQ di risveglio dell\'RTC), oppure l\'app è stata arrestata forzatamente.</string>
+    <string name="suspend_alarm_not_proven">Il telefono non ha quasi dormito, quindi questo non dimostra il risveglio dalla sospensione.</string>
+    <string name="suspend_alarm_early">Interrotta prima dell\'ora della sveglia</string>
+
+    <!-- Wakelock demo -->
+    <string name="suspend_wl_title">Prova del wakelock</string>
+    <string name="suspend_wl_sub">Un wakelock parziale deve tenere attiva la CPU a schermo spento</string>
+    <plurals name="suspend_wl_hint">
+        <item quantity="one">Attivare il wakelock, spegnere lo schermo per almeno un minuto, poi tornare e rilasciarlo. Finché è attivo, il tempo da sveglio deve avanzare insieme al tempo trascorso. Viene rilasciato da solo dopo %1$d minuto o quando si esce da questa schermata.</item>
+        <item quantity="many">Attivare il wakelock, spegnere lo schermo per almeno un minuto, poi tornare e rilasciarlo. Finché è attivo, il tempo da sveglio deve avanzare insieme al tempo trascorso. Viene rilasciato da solo dopo %1$d minuti o quando si esce da questa schermata.</item>
+        <item quantity="other">Attivare il wakelock, spegnere lo schermo per almeno un minuto, poi tornare e rilasciarlo. Finché è attivo, il tempo da sveglio deve avanzare insieme al tempo trascorso. Viene rilasciato da solo dopo %1$d minuti o quando si esce da questa schermata.</item>
+    </plurals>
+    <string name="suspend_wl_hold">Attiva il wakelock</string>
+    <string name="suspend_wl_release">Rilascia</string>
+    <string name="suspend_wl_held">attivo da</string>
+    <string name="suspend_wl_uptime">sveglio</string>
+    <string name="suspend_wl_screen_off">Schermo spento durante il wakelock</string>
+    <string name="suspend_wl_screen_on">Attivo per %1$s a schermo acceso</string>
+    <string name="suspend_wl_screen_on_reason">Lo schermo è rimasto acceso, cosa che tiene comunque sveglio il telefono: spegnerlo per almeno 20 s mentre il wakelock è attivo.</string>
+    <string name="suspend_wl_ok">La CPU è rimasta sveglia per %1$s a schermo spento</string>
+    <string name="suspend_wl_fail">Sospeso per %1$s nonostante il wakelock</string>
+    <string name="suspend_wl_fail_reason">Il kernel si è sospeso mentre era attivo un wakelock parziale: il wakelock del framework non arriva al kernel (system_suspend, permessi di /sys/power/wake_lock o SELinux).</string>
 </resources>

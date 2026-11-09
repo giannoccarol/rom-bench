@@ -2,4 +2,207 @@
 <resources>
     <string name="telephony_title">Telefonia</string>
     <string name="telephony_subtitle">SIM, registrazione, segnale, IMS, dati, chiamate e SMS</string>
+
+    <!-- Result titles -->
+    <string name="telephony_t_feature">Funzione telefonia e modem</string>
+    <string name="telephony_t_ril">RIL e servizi del modem</string>
+    <string name="telephony_t_sim">Schede SIM</string>
+    <string name="telephony_t_registration">Registrazione sulla rete</string>
+    <string name="telephony_t_data_state">Stato dei dati mobili</string>
+    <string name="telephony_t_signal">Intensità del segnale</string>
+    <string name="telephony_t_cell_info">Informazioni sulle celle</string>
+    <string name="telephony_t_ims">IMS / VoLTE</string>
+    <string name="telephony_t_data_probe">Prova dei dati mobili</string>
+    <string name="telephony_t_call_out">Chiamata in uscita</string>
+    <string name="telephony_t_call_audio">Audio della chiamata</string>
+    <string name="telephony_t_call_in">Chiamata in entrata</string>
+    <string name="telephony_t_call_path">Percorso della voce durante la chiamata</string>
+    <string name="telephony_t_sms">SMS di andata e ritorno</string>
+
+    <!-- Feature -->
+    <string name="telephony_feature_ok">%1$s modem attivi su %2$s supportati</string>
+    <string name="telephony_feature_missing">Funzione telefonia non dichiarata</string>
+    <string name="telephony_feature_missing_ril">Un RIL è in esecuzione ma manca android.hardware.telephony: il device tree non copia l\'XML della funzione (per esempio android.hardware.telephony.gsm.xml) in /vendor/etc/permissions e il framework ignora il modem.</string>
+    <string name="telephony_feature_none">Nessuna telefonia su questo dispositivo</string>
+    <string name="telephony_feature_none_reason">Non ci sono né la funzione telefonia né un RIL: normale per un dispositivo solo Wi-Fi.</string>
+    <string name="telephony_feature_no_modem">Nessun modem attivo</string>
+    <string name="telephony_feature_no_modem_reason">getActiveModemCount() vale 0: l\'HAL radio non è registrato oppure la configurazione multi-SIM (persist.radio.multisim.config) disattiva tutti gli slot.</string>
+
+    <!-- RIL -->
+    <string name="telephony_ril_versions">RIL %1$s, baseband %2$s</string>
+    <string name="telephony_ril_noril">ro.radio.noril è impostata</string>
+    <string name="telephony_ril_noril_reason">La ROM disattiva la radio di proposito (ro.radio.noril).</string>
+    <string name="telephony_ril_restarting">Servizio in riavvio: %1$s</string>
+    <string name="telephony_ril_restarting_reason">init riavvia il servizio in continuazione: si chiude all\'avvio. Guardare logcat -b radio e i tombstone (libreria vendor mancante, rifiuto SELinux, firmware del modem sbagliato).</string>
+    <string name="telephony_ril_stopped">Demone RIL non in esecuzione: %1$s</string>
+    <string name="telephony_ril_stopped_reason">Nessuna istanza di rild è attiva: l\'HAL radio non è disponibile. Controllare il file .rc di init del RIL vendor e le sue librerie.</string>
+    <string name="telephony_ril_netmgr">Servizio dati fermo: %1$s</string>
+    <string name="telephony_ril_netmgr_reason">Sui dispositivi Qualcomm netmgrd configura le interfacce rmnet: senza di lui le connessioni dati si aprono nel modem ma il traffico non passa.</string>
+    <string name="telephony_ril_no_version">Versione del RIL o del baseband vuota</string>
+    <string name="telephony_ril_no_version_reason">gsm.version.ril-impl o gsm.version.baseband è vuota: rild non ha caricato il RIL vendor o non ha mai raggiunto il modem (trasporto QMI/SMD giù, firmware del modem non avviato).</string>
+    <string name="telephony_ril_apq">ro.baseband vale \"apq\": il SoC è configurato senza modem.</string>
+    <string name="telephony_ril_svc_hidden">Gli stati init.svc.* non sono leggibili qui (SELinux): controllo dei servizi saltato.</string>
+
+    <!-- SIM -->
+    <string name="telephony_iccid_hidden">nascosto da Android (servono i privilegi dell\'operatore)</string>
+    <string name="telephony_sim_ok">%1$s SIM pronte: %2$s (%3$s)</string>
+    <string name="telephony_sim_error">Errore della SIM: %1$s</string>
+    <string name="telephony_sim_error_reason">La scheda risponde con un errore (CARD_IO_ERROR/RESTRICTED): contatto difettoso, classe di tensione sbagliata o un problema del driver UIM nel modem.</string>
+    <string name="telephony_sim_no_sub">SIM pronta ma nessun abbonamento attivo (%1$s)</string>
+    <string name="telephony_sim_no_sub_reason">La scheda è READY ma SubscriptionManager non elenca nulla: i record della SIM (ICCID, IMSI) non sono stati letti, di solito per un problema UIM di qcril o un crash di com.android.phone.</string>
+    <string name="telephony_sim_locked">SIM bloccata: %1$s</string>
+    <string name="telephony_sim_locked_reason">Inserire il PIN (o il PUK o il codice di sblocco rete) e ripetere.</string>
+    <string name="telephony_sim_absent">Nessuna SIM rilevata</string>
+    <string name="telephony_sim_absent_reason">Tutti gli slot sono ABSENT. Se una SIM è inserita, lo stato della scheda dal modem (QMI UIM) non arriva ad Android: controllare qcril e la mappatura degli slot.</string>
+    <string name="telephony_sim_not_ready">SIM non pronta: %1$s</string>
+    <string name="telephony_sim_not_ready_reason">La SIM non è mai arrivata a READY: subito dopo l\'avvio è normale per qualche secondo; se resta così l\'applicazione UIM non è stata attivata (UIM di qcril, modem non online).</string>
+
+    <!-- Registration -->
+    <string name="telephony_reg_ok">Registrato su %1$s (%2$s)</string>
+    <string name="telephony_reg_ps_only">Registrato solo per i dati (nessun dominio CS): le chiamate richiedono IMS/VoLTE.</string>
+    <string name="telephony_reg_voice_only">Solo voce su %1$s (%2$s), dati %3$s</string>
+    <string name="telephony_reg_voice_only_reason">Il dominio PS non è registrato (causa di rifiuto %1$s): niente dati mobili. Controllare l\'APN di attach e il profilo dati del modem.</string>
+    <string name="telephony_reg_other_sim">%1$s è %2$s anche se la sua SIM è pronta.</string>
+    <string name="telephony_reg_airplane">Modalità aereo attiva</string>
+    <string name="telephony_reg_airplane_reason">Disattivare la modalità aereo e ripetere i controlli.</string>
+    <string name="telephony_reg_no_state">Nessun ServiceState</string>
+    <string name="telephony_reg_no_state_reason">Il processo del telefono non ha dato lo stato del servizio entro 4 s: com.android.phone potrebbe andare in crash oppure l\'HAL radio non è collegato.</string>
+    <string name="telephony_reg_emergency">Solo chiamate di emergenza</string>
+    <string name="telephony_reg_emergency_reason">C\'è una cella in copertura ma la registrazione è stata rifiutata (causa %1$s): SIM non attivata, PLMN non consentita o IMEI rifiutato.</string>
+    <string name="telephony_reg_power_off">Radio spenta</string>
+    <string name="telephony_reg_power_off_reason">La radio è spenta anche se la modalità aereo è disattivata: RADIO_POWER non è riuscito o il modem non è mai andato online (avvio PIL, firmware, trasporto QMI). Cercare RADIO_POWER in logcat -b radio.</string>
+    <string name="telephony_reg_no_sim">Non registrato: nessuna SIM utilizzabile</string>
+    <string name="telephony_reg_no_sim_reason">Senza una SIM READY non c\'è registrazione: risolvere prima il controllo della SIM.</string>
+    <string name="telephony_reg_not_registered">SIM pronta ma non registrata</string>
+    <string name="telephony_reg_denied_reason">La rete ha rifiutato la registrazione (causa %1$s). IMEI errato, SIM non attivata o una restrizione sulla PLMN.</string>
+    <string name="telephony_reg_searching_reason">Il modem cerca ma non si aggancia a nessuna cella: configurazione delle bande (RFC/NV), switch d\'antenna o firmware del modem non adatto al dispositivo.</string>
+    <string name="telephony_reg_idle_reason">Il modem non cerca nemmeno: la radio non è stata portata online (QMI NAS non risponde, trasporto tra RIL e modem giù) o il tipo di rete preferito è sbagliato.</string>
+
+    <!-- Data state -->
+    <string name="telephony_data_summary">Dati %1$s, voce %2$s, %3$s</string>
+    <string name="telephony_data_disabled">I dati mobili sono disattivati dall\'utente.</string>
+    <string name="telephony_data_no_ps">Non registrato sul dominio PS: nessuna connessione dati possibile.</string>
+    <string name="telephony_data_wifi_idle">La rete predefinita è il Wi-Fi e \"dati mobili sempre attivi\" è spento: il collegamento cellulare resta inattivo di proposito.</string>
+    <string name="telephony_data_not_connected">Registrato con i dati attivi ma senza connessione dati: l\'apertura della connessione fallisce (APN, servizio dati di qcril, netmgrd, driver rmnet). Vedere la prova dei dati mobili.</string>
+
+    <!-- Signal -->
+    <string name="telephony_sig_summary">%1$s %2$s %3$s, livello %4$s/4</string>
+    <string name="telephony_sig_none">Nessun valore di segnale</string>
+    <string name="telephony_sig_none_reason">Registrato su una cella ma SignalStrength è vuoto: il RIL non risponde a SIGNAL_STRENGTH (le tacche restano vuote).</string>
+    <string name="telephony_sig_none_unreg">Niente da misurare senza registrazione.</string>
+    <string name="telephony_sig_implausible">Valori fuori dall\'intervallo fisico: %1$s. Probabilmente il RIL riporta valori grezzi o positivi (conversione delle unità nel RIL o in uno shim).</string>
+    <string name="telephony_sig_rssi_below">L\'RSSI LTE (%1$s dBm) è sotto l\'RSRP (%2$s dBm), cosa fisicamente impossibile: il RIL confonde campi o unità.</string>
+    <string name="telephony_sig_missing">Il RIL non riporta %1$s (valore non disponibile).</string>
+    <string name="telephony_sig_level_zero">Livello 0 nonostante un segnale utilizzabile: le soglie nella carrier config o i valori del RIL sono sbagliati.</string>
+
+    <!-- Cell info -->
+    <string name="telephony_cell_summary">%1$s celle, %2$s servente</string>
+    <string name="telephony_cell_empty">Il RIL non riporta le informazioni sulle celle</string>
+    <string name="telephony_cell_empty_unreg">Nessuna cella riportata senza registrazione.</string>
+    <string name="telephony_cell_no_serving">Nessuna cella è segnata come servente anche se il telefono è in servizio: il RIL non compila il flag registered.</string>
+
+    <!-- IMS -->
+    <string name="telephony_not_exposed">non esposto</string>
+    <string name="telephony_ims_registered">IMS registrato</string>
+    <string name="telephony_ims_not_registered">IMS non registrato</string>
+    <string name="telephony_ims_not_registered_reason">Il VoLTE è abilitato per questo operatore ma l\'IMS non si è registrato: controllare il servizio IMS (phh IMS selezionato e attivo), l\'APN \"ims\", il profilo IMS del modem (IPv4v6) e \"Chiamate 4G\" nelle impostazioni della SIM.</string>
+    <string name="telephony_ims_phh_not_selected">phh IMS è installato ma il framework collega %1$s (config_ims_mmtel_package): selezionare phh IMS come servizio IMS.</string>
+    <string name="telephony_ims_not_wanted">La carrier config non abilita il VoLTE per questa SIM: non ci si aspetta la registrazione IMS.</string>
+    <string name="telephony_ims_device_off">VoLTE disattivato nell\'overlay del dispositivo</string>
+    <string name="telephony_ims_device_off_reason">config_device_volte_available è false: la telefonia non prova mai l\'IMS. Impostarlo nell\'overlay del framework del dispositivo (o persist.dbg.volte_avail_ovr=1 per una prova).</string>
+    <string name="telephony_ims_unknown">Registrazione IMS non leggibile</string>
+    <string name="telephony_ims_unknown_reason">Android nasconde lo stato IMS alle app normali. Concedere DUMP da un PC (vedi Impostazioni) per leggerlo da dumpsys.</string>
+    <string name="telephony_ims_unknown_dump">dumpsys non mostra una riga di registrazione IMS su questa build.</string>
+
+    <!-- Data probe -->
+    <string name="telephony_probe_ok">I dati mobili funzionano su %1$s: HTTP in %2$s ms (attivazione %3$s ms)</string>
+    <string name="telephony_probe_airplane">Non eseguita: modalità aereo attiva</string>
+    <string name="telephony_probe_request_failed">Impossibile richiedere una rete cellulare</string>
+    <string name="telephony_probe_disabled">I dati mobili sono disattivati</string>
+    <string name="telephony_probe_disabled_reason">Attivare i dati mobili per provarli. Il Wi-Fi può restare acceso: la prova usa direttamente la rete cellulare.</string>
+    <string name="telephony_probe_no_network">Nessuna rete cellulare entro 15 s</string>
+    <string name="telephony_probe_not_registered">Non registrato sul dominio PS: risolvere prima la registrazione.</string>
+    <string name="telephony_probe_setup_failed">Registrato, ma la connessione dati non si è mai aperta: impostazioni APN, dati di qcril (QMI WDS), netmgrd o driver rmnet/IPA. Cercare SETUP_DATA_CALL in logcat -b radio.</string>
+    <string name="telephony_probe_http">Rete cellulare attiva, HTTP %1$s</string>
+    <string name="telephony_probe_http_reason">Il server di prova ha risposto con un codice inatteso: un captive portal o un proxy dell\'operatore.</string>
+    <string name="telephony_probe_no_traffic">Rete attiva su %1$s ma nessun traffico</string>
+    <string name="telephony_probe_no_traffic_reason">La connessione dati è aperta ma DNS o HTTP falliscono: regole di instradamento o firewall (netd/BPF), MTU di rmnet, APN solo IPv6 senza 464xlat, oppure l\'URL di prova non è raggiungibile.</string>
+
+    <!-- Live screen -->
+    <string name="telephony_live_title">Rete in tempo reale</string>
+    <string name="telephony_live_sub">Si aggiorna quando il RIL segnala un cambiamento</string>
+    <string name="telephony_ui_no_feature">Questo dispositivo non dichiara la telefonia.</string>
+    <string name="telephony_ui_need_phone">Concedere il permesso Telefono qui sopra per vedere registrazione, segnale e la prova di chiamata.</string>
+    <string name="telephony_ui_no_sub">Nessun abbonamento attivo: viene mostrato il telefono predefinito.</string>
+    <string name="telephony_ui_service">servizio</string>
+    <string name="telephony_ui_voice">voce</string>
+    <string name="telephony_ui_data">dati</string>
+    <string name="telephony_ui_operator">Operatore</string>
+    <string name="telephony_ui_roaming">Roaming</string>
+    <string name="telephony_ui_regs">Registrazione per dominio</string>
+    <string name="telephony_ui_waiting">In attesa del primo stato del servizio…</string>
+    <string name="telephony_signal_title">Segnale</string>
+    <string name="telephony_signal_sub">RSRP e RSSI negli ultimi 3 minuti</string>
+    <string name="telephony_signal_last">Ultimo aggiornamento del segnale %1$s s fa</string>
+    <string name="telephony_ims_title">IMS e dati</string>
+    <string name="telephony_ims_sub">Stato del VoLTE e prova dei dati sulla rete cellulare</string>
+    <string name="telephony_ui_not_installed">non installato</string>
+    <string name="telephony_ui_hidden_blocked">Su questa build i metodi IMS nascosti di TelephonyManager sono bloccati dalla politica sulle API nascoste: eseguire i controlli automatici con DUMP concesso.</string>
+    <string name="telephony_ui_probe_hint">Attiva i dati mobili anche con il Wi-Fi acceso e invia una richiesta HTTP attraverso di essi.</string>
+    <string name="telephony_ui_probe">Prova i dati mobili</string>
+    <string name="telephony_ui_probing">Prova in corso…</string>
+
+    <!-- Call test -->
+    <string name="telephony_call_title">Prova di chiamata</string>
+    <string name="telephony_call_sub">La chiamata parte dal tastierino; questa schermata ne segue lo stato</string>
+    <string name="telephony_call_number">Numero da chiamare (facoltativo)</string>
+    <string name="telephony_call_dial">Apri il tastierino</string>
+    <string name="telephony_call_idle">Nessuna chiamata</string>
+    <string name="telephony_call_ringing">Squilla</string>
+    <string name="telephony_call_offhook">Chiamata in corso</string>
+    <string name="telephony_call_live_volte">Voce su LTE/NR durante la chiamata: IMS (VoLTE/VoNR)</string>
+    <string name="telephony_call_live_vowifi">Voce su IWLAN: chiamate Wi-Fi</string>
+    <string name="telephony_call_live_cs">Voce su 2G/3G: chiamata a commutazione di circuito (CS fallback)</string>
+    <string name="telephony_call_live_unknown">Tecnologia della voce non riportata</string>
+    <string name="telephony_call_events">Eventi della chiamata</string>
+    <string name="telephony_call_in_hint">Per la chiamata in entrata, chiedere a qualcuno di chiamare questo telefono: l\'app la segna appena squilla.</string>
+    <string name="telephony_call_in_seen">La chiamata in entrata ha squillato (vista dall\'app)</string>
+    <string name="telephony_q_call_out">La chiamata in uscita si collega?</string>
+    <string name="telephony_q_call_audio">Le due parti si sentono (capsula e microfono)?</string>
+    <string name="telephony_q_call_in">Una chiamata in entrata squilla?</string>
+    <string name="telephony_call_volte">Voce IMS su %1$s (VoLTE/VoNR)</string>
+    <string name="telephony_call_volte_nocs">Nessuna registrazione CS e dati su LTE/NR: la chiamata può passare solo da IMS.</string>
+    <string name="telephony_call_vowifi">Chiamata Wi-Fi (IWLAN)</string>
+    <string name="telephony_call_cs">Chiamata a commutazione di circuito su %1$s</string>
+    <string name="telephony_call_csfb_reason">L\'operatore supporta il VoLTE ma la chiamata è ricaduta su 2G/3G: l\'IMS non era registrato all\'inizio della chiamata.</string>
+    <string name="telephony_call_unknown">Percorso della voce sconosciuto</string>
+    <string name="telephony_call_unknown_reason">Durante la chiamata il RIL non ha riportato la tecnologia della voce né quella dei dati.</string>
+
+    <!-- SMS loopback -->
+    <string name="telephony_sms_title">SMS di andata e ritorno</string>
+    <string name="telephony_sms_sub">Invia un SMS a questo telefono e aspetta che torni indietro</string>
+    <string name="telephony_sms_number">Numero di questo telefono</string>
+    <string name="telephony_sms_send">Invia l\'SMS di prova</string>
+    <string name="telephony_sms_open_app">Apri l\'app SMS</string>
+    <string name="telephony_sms_hint">Scrivere il numero di questa SIM. L\'operatore può addebitare l\'invio; il messaggio compare anche nell\'app SMS.</string>
+    <string name="telephony_sms_step_sent">Inviato</string>
+    <string name="telephony_sms_step_delivered">Rapporto di consegna</string>
+    <string name="telephony_sms_step_received">Ricevuto</string>
+    <string name="telephony_sms_optional">facoltativo, non tutti gli operatori lo inviano</string>
+    <string name="telephony_sms_rtt">tornato dopo %1$s s</string>
+    <string name="telephony_sms_waiting">attesa %1$s / %2$s s</string>
+    <string name="telephony_sms_pass">L\'SMS è tornato dopo %1$s s</string>
+    <string name="telephony_sms_fail">Invio non riuscito: %1$s</string>
+    <string name="telephony_sms_timeout_sent">Inviato, ma non ricevuto entro %1$s s</string>
+    <string name="telephony_sms_timeout_sent_reason">La rete ha accettato l\'SMS ma non è mai arrivato ad Android: percorso degli SMS in entrata (qcril non consegna NEW_SMS, SMS su IMS senza servizio IMS), numero sbagliato o l\'app SMS predefinita che lo trattiene.</string>
+    <string name="telephony_sms_timeout_nosent">Nessuna risposta entro %1$s s</string>
+    <string name="telephony_sms_timeout_nosent_reason">Non è arrivato neppure il rapporto di invio: il RIL non ha mai risposto a SEND_SMS (servizio SMS di qcril, trasporto verso il modem).</string>
+    <string name="telephony_sms_x_ok">Inviato alla rete.</string>
+    <string name="telephony_sms_x_radio">Radio spenta o RIL non disponibile.</string>
+    <string name="telephony_sms_x_service">Nessun servizio di rete: risolvere prima la registrazione.</string>
+    <string name="telephony_sms_x_smsc">Nessun indirizzo SMSC valido: la SIM non ha il numero del centro servizi o il RIL non riesce a leggerlo.</string>
+    <string name="telephony_sms_x_unsupported">Il RIL non implementa l\'invio di SMS su questo percorso (per esempio SMS su IMS senza un servizio IMS).</string>
+    <string name="telephony_sms_x_network">La rete ha rifiutato il messaggio (errorCode è la causa RP): SMSC, abbonamento o impostazioni SMS su IMS.</string>
+    <string name="telephony_sms_x_policy">Bloccato da Android (FDN, regole sui numeri brevi o limite di invio).</string>
+    <string name="telephony_sms_x_ril">Il RIL o il modem hanno segnalato un errore; cercare SEND_SMS in logcat -b radio.</string>
 </resources>

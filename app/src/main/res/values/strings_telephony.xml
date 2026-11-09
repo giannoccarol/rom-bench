@@ -2,4 +2,207 @@
 <resources>
     <string name="telephony_title">Telephony</string>
     <string name="telephony_subtitle">SIM, registration, signal, IMS, data, calls and SMS</string>
+
+    <!-- Result titles -->
+    <string name="telephony_t_feature">Telephony feature and modems</string>
+    <string name="telephony_t_ril">RIL and modem services</string>
+    <string name="telephony_t_sim">SIM cards</string>
+    <string name="telephony_t_registration">Network registration</string>
+    <string name="telephony_t_data_state">Mobile data state</string>
+    <string name="telephony_t_signal">Signal strength</string>
+    <string name="telephony_t_cell_info">Cell information</string>
+    <string name="telephony_t_ims">IMS / VoLTE</string>
+    <string name="telephony_t_data_probe">Mobile data probe</string>
+    <string name="telephony_t_call_out">Outgoing call</string>
+    <string name="telephony_t_call_audio">Call audio</string>
+    <string name="telephony_t_call_in">Incoming call</string>
+    <string name="telephony_t_call_path">Voice path during the call</string>
+    <string name="telephony_t_sms">SMS loopback</string>
+
+    <!-- Feature -->
+    <string name="telephony_feature_ok">%1$s active modem(s) of %2$s supported</string>
+    <string name="telephony_feature_missing">Telephony feature not declared</string>
+    <string name="telephony_feature_missing_ril">A RIL is running but android.hardware.telephony is missing: the device tree does not copy the telephony feature XML (e.g. android.hardware.telephony.gsm.xml) to /vendor/etc/permissions, so the framework ignores the modem.</string>
+    <string name="telephony_feature_none">No telephony on this device</string>
+    <string name="telephony_feature_none_reason">Neither the telephony feature nor a RIL was found: fine for a Wi-Fi-only device.</string>
+    <string name="telephony_feature_no_modem">No active modem</string>
+    <string name="telephony_feature_no_modem_reason">getActiveModemCount() is 0: the radio HAL is not registered or the multi-SIM config (persist.radio.multisim.config) disables every slot.</string>
+
+    <!-- RIL -->
+    <string name="telephony_ril_versions">RIL %1$s, baseband %2$s</string>
+    <string name="telephony_ril_noril">ro.radio.noril is set</string>
+    <string name="telephony_ril_noril_reason">The ROM disables the radio on purpose (ro.radio.noril).</string>
+    <string name="telephony_ril_restarting">Service restarting: %1$s</string>
+    <string name="telephony_ril_restarting_reason">init is restarting the service in a loop: it crashes at start. Look at logcat -b radio and the tombstones (missing vendor library, SELinux denial, wrong modem firmware).</string>
+    <string name="telephony_ril_stopped">RIL daemon not running: %1$s</string>
+    <string name="telephony_ril_stopped_reason">No rild instance is running: the radio HAL is unavailable. Check the init .rc of the vendor RIL and its libraries.</string>
+    <string name="telephony_ril_netmgr">Data service stopped: %1$s</string>
+    <string name="telephony_ril_netmgr_reason">On Qualcomm devices netmgrd configures the rmnet interfaces: without it data calls come up in the modem but no traffic flows.</string>
+    <string name="telephony_ril_no_version">RIL or baseband version empty</string>
+    <string name="telephony_ril_no_version_reason">gsm.version.ril-impl or gsm.version.baseband is empty: rild did not load the vendor RIL or never reached the modem (QMI/SMD transport down, modem firmware not booted).</string>
+    <string name="telephony_ril_apq">ro.baseband is \"apq\": the SoC is configured without a modem.</string>
+    <string name="telephony_ril_svc_hidden">init.svc.* states are not readable here (SELinux); service checks skipped.</string>
+
+    <!-- SIM -->
+    <string name="telephony_iccid_hidden">hidden by Android (needs carrier privileges)</string>
+    <string name="telephony_sim_ok">%1$s SIM ready: %2$s (%3$s)</string>
+    <string name="telephony_sim_error">SIM error: %1$s</string>
+    <string name="telephony_sim_error_reason">The card answers with an error (CARD_IO_ERROR/RESTRICTED): bad contact, wrong SIM voltage class or a UIM driver problem in the modem.</string>
+    <string name="telephony_sim_no_sub">SIM ready but no active subscription (%1$s)</string>
+    <string name="telephony_sim_no_sub_reason">The card is READY but SubscriptionManager lists nothing: the SIM records (ICCID, IMSI) were not loaded, usually a qcril UIM problem or a crash of com.android.phone.</string>
+    <string name="telephony_sim_locked">SIM locked: %1$s</string>
+    <string name="telephony_sim_locked_reason">Enter the PIN (or PUK / network unlock code) and run again.</string>
+    <string name="telephony_sim_absent">No SIM detected</string>
+    <string name="telephony_sim_absent_reason">Every slot is ABSENT. If a SIM is inserted, the card status from the modem (QMI UIM) does not reach Android: check qcril and the SIM slot mapping.</string>
+    <string name="telephony_sim_not_ready">SIM not ready: %1$s</string>
+    <string name="telephony_sim_not_ready_reason">The SIM never reached READY: right after boot this is normal for a few seconds; if it persists the UIM application is not activated (qcril UIM, modem not online).</string>
+
+    <!-- Registration -->
+    <string name="telephony_reg_ok">Registered on %1$s (%2$s)</string>
+    <string name="telephony_reg_ps_only">Registered for data only (no CS domain): calls need IMS/VoLTE.</string>
+    <string name="telephony_reg_voice_only">Voice only on %1$s (%2$s), data %3$s</string>
+    <string name="telephony_reg_voice_only_reason">The PS domain is not registered (reject cause %1$s): no mobile data. Check the attach APN and the modem data profile.</string>
+    <string name="telephony_reg_other_sim">%1$s is %2$s although its SIM is ready.</string>
+    <string name="telephony_reg_airplane">Airplane mode is on</string>
+    <string name="telephony_reg_airplane_reason">Turn airplane mode off and run the checks again.</string>
+    <string name="telephony_reg_no_state">No ServiceState</string>
+    <string name="telephony_reg_no_state_reason">The phone process gave no service state within 4 s: com.android.phone may be crashing or the radio HAL is not connected.</string>
+    <string name="telephony_reg_emergency">Emergency calls only</string>
+    <string name="telephony_reg_emergency_reason">A cell is in range but registration was rejected (cause %1$s): SIM not provisioned, PLMN not allowed or IMEI rejected.</string>
+    <string name="telephony_reg_power_off">Radio is off</string>
+    <string name="telephony_reg_power_off_reason">The radio is off although airplane mode is off: RADIO_POWER failed or the modem never came online (PIL boot, firmware, QMI transport). Look at logcat -b radio for RADIO_POWER.</string>
+    <string name="telephony_reg_no_sim">Not registered: no usable SIM</string>
+    <string name="telephony_reg_no_sim_reason">Without a READY SIM there is no registration; fix the SIM check first.</string>
+    <string name="telephony_reg_not_registered">SIM ready but not registered</string>
+    <string name="telephony_reg_denied_reason">The network rejected the registration (cause %1$s). Wrong IMEI, SIM not provisioned or a PLMN restriction.</string>
+    <string name="telephony_reg_searching_reason">The modem is searching but camps on no cell: band configuration (RFC/NV items), antenna switch, or modem firmware not matching the device.</string>
+    <string name="telephony_reg_idle_reason">The modem does not even search: radio not brought online (QMI NAS not answering, transport between RIL and modem down) or a wrong preferred network type.</string>
+
+    <!-- Data state -->
+    <string name="telephony_data_summary">Data %1$s, voice %2$s, %3$s</string>
+    <string name="telephony_data_disabled">Mobile data is turned off by the user.</string>
+    <string name="telephony_data_no_ps">Not registered on the PS domain, so no data connection is possible.</string>
+    <string name="telephony_data_wifi_idle">Wi-Fi is the default network and \"mobile data always active\" is off: the cellular link is idle by design.</string>
+    <string name="telephony_data_not_connected">Registered with data enabled but no data connection: data call setup fails (APN, qcril data service, netmgrd, rmnet driver). See the data probe.</string>
+
+    <!-- Signal -->
+    <string name="telephony_sig_summary">%1$s %2$s %3$s, level %4$s/4</string>
+    <string name="telephony_sig_none">No signal values reported</string>
+    <string name="telephony_sig_none_reason">Registered on a cell but SignalStrength is empty: the RIL does not answer SIGNAL_STRENGTH (signal bars stay empty).</string>
+    <string name="telephony_sig_none_unreg">Nothing to measure while not registered.</string>
+    <string name="telephony_sig_implausible">Values outside the physical range: %1$s. The RIL probably reports raw or positive values (unit conversion in the RIL or a shim).</string>
+    <string name="telephony_sig_rssi_below">LTE RSSI (%1$s dBm) is below RSRP (%2$s dBm), which is physically impossible: the RIL mixes up fields or units.</string>
+    <string name="telephony_sig_missing">RIL does not report %1$s (value unavailable).</string>
+    <string name="telephony_sig_level_zero">Level 0 despite a usable signal: the thresholds in carrier config or the RIL values are wrong.</string>
+
+    <!-- Cell info -->
+    <string name="telephony_cell_summary">%1$s cells, %2$s serving</string>
+    <string name="telephony_cell_empty">RIL does not report cell info</string>
+    <string name="telephony_cell_empty_unreg">No cells reported while not registered.</string>
+    <string name="telephony_cell_no_serving">No cell is marked as serving although the phone is in service: the RIL does not fill the registered flag.</string>
+
+    <!-- IMS -->
+    <string name="telephony_not_exposed">not exposed</string>
+    <string name="telephony_ims_registered">IMS registered</string>
+    <string name="telephony_ims_not_registered">IMS not registered</string>
+    <string name="telephony_ims_not_registered_reason">VoLTE is enabled for this carrier but IMS did not register: check the IMS service (phh IMS selected and running), the \"ims\" APN, the modem IMS profile (IPv4v6) and \"4G calling\" in the SIM settings.</string>
+    <string name="telephony_ims_phh_not_selected">phh IMS is installed but the framework binds %1$s (config_ims_mmtel_package): select phh IMS as the IMS service.</string>
+    <string name="telephony_ims_not_wanted">Carrier config does not enable VoLTE for this SIM, so IMS is not expected to register.</string>
+    <string name="telephony_ims_device_off">VoLTE disabled in the device overlay</string>
+    <string name="telephony_ims_device_off_reason">config_device_volte_available is false: telephony never tries IMS. Set it in the device framework overlay (or persist.dbg.volte_avail_ovr=1 for a test).</string>
+    <string name="telephony_ims_unknown">IMS registration not readable</string>
+    <string name="telephony_ims_unknown_reason">Android hides the IMS state from normal apps. Grant DUMP from a PC (see Settings) to read it from dumpsys.</string>
+    <string name="telephony_ims_unknown_dump">dumpsys did not show an IMS registration line on this build.</string>
+
+    <!-- Data probe -->
+    <string name="telephony_probe_ok">Mobile data works on %1$s: HTTP in %2$s ms (setup %3$s ms)</string>
+    <string name="telephony_probe_airplane">Not run: airplane mode is on</string>
+    <string name="telephony_probe_request_failed">Could not request a cellular network</string>
+    <string name="telephony_probe_disabled">Mobile data is turned off</string>
+    <string name="telephony_probe_disabled_reason">Turn mobile data on to test it. Wi-Fi may stay on: the probe uses the cellular network directly.</string>
+    <string name="telephony_probe_no_network">No cellular network within 15 s</string>
+    <string name="telephony_probe_not_registered">Not registered on the PS domain: fix registration first.</string>
+    <string name="telephony_probe_setup_failed">Registered but the data call never came up: APN settings, qcril data (QMI WDS), netmgrd or the rmnet/IPA driver. Look at logcat -b radio for SETUP_DATA_CALL.</string>
+    <string name="telephony_probe_http">Cellular network up, HTTP %1$s</string>
+    <string name="telephony_probe_http_reason">The probe server answered with an unexpected code: a captive portal or a proxy of the carrier.</string>
+    <string name="telephony_probe_no_traffic">Network up on %1$s but no traffic</string>
+    <string name="telephony_probe_no_traffic_reason">The data call is up but DNS or HTTP fails: routing or firewall rules (netd/BPF), rmnet MTU, IPv6-only APN without 464xlat, or the probe URL is unreachable.</string>
+
+    <!-- Live screen -->
+    <string name="telephony_live_title">Live network</string>
+    <string name="telephony_live_sub">Updates as the RIL reports changes</string>
+    <string name="telephony_ui_no_feature">This device does not declare telephony.</string>
+    <string name="telephony_ui_need_phone">Grant the Phone permission above to see live registration, signal and the call test.</string>
+    <string name="telephony_ui_no_sub">No active subscription: showing the default phone.</string>
+    <string name="telephony_ui_service">service</string>
+    <string name="telephony_ui_voice">voice</string>
+    <string name="telephony_ui_data">data</string>
+    <string name="telephony_ui_operator">Operator</string>
+    <string name="telephony_ui_roaming">Roaming</string>
+    <string name="telephony_ui_regs">Registration by domain</string>
+    <string name="telephony_ui_waiting">Waiting for the first service state…</string>
+    <string name="telephony_signal_title">Signal</string>
+    <string name="telephony_signal_sub">RSRP and RSSI over the last 3 minutes</string>
+    <string name="telephony_signal_last">Last signal report %1$s s ago</string>
+    <string name="telephony_ims_title">IMS and data</string>
+    <string name="telephony_ims_sub">VoLTE state and a data test through the cellular network</string>
+    <string name="telephony_ui_not_installed">not installed</string>
+    <string name="telephony_ui_hidden_blocked">The hidden TelephonyManager IMS methods are blocked by the hidden-API policy on this build; run the automatic checks with DUMP granted instead.</string>
+    <string name="telephony_ui_probe_hint">Brings up mobile data even with Wi-Fi on and sends one HTTP request through it.</string>
+    <string name="telephony_ui_probe">Probe mobile data</string>
+    <string name="telephony_ui_probing">Probing…</string>
+
+    <!-- Call test -->
+    <string name="telephony_call_title">Call test</string>
+    <string name="telephony_call_sub">The dialer places the call; this screen watches the call state</string>
+    <string name="telephony_call_number">Number to call (optional)</string>
+    <string name="telephony_call_dial">Open dialer</string>
+    <string name="telephony_call_idle">No call</string>
+    <string name="telephony_call_ringing">Ringing</string>
+    <string name="telephony_call_offhook">Call active</string>
+    <string name="telephony_call_live_volte">LTE/NR voice during the call: IMS (VoLTE/VoNR)</string>
+    <string name="telephony_call_live_vowifi">Voice over IWLAN: Wi-Fi calling</string>
+    <string name="telephony_call_live_cs">2G/3G voice: circuit-switched call (CS fallback)</string>
+    <string name="telephony_call_live_unknown">Voice RAT not reported</string>
+    <string name="telephony_call_events">Call events</string>
+    <string name="telephony_call_in_hint">For the incoming call, ask someone to call this phone: the app marks it as soon as it rings.</string>
+    <string name="telephony_call_in_seen">Incoming call rang (seen by the app)</string>
+    <string name="telephony_q_call_out">Does the outgoing call connect?</string>
+    <string name="telephony_q_call_audio">Can both sides hear each other (earpiece and microphone)?</string>
+    <string name="telephony_q_call_in">Does an incoming call ring?</string>
+    <string name="telephony_call_volte">IMS voice on %1$s (VoLTE/VoNR)</string>
+    <string name="telephony_call_volte_nocs">No CS registration and data on LTE/NR: the call can only be over IMS.</string>
+    <string name="telephony_call_vowifi">Wi-Fi calling (IWLAN)</string>
+    <string name="telephony_call_cs">Circuit-switched call on %1$s</string>
+    <string name="telephony_call_csfb_reason">The carrier supports VoLTE but the call fell back to 2G/3G: IMS was not registered when the call started.</string>
+    <string name="telephony_call_unknown">Voice path unknown</string>
+    <string name="telephony_call_unknown_reason">The RIL reported no voice or data RAT during the call.</string>
+
+    <!-- SMS loopback -->
+    <string name="telephony_sms_title">SMS loopback</string>
+    <string name="telephony_sms_sub">Sends one SMS to this phone and waits for it to come back</string>
+    <string name="telephony_sms_number">This phone\'s number</string>
+    <string name="telephony_sms_send">Send test SMS</string>
+    <string name="telephony_sms_open_app">Open SMS app</string>
+    <string name="telephony_sms_hint">Type the number of this SIM. Carrier rates may apply; the message also appears in the SMS app.</string>
+    <string name="telephony_sms_step_sent">Sent</string>
+    <string name="telephony_sms_step_delivered">Delivery report</string>
+    <string name="telephony_sms_step_received">Received</string>
+    <string name="telephony_sms_optional">optional, not every carrier sends it</string>
+    <string name="telephony_sms_rtt">back after %1$s s</string>
+    <string name="telephony_sms_waiting">waiting %1$s / %2$s s</string>
+    <string name="telephony_sms_pass">SMS came back after %1$s s</string>
+    <string name="telephony_sms_fail">Sending failed: %1$s</string>
+    <string name="telephony_sms_timeout_sent">Sent, but not received within %1$s s</string>
+    <string name="telephony_sms_timeout_sent_reason">The network accepted the SMS but it never reached Android: incoming SMS path (qcril not delivering NEW_SMS, SMS over IMS without an IMS service), a wrong number, or the default SMS app swallowing it.</string>
+    <string name="telephony_sms_timeout_nosent">No answer within %1$s s</string>
+    <string name="telephony_sms_timeout_nosent_reason">Not even the sent report arrived: the RIL never answered SEND_SMS (qcril SMS service, modem transport).</string>
+    <string name="telephony_sms_x_ok">Sent to the network.</string>
+    <string name="telephony_sms_x_radio">Radio off or RIL not available.</string>
+    <string name="telephony_sms_x_service">No network service: fix registration first.</string>
+    <string name="telephony_sms_x_smsc">No valid SMSC address: the SIM has no service centre number or the RIL cannot read it.</string>
+    <string name="telephony_sms_x_unsupported">The RIL does not implement SMS sending on this path (e.g. SMS over IMS without an IMS service).</string>
+    <string name="telephony_sms_x_network">The network rejected the message (errorCode is the RP cause): SMSC, subscription or IMS SMS settings.</string>
+    <string name="telephony_sms_x_policy">Blocked by Android (FDN, short code policy or rate limit).</string>
+    <string name="telephony_sms_x_ril">The RIL or the modem reported an error; see logcat -b radio for SEND_SMS.</string>
 </resources>
