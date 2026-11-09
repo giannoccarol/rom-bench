@@ -2,4 +2,94 @@
 <resources>
     <string name="bluetooth_title">Bluetooth</string>
     <string name="bluetooth_subtitle">Adapter, BLE and classic scan</string>
+
+    <!-- Result titles -->
+    <string name="bluetooth_t_adapter">Bluetooth adapter</string>
+    <string name="bluetooth_t_hal">Bluetooth HAL and services</string>
+    <string name="bluetooth_t_address">Bluetooth address</string>
+    <string name="bluetooth_t_le">Bluetooth LE features</string>
+    <string name="bluetooth_t_bonded">Paired devices</string>
+    <string name="bluetooth_t_ble_scan">BLE scan</string>
+    <string name="bluetooth_t_discovery">Classic discovery</string>
+
+    <!-- Summaries -->
+    <string name="bluetooth_s_no_bt">No Bluetooth on this device</string>
+    <string name="bluetooth_s_no_adapter">No Bluetooth adapter</string>
+    <string name="bluetooth_s_state">Adapter %1$s</string>
+    <string name="bluetooth_s_on">Bluetooth is on</string>
+    <string name="bluetooth_s_off">Bluetooth is off</string>
+    <string name="bluetooth_s_stuck">Stuck while turning on</string>
+    <string name="bluetooth_s_hal">%1$d Bluetooth services found</string>
+    <string name="bluetooth_s_hal_crash">Crash loop: %1$s</string>
+    <string name="bluetooth_s_hal_none">No Bluetooth properties visible</string>
+    <string name="bluetooth_s_addr_hidden">Address hidden from apps</string>
+    <string name="bluetooth_s_addr_placeholder">Placeholder address</string>
+    <string name="bluetooth_s_addr_ok">Address provisioned</string>
+    <string name="bluetooth_s_le5">Bluetooth 5 features: %1$s</string>
+    <string name="bluetooth_s_le4">Bluetooth 4.x features: %1$s</string>
+    <string name="bluetooth_s_bonded">%1$d paired devices</string>
+    <string name="bluetooth_s_bonded_unknown">Paired devices unknown</string>
+    <string name="bluetooth_s_no_scanner">No LE scanner</string>
+    <string name="bluetooth_s_scan_failed">Scan failed: %1$s</string>
+    <string name="bluetooth_s_ble">%1$d devices, strongest %2$d dBm</string>
+    <string name="bluetooth_s_ble_none">No BLE device seen</string>
+    <string name="bluetooth_s_disc">%1$d devices, strongest %2$d dBm</string>
+    <string name="bluetooth_s_disc_none">No discoverable device nearby</string>
+    <string name="bluetooth_s_disc_refused">Discovery refused</string>
+    <string name="bluetooth_s_disc_no_start">Discovery never started</string>
+
+    <!-- Reasons -->
+    <string name="bluetooth_r_no_bt">No Bluetooth feature and no adapter: nothing to test.</string>
+    <string name="bluetooth_r_no_adapter">FEATURE_BLUETOOTH is declared but there is no adapter: the Bluetooth service (com.android.bluetooth) did not start or crashed. Check logcat for BluetoothManagerService.</string>
+    <string name="bluetooth_r_no_feature">An adapter exists but FEATURE_BLUETOOTH is not declared: android.hardware.bluetooth.xml is missing from vendor/etc/permissions, so apps that need Bluetooth are hidden.</string>
+    <string name="bluetooth_r_hard_block">rfkill reports a hard block on Bluetooth: the power GPIO or the board switch keeps the chip off even though the stack thinks it is on.</string>
+    <string name="bluetooth_r_stuck">Bluetooth did not reach ON within 8 s. This is usually the controller bring-up: firmware download (rampatch / nvm_tlv), UART/SMD transport, or the power sequence of the chip. Look for hci and bt_vendor timeouts in logcat.</string>
+    <string name="bluetooth_r_off">Turn Bluetooth on from the area screen and run again. If it falls back to off by itself, the controller failed to start (firmware, transport, power).</string>
+    <string name="bluetooth_r_needs_on">Needs Bluetooth turned on.</string>
+    <string name="bluetooth_r_hal_crash">A Bluetooth service is restarting in a loop. Read its tombstones and logcat: a crashing vendor HAL keeps the adapter from turning on.</string>
+    <string name="bluetooth_r_hal_none">The ROM hides the Bluetooth properties from apps. Not a fault.</string>
+    <string name="bluetooth_r_addr_hidden">Apps get 02:00:00:00:00:00 instead of the real address since Android 6, and the secure setting is restricted. Not a fault; read it from Settings → About phone or with adb.</string>
+    <string name="bluetooth_r_addr_placeholder">The address is a known placeholder (all zeros, 00:00:00:00:5A:AD from Qualcomm NV defaults, or a test pattern): the real BD address is not provisioned. Every phone with this ROM will share it and pairing can mix devices up.</string>
+    <string name="bluetooth_r_no_le_feature">The adapter does LE but FEATURE_BLUETOOTH_LE is not declared: android.hardware.bluetooth_le.xml is missing, and apps for wearables, trackers and fitness bands will not install.</string>
+    <string name="bluetooth_r_le_minimal">No multi-advertising and no offloading: typical of a Bluetooth 4.0 controller, or of a vendor HAL that does not report the LE capabilities (le_local_supported_features).</string>
+    <string name="bluetooth_r_bonded_unknown">The list of paired devices could not be read.</string>
+    <string name="bluetooth_r_no_scanner">Bluetooth is on but getBluetoothLeScanner() returned null: the stack does not support LE scanning on this controller.</string>
+    <string name="bluetooth_r_scan_failed">The stack refused the LE scan. REGISTRATION_FAILED or INTERNAL_ERROR mean the controller rejected the scan commands (firmware or HAL); TOO_FREQUENTLY means more than 5 scans in 30 s: wait and run again.</string>
+    <string name="bluetooth_r_location_off">Location is off: Android delivers no scan results to apps that may use them for location. Turn Location on and run again.</string>
+    <string name="bluetooth_r_ble_none">No BLE advertiser seen in 8 s. Almost every place has some (phones, TVs, earbuds, trackers): if there are some around, the controller is not receiving. Suspect firmware (rampatch/nvm), the antenna path, or a coexistence setting that keeps the radio on Wi-Fi.</string>
+    <string name="bluetooth_r_rssi_stuck">Every device has the same RSSI (%1$d dBm): the controller or HAL reports a fixed value.</string>
+    <string name="bluetooth_r_rssi_odd">Some devices have impossible RSSI values (0 dBm or above, or below -120 dBm).</string>
+    <string name="bluetooth_r_disc_refused">startDiscovery() returned false: the stack is not ready or the permissions are missing.</string>
+    <string name="bluetooth_r_disc_no_start">Discovery was accepted but never reported as started and found nothing: the controller does not run the HCI inquiry.</string>
+    <string name="bluetooth_r_disc_none">Inquiry ran but no classic device answered. Most phones and headsets are only discoverable while in pairing mode: put one in pairing mode and run again.</string>
+
+    <!-- Screen -->
+    <string name="bluetooth_ui_adapter">Adapter</string>
+    <string name="bluetooth_ui_no_adapter">This device has no Bluetooth adapter.</string>
+    <string name="bluetooth_ui_off">Bluetooth is off. Turn it on to scan; Android asks for confirmation.</string>
+    <string name="bluetooth_ui_turning_on">Turning on…</string>
+    <string name="bluetooth_ui_turn_on">Turn on</string>
+    <string name="bluetooth_ui_settings">Bluetooth settings</string>
+    <string name="bluetooth_ui_enable_failed">Could not ask to turn Bluetooth on (%1$s).</string>
+    <string name="bluetooth_ui_scan_title">Devices around</string>
+    <string name="bluetooth_ui_scan_sub">BLE scan and classic inquiry together, 12 s</string>
+    <string name="bluetooth_ui_scan_perm">Grant the nearby devices and location permissions above to scan.</string>
+    <string name="bluetooth_ui_location_off">Location is off: scans may return nothing until you turn it on.</string>
+    <string name="bluetooth_ui_scan">Scan</string>
+    <string name="bluetooth_ui_scan_hint">Put a headset or another phone in pairing mode to see classic devices too.</string>
+    <string name="bluetooth_ui_counts">%1$d devices · %2$d LE · %3$d classic</string>
+    <string name="bluetooth_ui_more">…and %1$d more.</string>
+    <string name="bluetooth_ui_scan_error">Scan error: %1$s</string>
+    <string name="bluetooth_ui_disc_refused">Classic discovery refused by the stack.</string>
+    <string name="bluetooth_ui_unnamed">(no name)</string>
+    <string name="bluetooth_ui_paired">paired</string>
+    <string name="bluetooth_ui_paired_title">Paired devices</string>
+    <string name="bluetooth_ui_paired_perm">Grant the nearby devices permission to see the paired devices.</string>
+    <string name="bluetooth_ui_paired_none">No paired devices.</string>
+    <string name="bluetooth_guided_title">Audio devices</string>
+    <string name="bluetooth_g_hint">Pair a headset, earbuds or a speaker from the Bluetooth settings, then play some music and, if you can, make a short call.</string>
+    <string name="bluetooth_g_audio">Bluetooth audio playback</string>
+    <string name="bluetooth_g_audio_q">Does it pair and play music cleanly, without dropouts or crackling?</string>
+    <string name="bluetooth_g_call">Bluetooth call audio</string>
+    <string name="bluetooth_g_call_q">During a call through the headset, do both sides hear each other?</string>
 </resources>

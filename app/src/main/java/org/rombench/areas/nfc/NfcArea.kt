@@ -5,6 +5,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Nfc
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.rombench.R
 import org.rombench.core.Area
 import org.rombench.core.AreaGroup
@@ -17,9 +19,10 @@ object NfcArea : Area {
     override val icon: ImageVector = Icons.Outlined.Nfc
     override val group = AreaGroup.CONNECTIVITY
 
-    override suspend fun autoCheck(ctx: Context): List<TestResult> = emptyList()
+    override val autoSeconds = 3
+
+    override suspend fun autoCheck(ctx: Context): List<TestResult> = withContext(Dispatchers.IO) { runChecks(ctx) }
 
     @Composable
-    override fun Content() {
-    }
+    override fun Content() = NfcContent(this)
 }
