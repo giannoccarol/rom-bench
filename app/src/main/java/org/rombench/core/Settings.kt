@@ -37,7 +37,7 @@ object Settings {
     fun redact(ctx: Context) = bool(ctx, REDACT, true)
     fun reportInEnglish(ctx: Context) = bool(ctx, REPORT_ENGLISH, true)
     fun includeAllProps(ctx: Context) = bool(ctx, ALL_PROPS, false)
-    fun dynamicColor(ctx: Context) = bool(ctx, DYNAMIC_COLOR, true)
+    fun dynamicColor(ctx: Context) = bool(ctx, DYNAMIC_COLOR, false)
     fun speedUrl(ctx: Context) = string(ctx, SPEED_URL, DEFAULT_SPEED_URL)
     fun pingHost(ctx: Context) = string(ctx, PING_HOST, DEFAULT_PING_HOST)
     fun probeUrl(ctx: Context) = string(ctx, PROBE_URL, DEFAULT_PROBE_URL)

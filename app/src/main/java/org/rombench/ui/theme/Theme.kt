@@ -21,44 +21,45 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.rombench.core.Status
 
+// Neutral palette: colour is reserved for result states, so a status reads at a glance.
 private val Light = lightColorScheme(
-    primary = Color(0xFF006874), onPrimary = Color.White,
-    primaryContainer = Color(0xFF97F0FF), onPrimaryContainer = Color(0xFF001F24),
-    secondary = Color(0xFF4A6267), onSecondary = Color.White,
-    secondaryContainer = Color(0xFFCDE7EC), onSecondaryContainer = Color(0xFF051F23),
-    tertiary = Color(0xFF525E7D), onTertiary = Color.White,
-    tertiaryContainer = Color(0xFFDAE2FF), onTertiaryContainer = Color(0xFF0E1B37),
-    error = Color(0xFFBA1A1A), onError = Color.White,
-    errorContainer = Color(0xFFFFDAD6), onErrorContainer = Color(0xFF410002),
-    background = Color(0xFFF5FAFB), onBackground = Color(0xFF171D1E),
-    surface = Color(0xFFF5FAFB), onSurface = Color(0xFF171D1E),
-    surfaceVariant = Color(0xFFDBE4E6), onSurfaceVariant = Color(0xFF3F484A),
-    outline = Color(0xFF6F797A), outlineVariant = Color(0xFFBFC8CA),
-    inverseSurface = Color(0xFF2B3133), inverseOnSurface = Color(0xFFECF2F3), inversePrimary = Color(0xFF4FD8EB),
-    surfaceContainerLowest = Color.White, surfaceContainerLow = Color(0xFFEFF5F6),
-    surfaceContainer = Color(0xFFE9EFF0), surfaceContainerHigh = Color(0xFFE3E9EA),
-    surfaceContainerHighest = Color(0xFFDEE3E5), surfaceBright = Color(0xFFF5FAFB), surfaceDim = Color(0xFFD5DBDC),
-    surfaceTint = Color(0xFF006874), scrim = Color.Black,
+    primary = Color(0xFF1F5FD6), onPrimary = Color.White,
+    primaryContainer = Color(0xFFE3ECFC), onPrimaryContainer = Color(0xFF0B2A66),
+    secondary = Color(0xFF475467), onSecondary = Color.White,
+    secondaryContainer = Color(0xFFEEF0F3), onSecondaryContainer = Color(0xFF1D2433),
+    tertiary = Color(0xFF475467), onTertiary = Color.White,
+    tertiaryContainer = Color(0xFFEEF0F3), onTertiaryContainer = Color(0xFF1D2433),
+    error = Color(0xFFD92D20), onError = Color.White,
+    errorContainer = Color(0xFFFEE4E2), onErrorContainer = Color(0xFF7A1A12),
+    background = Color(0xFFF4F5F7), onBackground = Color(0xFF14171C),
+    surface = Color(0xFFF4F5F7), onSurface = Color(0xFF14171C),
+    surfaceVariant = Color(0xFFEEF0F3), onSurfaceVariant = Color(0xFF5B6472),
+    outline = Color(0xFFD0D5DD), outlineVariant = Color(0xFFE4E7EC),
+    inverseSurface = Color(0xFF1D2433), inverseOnSurface = Color(0xFFF4F5F7), inversePrimary = Color(0xFF8AB4F8),
+    surfaceContainerLowest = Color.White, surfaceContainerLow = Color.White,
+    surfaceContainer = Color(0xFFF9FAFB), surfaceContainerHigh = Color(0xFFF2F4F7),
+    surfaceContainerHighest = Color(0xFFEAECF0), surfaceBright = Color.White, surfaceDim = Color(0xFFE4E7EC),
+    surfaceTint = Color.Transparent, scrim = Color.Black,
 )
 
 private val Dark = darkColorScheme(
-    primary = Color(0xFF4FD8EB), onPrimary = Color(0xFF00363D),
-    primaryContainer = Color(0xFF004F58), onPrimaryContainer = Color(0xFF97F0FF),
-    secondary = Color(0xFFB1CBD0), onSecondary = Color(0xFF1C3438),
-    secondaryContainer = Color(0xFF334B4F), onSecondaryContainer = Color(0xFFCDE7EC),
-    tertiary = Color(0xFFBAC6EA), onTertiary = Color(0xFF24304D),
-    tertiaryContainer = Color(0xFF3B4664), onTertiaryContainer = Color(0xFFDAE2FF),
-    error = Color(0xFFFFB4AB), onError = Color(0xFF690005),
-    errorContainer = Color(0xFF93000A), onErrorContainer = Color(0xFFFFDAD6),
-    background = Color(0xFF0E1415), onBackground = Color(0xFFDEE3E5),
-    surface = Color(0xFF0E1415), onSurface = Color(0xFFDEE3E5),
-    surfaceVariant = Color(0xFF3F484A), onSurfaceVariant = Color(0xFFBFC8CA),
-    outline = Color(0xFF899294), outlineVariant = Color(0xFF3F484A),
-    inverseSurface = Color(0xFFDEE3E5), inverseOnSurface = Color(0xFF2B3133), inversePrimary = Color(0xFF006874),
-    surfaceContainerLowest = Color(0xFF090F10), surfaceContainerLow = Color(0xFF171D1E),
-    surfaceContainer = Color(0xFF1B2122), surfaceContainerHigh = Color(0xFF252B2C),
-    surfaceContainerHighest = Color(0xFF303637), surfaceBright = Color(0xFF343A3B), surfaceDim = Color(0xFF0E1415),
-    surfaceTint = Color(0xFF4FD8EB), scrim = Color.Black,
+    primary = Color(0xFF8AB4F8), onPrimary = Color(0xFF0B2A66),
+    primaryContainer = Color(0xFF1C2F52), onPrimaryContainer = Color(0xFFD6E4FD),
+    secondary = Color(0xFFB4BCC8), onSecondary = Color(0xFF1D2433),
+    secondaryContainer = Color(0xFF262B33), onSecondaryContainer = Color(0xFFE4E7EC),
+    tertiary = Color(0xFFB4BCC8), onTertiary = Color(0xFF1D2433),
+    tertiaryContainer = Color(0xFF262B33), onTertiaryContainer = Color(0xFFE4E7EC),
+    error = Color(0xFFF97066), onError = Color(0xFF55160C),
+    errorContainer = Color(0xFF55160C), onErrorContainer = Color(0xFFFEE4E2),
+    background = Color(0xFF0F1114), onBackground = Color(0xFFECEEF1),
+    surface = Color(0xFF0F1114), onSurface = Color(0xFFECEEF1),
+    surfaceVariant = Color(0xFF22262D), onSurfaceVariant = Color(0xFF98A2B3),
+    outline = Color(0xFF3A404A), outlineVariant = Color(0xFF2A2F37),
+    inverseSurface = Color(0xFFECEEF1), inverseOnSurface = Color(0xFF1D2433), inversePrimary = Color(0xFF1F5FD6),
+    surfaceContainerLowest = Color(0xFF0B0D10), surfaceContainerLow = Color(0xFF181B20),
+    surfaceContainer = Color(0xFF1C2026), surfaceContainerHigh = Color(0xFF22262D),
+    surfaceContainerHighest = Color(0xFF2A2F37), surfaceBright = Color(0xFF2A2F37), surfaceDim = Color(0xFF0F1114),
+    surfaceTint = Color.Transparent, scrim = Color.Black,
 )
 
 /** Colours for result states; same meaning in both themes. */
@@ -81,14 +82,14 @@ data class StatusColors(
 }
 
 private val LightStatus = StatusColors(
-    Color(0xFF1B7F3A), Color(0xFFD3F4DB), Color(0xFF8F5F00), Color(0xFFFFEDC2),
-    Color(0xFFBA1A1A), Color(0xFFFFDAD6), Color(0xFF3D5A99), Color(0xFFDCE4FF),
-    Color(0xFF6F797A), Color(0xFFE3E9EA),
+    Color(0xFF079455), Color(0xFFDCFAE6), Color(0xFFDC6803), Color(0xFFFEF0C7),
+    Color(0xFFD92D20), Color(0xFFFEE4E2), Color(0xFF475467), Color(0xFFEEF0F3),
+    Color(0xFF98A2B3), Color(0xFFF2F4F7),
 )
 private val DarkStatus = StatusColors(
-    Color(0xFF7EDB98), Color(0xFF0F3D1F), Color(0xFFF5C46B), Color(0xFF3D2E00),
-    Color(0xFFFFB4AB), Color(0xFF5C1010), Color(0xFFB4C5FF), Color(0xFF1E2D57),
-    Color(0xFF899294), Color(0xFF252B2C),
+    Color(0xFF47CD89), Color(0xFF0E3B25), Color(0xFFFDB022), Color(0xFF4A2F05),
+    Color(0xFFF97066), Color(0xFF55160C), Color(0xFFB4BCC8), Color(0xFF262B33),
+    Color(0xFF667085), Color(0xFF1C2026),
 )
 
 val LocalStatusColors = staticCompositionLocalOf { LightStatus }
@@ -98,14 +99,15 @@ val Mono = TextStyle(fontFamily = FontFamily.Monospace, fontSize = 12.sp, lineHe
 
 private val AppTypography = Typography().let { t ->
     t.copy(
-        headlineSmall = t.headlineSmall.copy(fontWeight = FontWeight.SemiBold),
+        headlineMedium = t.headlineMedium.copy(fontWeight = FontWeight.Bold),
+        headlineSmall = t.headlineSmall.copy(fontWeight = FontWeight.Bold),
         titleLarge = t.titleLarge.copy(fontWeight = FontWeight.SemiBold),
         titleMedium = t.titleMedium.copy(fontWeight = FontWeight.SemiBold),
     )
 }
 
 @Composable
-fun RomBenchTheme(dynamic: Boolean = true, content: @Composable () -> Unit) {
+fun RomBenchTheme(dynamic: Boolean = false, content: @Composable () -> Unit) {
     val dark = isSystemInDarkTheme()
     val ctx = LocalContext.current
     val scheme: ColorScheme = when {

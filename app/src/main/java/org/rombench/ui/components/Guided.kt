@@ -1,13 +1,22 @@
 package org.rombench.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -34,6 +43,7 @@ import org.rombench.core.raw
 import org.rombench.core.result
 import org.rombench.core.text
 import org.rombench.core.txt
+import org.rombench.ui.theme.LocalStatusColors
 
 /**
  * A question the tester answers after doing something (hearing a tone, seeing the LED...).
@@ -64,16 +74,26 @@ fun GuidedCheck(
         ResultStore.put(area.result(name, title, s, summary, reason, details(), Kind.GUIDED))
     }
 
-    Surface(modifier.fillMaxWidth(), shape = RoundedCornerShape(14.dp), color = MaterialTheme.colorScheme.surfaceContainerHigh) {
-        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(question, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
-                current?.let { StatusChip(it.status, Modifier.padding(start = 8.dp)) }
+    val sc = LocalStatusColors.current
+    Surface(
+        modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp),
+        color = current?.let { sc.container(it.status).copy(alpha = 0.45f) } ?: MaterialTheme.colorScheme.surfaceContainerHigh,
+    ) {
+        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(verticalAlignment = Alignment.Top) {
+                Text(question, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+                current?.let { StatusChip(it.status, Modifier.padding(start = 8.dp, top = 2.dp)) }
             }
             current?.reason?.let { Hint(it.text()) }
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilledTonalButton(onClick = { record(Status.PASS, null) }, enabled = enabled) { Text(stringResource(R.string.guided_btn_ok)) }
-                FilledTonalButton(onClick = { note = ""; askNote = true }, enabled = enabled) { Text(stringResource(R.string.guided_btn_problem)) }
+            ButtonRow {
+                OutlinedButton(
+                    onClick = { record(Status.PASS, null) }, enabled = enabled,
+                    border = BorderStroke(1.dp, sc.pass), colors = ButtonDefaults.outlinedButtonColors(contentColor = sc.pass),
+                ) { Icon(Icons.Outlined.Check, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.guided_btn_ok)) }
+                OutlinedButton(
+                    onClick = { note = ""; askNote = true }, enabled = enabled,
+                    border = BorderStroke(1.dp, sc.fail), colors = ButtonDefaults.outlinedButtonColors(contentColor = sc.fail),
+                ) { Icon(Icons.Outlined.Close, null, Modifier.size(18.dp)); Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.guided_btn_problem)) }
                 TextButton(onClick = { record(Status.SKIP, null) }, enabled = enabled) { Text(stringResource(R.string.guided_btn_na)) }
             }
         }

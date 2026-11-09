@@ -6,11 +6,11 @@
     <string name="group_media">Multimedia e input</string>
     <string name="group_system">Sistema</string>
 
-    <string name="status_pass">OK</string>
-    <string name="status_warn">Attenzione</string>
-    <string name="status_fail">Errore</string>
+    <string name="status_pass">Funziona</string>
+    <string name="status_warn">Da verificare</string>
+    <string name="status_fail">Problema</string>
     <string name="status_info">Info</string>
-    <string name="status_skip">Saltato</string>
+    <string name="status_skip">Non eseguito</string>
 
     <string name="back">Indietro</string>
     <string name="cancel">Annulla</string>
@@ -28,28 +28,15 @@
     <string name="settings">Impostazioni</string>
     <string name="report">Report</string>
     <string name="compare">Confronta</string>
-
-    <string name="dash_no_results">Ancora nessun risultato.</string>
-    <string name="dash_run_all">Avvia prove automatiche</string>
-    <string name="dash_run_hint">Circa %1$d min. Le prove guidate (suono, touch, tasti…) sono dentro ogni area.</string>
     <string name="dash_running">%1$s (%2$d di %3$d)</string>
-    <string name="tile_not_tested">Non provato</string>
-    <plurals name="tile_checks">
-        <item quantity="one">%1$d prova</item>
-        <item quantity="other">%1$d prove</item>
-    </plurals>
     <string name="clear_title">Cancellare tutti i risultati?</string>
     <string name="clear_body">Vengono rimossi i risultati automatici e guidati di questa sessione. I report salvati restano.</string>
     <string name="preflight_title">Permessi per le prove</string>
     <string name="preflight_body">Alcune prove richiedono un permesso. Niente esce dal telefono: i risultati restano nell\'app finché non esporti un report.</string>
     <string name="preflight_grant">Concedi e avvia</string>
     <string name="preflight_skip">Avvia senza</string>
-
-    <string name="area_auto_title">Prove automatiche</string>
-    <string name="area_auto_sub">Girano senza toccare il telefono; risultati qui sotto.</string>
-    <string name="area_run">Avvia prove</string>
-    <string name="area_running">In corso…</string>
-    <string name="area_no_results">Non ancora eseguite.</string>
+    <string name="area_run">Controlla ora</string>
+    <string name="area_running">Controllo in corso…</string>
     <string name="auto_timeout">Nessuna risposta entro %1$d s</string>
     <string name="auto_timeout_reason">La prova è stata fermata. Un HAL o un servizio che non risponde spesso indica un blob mancante o una chiamata bloccata da SELinux: guarda il logcat.</string>
     <string name="auto_crash">La prova si è bloccata con un errore</string>
@@ -130,4 +117,47 @@
     <string name="about">Informazioni</string>
     <string name="about_body">Banco di prova hardware per il porting di ROM custom. Funziona offline e senza Google Play Services. Software libero sotto GNU GPL v3 o successiva.</string>
     <string name="about_credits">Realizzata con Jetpack Compose, Material 3 e le icone Material Symbols (Apache License 2.0) dell\'Android Open Source Project e di Google.</string>
+
+    <string name="why_prefix">Perché: %1$s</string>
+    <string name="details_show">Dettagli tecnici</string>
+    <string name="details_hide">Nascondi dettagli</string>
+    <string name="state_not_tested">Non provato</string>
+    <string name="state_works">Funziona</string>
+    <string name="state_info_only">Solo informazioni</string>
+    <string name="state_not_run">Non eseguito</string>
+    <plurals name="state_problems">
+        <item quantity="one">%1$d problema</item>
+        <item quantity="many">%1$d problemi</item>
+        <item quantity="other">%1$d problemi</item>
+    </plurals>
+    <plurals name="state_to_check">
+        <item quantity="one">%1$d da verificare</item>
+        <item quantity="many">%1$d da verificare</item>
+        <item quantity="other">%1$d da verificare</item>
+    </plurals>
+    <string name="verdict_none">Non ancora provato</string>
+    <string name="verdict_none_sub">Il controllo completo dura circa %1$d min e non ha bisogno di te.</string>
+    <string name="verdict_ok">Tutto funziona</string>
+    <plurals name="verdict_problems">
+        <item quantity="one">%1$d problema trovato</item>
+        <item quantity="many">%1$d problemi trovati</item>
+        <item quantity="other">%1$d problemi trovati</item>
+    </plurals>
+    <plurals name="verdict_to_check">
+        <item quantity="one">%1$d cosa da verificare</item>
+        <item quantity="many">%1$d cose da verificare</item>
+        <item quantity="other">%1$d cose da verificare</item>
+    </plurals>
+    <string name="verdict_counts">%1$d problemi · %2$d da verificare · %3$d funzionanti</string>
+    <string name="verdict_running">Controllo in corso…</string>
+    <string name="dash_attention">Cosa non va</string>
+    <string name="dash_show_all">Mostra tutti (%1$d)</string>
+    <string name="dash_show_less">Mostra meno</string>
+    <string name="dash_start">Avvia controllo completo</string>
+    <string name="dash_again">Ricontrolla</string>
+    <string name="dash_report">Condividi report</string>
+    <string name="dash_guided_hint">Alcune cose richiedono te (suono, touch, tasti, chiamate): apri un\'area e rispondi alle domande.</string>
+    <string name="area_run_again">Ricontrolla</string>
+    <string name="area_results">Risultati</string>
+    <string name="area_tests">Prova tu</string>
 </resources>

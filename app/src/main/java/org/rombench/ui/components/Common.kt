@@ -4,6 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import androidx.compose.animation.animateContentSize
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,16 +27,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.RemoveCircleOutline
 import androidx.compose.material.icons.outlined.TouchApp
 import androidx.compose.material.icons.outlined.WarningAmber
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -92,19 +94,23 @@ fun Status.label(): String = stringResource(
     },
 )
 
-/** Pill with icon and word for a status. */
+/** Status as icon + plain word in its colour (no pill: colour and word carry the meaning). */
 @Composable
 fun StatusChip(status: Status, modifier: Modifier = Modifier) {
     val sc = LocalStatusColors.current
-    Row(
-        modifier
-            .background(sc.container(status), RoundedCornerShape(50))
-            .padding(horizontal = 8.dp, vertical = 3.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(status.icon(), null, tint = sc.of(status), modifier = Modifier.size(14.dp))
+    Row(modifier, verticalAlignment = Alignment.CenterVertically) {
+        Icon(status.icon(), null, tint = sc.of(status), modifier = Modifier.size(16.dp))
         Spacer(Modifier.width(4.dp))
-        Text(status.label(), style = MaterialTheme.typography.labelMedium, color = sc.of(status))
+        Text(status.label(), style = MaterialTheme.typography.labelLarge, color = sc.of(status), maxLines = 1, softWrap = false)
+    }
+}
+
+/** Big round status badge used in headers. */
+@Composable
+fun StatusBadge(status: Status?, modifier: Modifier = Modifier, size: Int = 44) {
+    val sc = LocalStatusColors.current
+    Box(modifier.size(size.dp).background(sc.container(status), CircleShape), contentAlignment = Alignment.Center) {
+        Icon((status ?: Status.SKIP).icon(), null, tint = sc.of(status), modifier = Modifier.size((size * 0.58f).dp))
     }
 }
 
@@ -113,7 +119,7 @@ fun StatusDot(status: Status?, modifier: Modifier = Modifier, size: Int = 10) {
     Box(modifier.size(size.dp).background(LocalStatusColors.current.of(status), CircleShape))
 }
 
-/** Rounded card with a title row and optional trailing actions. */
+/** Flat card with a title row and optional trailing actions. */
 @Composable
 fun SectionCard(
     title: String,
@@ -123,15 +129,16 @@ fun SectionCard(
     actions: @Composable RowScope.() -> Unit = {},
     content: @Composable () -> Unit,
 ) {
-    Card(
+    Surface(
         modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerLowest,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
     ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (icon != null) {
-                    Icon(icon, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(22.dp))
+                    Icon(icon, null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
                     Spacer(Modifier.width(10.dp))
                 }
                 Column(Modifier.weight(1f)) {
@@ -167,48 +174,46 @@ fun KeyValue(label: String, value: String, modifier: Modifier = Modifier) {
     }
 }
 
-/** A result with status, summary and reason; tap to show details. */
+/** A result: coloured icon and word, plain summary, "why" line; technical details on demand. */
 @Composable
 fun ResultCard(r: TestResult, modifier: Modifier = Modifier) {
     var open by rememberSaveable(r.key) { mutableStateOf(false) }
     val sc = LocalStatusColors.current
+    val problem = r.status == Status.FAIL || r.status == Status.WARN
     Surface(
         modifier.fillMaxWidth().animateContentSize(),
-        shape = RoundedCornerShape(14.dp),
-        color = MaterialTheme.colorScheme.surfaceContainer,
+        shape = RoundedCornerShape(12.dp),
+        color = if (problem) sc.container(r.status).copy(alpha = 0.45f) else MaterialTheme.colorScheme.surfaceContainer,
     ) {
-        Column(
-            Modifier.clickable(enabled = r.details.isNotEmpty()) { open = !open }.padding(12.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(r.status.icon(), null, tint = sc.of(r.status), modifier = Modifier.size(20.dp))
-                Spacer(Modifier.width(10.dp))
-                Text(
-                    r.title.text(), style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f),
-                    maxLines = 2, overflow = TextOverflow.Ellipsis,
-                )
-                if (r.kind == Kind.GUIDED) Icon(
-                    Icons.Outlined.TouchApp, stringResource(R.string.guided),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp).padding(end = 2.dp),
-                )
-                StatusChip(r.status)
-            }
-            Text(r.summary.text(), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(start = 30.dp))
-            r.reason?.let {
-                Text(
-                    it.text(), style = MaterialTheme.typography.bodySmall,
-                    color = if (r.status == Status.FAIL || r.status == Status.WARN) sc.of(r.status) else MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(start = 30.dp),
-                )
-            }
-            if (r.details.isNotEmpty()) {
-                if (open) DetailsTable(r.details, Modifier.padding(start = 30.dp, top = 6.dp))
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    Icon(
-                        if (open) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore, null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(18.dp),
+        Row(Modifier.height(IntrinsicSize.Min)) {
+            Box(Modifier.width(4.dp).fillMaxHeight().background(if (problem) sc.of(r.status) else Color.Transparent))
+            Column(Modifier.padding(start = 12.dp, end = 12.dp, top = 10.dp, bottom = 10.dp), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        r.title.text(), style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f),
+                        maxLines = 2, overflow = TextOverflow.Ellipsis,
                     )
+                    if (r.kind == Kind.GUIDED) Icon(
+                        Icons.Outlined.TouchApp, stringResource(R.string.guided),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp).padding(end = 2.dp),
+                    )
+                    Spacer(Modifier.width(8.dp))
+                    StatusChip(r.status)
+                }
+                Text(r.summary.text(), style = MaterialTheme.typography.bodyMedium)
+                r.reason?.let {
+                    Text(
+                        stringResource(R.string.why_prefix, it.text()), style = MaterialTheme.typography.bodySmall,
+                        color = if (problem) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                if (r.details.isNotEmpty()) {
+                    Text(
+                        stringResource(if (open) R.string.details_hide else R.string.details_show),
+                        style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clip(RoundedCornerShape(6.dp)).clickable { open = !open }.padding(vertical = 4.dp),
+                    )
+                    if (open) DetailsTable(r.details, Modifier.padding(top = 2.dp))
                 }
             }
         }

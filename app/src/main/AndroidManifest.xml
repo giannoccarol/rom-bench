@@ -102,6 +102,14 @@
             android:name=".core.AlarmReceiver"
             android:exported="false" />
 
+        <!-- Latest report for adb (`content read`); only holders of DUMP (shell, system). -->
+        <provider
+            android:name=".core.ReportsProvider"
+            android:authorities="${applicationId}.reports"
+            android:exported="true"
+            android:readPermission="android.permission.DUMP"
+            tools:ignore="ExportedContentProvider" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.files"

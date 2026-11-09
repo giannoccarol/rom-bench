@@ -7,11 +7,11 @@
     <string name="group_media">Multimedia &amp; input</string>
     <string name="group_system">System</string>
 
-    <string name="status_pass">OK</string>
-    <string name="status_warn">Warning</string>
-    <string name="status_fail">Error</string>
+    <string name="status_pass">Works</string>
+    <string name="status_warn">Check</string>
+    <string name="status_fail">Problem</string>
     <string name="status_info">Info</string>
-    <string name="status_skip">Skipped</string>
+    <string name="status_skip">Not run</string>
 
     <string name="back">Back</string>
     <string name="cancel">Cancel</string>
@@ -31,15 +31,7 @@
     <string name="compare">Compare</string>
 
     <!-- Dashboard -->
-    <string name="dash_no_results">No results yet.</string>
-    <string name="dash_run_all">Run automatic tests</string>
-    <string name="dash_run_hint">About %1$d min. Guided tests (sound, touch, keys…) are inside each area.</string>
     <string name="dash_running">%1$s (%2$d of %3$d)</string>
-    <string name="tile_not_tested">Not tested</string>
-    <plurals name="tile_checks">
-        <item quantity="one">%1$d check</item>
-        <item quantity="other">%1$d checks</item>
-    </plurals>
     <string name="clear_title">Clear all results?</string>
     <string name="clear_body">Automatic and guided results of this session are removed. Saved reports are kept.</string>
     <string name="preflight_title">Permissions for the tests</string>
@@ -48,11 +40,8 @@
     <string name="preflight_skip">Run without</string>
 
     <!-- Area frame -->
-    <string name="area_auto_title">Automatic checks</string>
-    <string name="area_auto_sub">Run without touching the phone; results below.</string>
-    <string name="area_run">Run checks</string>
-    <string name="area_running">Running…</string>
-    <string name="area_no_results">Not run yet.</string>
+    <string name="area_run">Check now</string>
+    <string name="area_running">Checking…</string>
     <string name="auto_timeout">No answer within %1$d s</string>
     <string name="auto_timeout_reason">The check was stopped. A HAL or service that never answers often means a missing blob or a blocked SELinux call; look at logcat.</string>
     <string name="auto_crash">The check crashed</string>
@@ -137,4 +126,44 @@
     <string name="about">About</string>
     <string name="about_body">Hardware test bench for custom ROM bring-up. Works offline and without Google Play services. Free software under the GNU GPL v3 or later.</string>
     <string name="about_credits">Built with Jetpack Compose, Material 3 and Material Symbols icons (Apache License 2.0) by the Android Open Source Project and Google.</string>
+
+    <!-- Plain-language verdicts -->
+    <string name="why_prefix">Why: %1$s</string>
+    <string name="details_show">Technical details</string>
+    <string name="details_hide">Hide details</string>
+    <string name="state_not_tested">Not tested</string>
+    <string name="state_works">Works</string>
+    <string name="state_info_only">Info only</string>
+    <string name="state_not_run">Not run</string>
+    <plurals name="state_problems">
+        <item quantity="one">%1$d problem</item>
+        <item quantity="other">%1$d problems</item>
+    </plurals>
+    <plurals name="state_to_check">
+        <item quantity="one">%1$d to check</item>
+        <item quantity="other">%1$d to check</item>
+    </plurals>
+    <string name="verdict_none">Not tested yet</string>
+    <string name="verdict_none_sub">The full check takes about %1$d min and needs no help from you.</string>
+    <string name="verdict_ok">Everything works</string>
+    <plurals name="verdict_problems">
+        <item quantity="one">%1$d problem found</item>
+        <item quantity="other">%1$d problems found</item>
+    </plurals>
+    <plurals name="verdict_to_check">
+        <item quantity="one">%1$d thing to check</item>
+        <item quantity="other">%1$d things to check</item>
+    </plurals>
+    <string name="verdict_counts">%1$d problems · %2$d to check · %3$d working</string>
+    <string name="verdict_running">Checking…</string>
+    <string name="dash_attention">What needs attention</string>
+    <string name="dash_show_all">Show all %1$d</string>
+    <string name="dash_show_less">Show fewer</string>
+    <string name="dash_start">Start full check</string>
+    <string name="dash_again">Check again</string>
+    <string name="dash_report">Share report</string>
+    <string name="dash_guided_hint">Some things need you (sound, touch, keys, calls): open an area and answer its questions.</string>
+    <string name="area_run_again">Check again</string>
+    <string name="area_results">Results</string>
+    <string name="area_tests">Try it yourself</string>
 </resources>

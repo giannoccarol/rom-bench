@@ -37,20 +37,25 @@ for perm in DUMP READ_LOGS; do
 done
 
 DIR="/sdcard/Android/data/$PKG/files/reports"
-before=$("${ADB[@]}" shell cat "$DIR/latest.done" 2>/dev/null | tr -d '\r' || true)
+# Reads a report file: through the app's DUMP-protected provider, or Android/data as a fallback.
+get() {
+  "${ADB[@]}" exec-out content read --uri "content://$PKG.reports/$1" 2>/dev/null ||
+    "${ADB[@]}" exec-out cat "$DIR/$1" 2>/dev/null
+}
+before=$(get latest.done | tr -d '\r' || true)
 "${ADB[@]}" shell input keyevent KEYCODE_WAKEUP || true
 EXTRA=(--ez autorun true); [ -n "$AREAS" ] && EXTRA+=(--es areas "$AREAS")
 "${ADB[@]}" shell am start -n "$PKG/org.rombench.MainActivity" "${EXTRA[@]}" >/dev/null
 echo -n "Running automatic checks on $("${ADB[@]}" shell getprop ro.product.device | tr -d '\r')"
 for _ in $(seq 1 180); do
   sleep 2; echo -n "."
-  now=$("${ADB[@]}" shell cat "$DIR/latest.done" 2>/dev/null | tr -d '\r' || true)
+  now=$(get latest.done | tr -d '\r' || true)
   if [ -n "$now" ] && [ "$now" != "$before" ]; then
     echo
     dev=$("${ADB[@]}" shell getprop ro.product.device | tr -d '\r')
     dest="$OUT/$dev-$(date +%Y%m%d-%H%M%S)"
     mkdir -p "$dest"
-    for f in latest.txt latest.md latest.bbcode.txt latest.json; do "${ADB[@]}" pull "$DIR/$f" "$dest/" >/dev/null; done
+    for f in latest.txt latest.md latest.bbcode.txt latest.json; do get "$f" > "$dest/$f"; done
     echo "Report saved in $dest"
     grep -E '^(Fail|\[FAIL\]|\[WARN\])' "$dest/latest.txt" || true
     exit 0
