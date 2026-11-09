@@ -24,7 +24,8 @@ object DeviceInfo {
         val v = kernel()
         val rel = System.getProperty("os.version") ?: ""
         val num = Regex("""#(\d+)""").find(v)?.groupValues?.get(1)
-        return if (num != null) "$rel #$num" else rel
+        val base = rel.substringBefore('-')
+        return if (num != null) "$base #$num" else base
     }
 
     fun installed(ctx: Context, pkg: String): Boolean = try {

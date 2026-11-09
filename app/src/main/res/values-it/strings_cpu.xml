@@ -53,4 +53,6 @@
     <string name="cpu_stress_start">Avvia</string>
     <string name="cpu_stress_elapsed">trascorsi</string>
     <string name="cpu_stress_chart" formatted="false">Frequenza media (% del massimo) e sensore più caldo</string>
+    <string name="cpu_freq_dummy">cpufreq virtuale</string>
+    <string name="cpu_freq_dummy_why">Il driver cpufreq riporta valori fittizi di pochi kHz (emulatore o driver segnaposto): i controlli di frequenza non si applicano.</string>
 </resources>

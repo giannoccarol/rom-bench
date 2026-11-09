@@ -53,4 +53,6 @@
     <string name="cpu_stress_start">Start</string>
     <string name="cpu_stress_elapsed">elapsed</string>
     <string name="cpu_stress_chart" formatted="false">Average frequency (% of max) and hottest sensor</string>
+    <string name="cpu_freq_dummy">Virtual cpufreq</string>
+    <string name="cpu_freq_dummy_why">The cpufreq driver reports kHz-scale dummy values (emulator or a placeholder driver): frequency checks do not apply.</string>
 </resources>

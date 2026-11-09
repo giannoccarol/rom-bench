@@ -100,7 +100,7 @@ fun HistoryScreen(nav: Nav) {
                             Text(e.report.title, style = MaterialTheme.typography.titleSmall)
                             Text(
                                 DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(e.report.generated)) +
-                                    " · " + (e.report.deviceValue("Kernel")?.substringAfter("#")?.substringBefore(" ")?.let { "kernel #$it" } ?: ""),
+                                    " · " + (e.report.deviceValue("Kernel")?.let { k -> Regex("""#(\d+)""").find(k)?.groupValues?.get(1)?.let { "kernel #$it" } ?: k.substringBefore('-').let { "kernel $it" } } ?: ""),
                                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                             Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {

@@ -69,6 +69,7 @@ import org.rombench.core.Status
 import org.rombench.core.Sys
 import org.rombench.core.TestResult
 import org.rombench.report.DeviceInfo
+import org.rombench.ui.components.ButtonRow
 import org.rombench.ui.components.StatusChip
 import org.rombench.ui.components.StatusDot
 import org.rombench.ui.components.rememberPermissions
@@ -140,7 +141,7 @@ private fun DeviceHeader() {
             Text(i?.get(0) ?: Build.MODEL, style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.onPrimaryContainer)
             Text(i?.get(1) ?: "", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onPrimaryContainer, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Text(i?.get(2) ?: "", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onPrimaryContainer, maxLines = 2, overflow = TextOverflow.Ellipsis)
-            if (i != null) Row(Modifier.padding(top = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (i != null) ButtonRow(Modifier.padding(top = 6.dp)) {
                 Pill("SELinux ${i[3]}")
                 Pill(i[4])
                 Pill("API ${Build.VERSION.SDK_INT}")
@@ -152,7 +153,7 @@ private fun DeviceHeader() {
 @Composable
 private fun Pill(text: String) {
     Text(
-        text, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onPrimary,
+        text, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onPrimary, maxLines = 1, softWrap = false,
         modifier = Modifier.background(MaterialTheme.colorScheme.primary, RoundedCornerShape(50)).padding(horizontal = 10.dp, vertical = 4.dp),
     )
 }
@@ -189,12 +190,12 @@ private fun RunCard(results: Map<String, TestResult>, run: AutoRunner.State, nav
                     Icon(Icons.Outlined.Stop, null); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.stop))
                 }
             } else {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                ButtonRow {
                     Button(onClick = { if (perms.allGranted) AutoRunner.runAll(ctx) else preflight = true }, enabled = !run.running) {
-                        Icon(Icons.Outlined.PlayArrow, null); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.dash_run_all))
+                        Icon(Icons.Outlined.PlayArrow, null); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.dash_run_all), maxLines = 1, softWrap = false)
                     }
                     OutlinedButton(onClick = { nav.go("report") }, enabled = results.isNotEmpty()) {
-                        Icon(Icons.Outlined.Description, null); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.report))
+                        Icon(Icons.Outlined.Description, null); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.report), maxLines = 1, softWrap = false)
                     }
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {

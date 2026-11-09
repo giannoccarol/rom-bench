@@ -10,6 +10,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
+/** Screen requested from outside the UI (`--es open area/wifi` from adb). */
+object NavBus {
+    val request = MutableStateFlow<String?>(null)
+}
+
 /** Key events seen by MainActivity, for the hardware button test. */
 object KeyBus {
     private val _events = MutableSharedFlow<KeyEvent>(extraBufferCapacity = 64)

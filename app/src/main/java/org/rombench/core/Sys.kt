@@ -102,9 +102,11 @@ object Sys {
     /** SELinux mode: "Enforcing", "Permissive", "Disabled" or "Unknown". */
     fun selinux(): String {
         line("/sys/fs/selinux/enforce")?.let { return if (it == "1") "Enforcing" else "Permissive" }
+        // android.os.SELinux and getenforce read the same node, so they fail the same way.
         val g = exec("getenforce").out.trim()
-        if (g.isNotEmpty()) return g
-        return if (!exists("/sys/fs/selinux")) "Disabled" else "Unknown"
+        if (g == "Enforcing" || g == "Permissive" || g == "Disabled") return g
+        // On a permissive kernel the read above would have succeeded (denials are only logged).
+        return if (File("/sys/fs/selinux/enforce").exists()) "Enforcing" else "Unknown"
     }
 }
 

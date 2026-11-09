@@ -117,7 +117,7 @@ object CpuArea : Area {
         policies.forEach { p ->
             val name = p.name
             val det = listOf(
-                d("CPUs", p.cpus.joinToString(",")), d("cpuinfo", "${mhz(p.hwMin)} – ${mhz(p.hwMax)}"),
+                d("CPUs", p.cpus.joinToString(",")), d("driver", org.rombench.core.Sys.line("/sys/devices/system/cpu/cpu${p.cpus.firstOrNull() ?: 0}/cpufreq/scaling_driver")), d("cpuinfo", "${mhz(p.hwMin)} – ${mhz(p.hwMax)}"),
                 d("scaling", "${mhz(p.scalingMin)} – ${mhz(p.scalingMax)}"), d("governor", p.governor),
                 d("available governors", p.governors), d("frequencies", p.frequencies),
                 d("max seen under load", mhz(p.cpus.mapNotNull { maxSeen[it] }.maxOrNull())),
@@ -125,7 +125,8 @@ object CpuArea : Area {
             val peak = p.cpus.mapNotNull { maxSeen[it] }.maxOrNull()
             val label = "${name} (${p.cpus.firstOrNull()?.let { CpuInfo.partName(parts[it]) } ?: "cpu${p.cpus.joinToString(",")}"})"
             out += when {
-                p.hwMax == null -> result("freq_$name", txt(R.string.cpu_r_freq, label), Status.WARN, txt(R.string.cpu_freq_unreadable), txt(R.string.cpu_freq_unreadable_why), det)
+                p.hwMax != null && p.hwMax in 1..9_999 -> result("freq_$name", txt(R.string.cpu_r_freq, label), Status.INFO, txt(R.string.cpu_freq_dummy), txt(R.string.cpu_freq_dummy_why), det)
+                p.hwMax == null || p.hwMax <= 0 -> result("freq_$name", txt(R.string.cpu_r_freq, label), Status.WARN, txt(R.string.cpu_freq_unreadable), txt(R.string.cpu_freq_unreadable_why), det)
                 p.scalingMax != null && p.scalingMax < p.hwMax * 0.98 ->
                     result("freq_$name", txt(R.string.cpu_r_freq, label), Status.WARN, txt(R.string.cpu_freq_capped, mhz(p.scalingMax), mhz(p.hwMax)), txt(R.string.cpu_freq_capped_why), det)
                 peak != null && p.scalingMin != null && peak <= p.scalingMin && (p.scalingMax ?: 0) > p.scalingMin ->
@@ -158,7 +159,7 @@ object CpuArea : Area {
         if (status == null || status == PowerManager.THERMAL_STATUS_NONE && headroom == null) {
             out += result("thermal_hal", txt(R.string.cpu_r_thermal_hal), Status.INFO, txt(R.string.cpu_thermal_hal_none), txt(R.string.cpu_thermal_hal_none_why), listOf(d("thermal HAL service", hal.ifBlank { "—" })))
         } else {
-            out += result("thermal_hal", txt(R.string.cpu_r_thermal_hal), Status.PASS, txt(R.string.cpu_thermal_hal_ok, status, headroom?.let { fmt1(it.toDouble()) } ?: "—"), details = listOf(d("thermal HAL service", hal.ifBlank { "—" })))
+            out += result("thermal_hal", txt(R.string.cpu_r_thermal_hal), Status.PASS, txt(R.string.cpu_thermal_hal_ok, thermalName(status), headroom?.let { fmt1(it.toDouble()) } ?: "—"), details = listOf(d("thermal HAL service", hal.ifBlank { "—" })))
         }
 
         // GPU
@@ -177,6 +178,13 @@ object CpuArea : Area {
             else -> result("gpu", txt(R.string.cpu_r_gpu), Status.PASS, raw("${gl.renderer} · ${gl.version.take(40)}"), details = gDetails)
         }
         out
+    }
+
+    private fun thermalName(s: Int?) = when (s) {
+        PowerManager.THERMAL_STATUS_NONE -> "none"; PowerManager.THERMAL_STATUS_LIGHT -> "light"
+        PowerManager.THERMAL_STATUS_MODERATE -> "moderate"; PowerManager.THERMAL_STATUS_SEVERE -> "severe"
+        PowerManager.THERMAL_STATUS_CRITICAL -> "critical"; PowerManager.THERMAL_STATUS_EMERGENCY -> "emergency"
+        PowerManager.THERMAL_STATUS_SHUTDOWN -> "shutdown"; else -> "$s"
     }
 
     @Composable

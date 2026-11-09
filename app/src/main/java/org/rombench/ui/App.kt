@@ -6,10 +6,14 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import org.rombench.core.Areas
+import org.rombench.core.NavBus
 
 /** Minimal back-stack navigation: routes are strings ("area/wifi", "compare/a.json/b.json"). */
 class Nav(initial: List<String>) {
@@ -24,6 +28,14 @@ class Nav(initial: List<String>) {
 fun App() {
     val nav = rememberSaveable(saver = listSaver(save = { it.stack.toList() }, restore = { Nav(it) })) { Nav(listOf("dash")) }
     BackHandler(enabled = nav.stack.size > 1) { nav.back() }
+    val requested by NavBus.request.collectAsState()
+    LaunchedEffect(requested) {
+        requested?.let { r ->
+            nav.home()
+            if (r != "dash") nav.go(r)
+            NavBus.request.value = null
+        }
+    }
     AnimatedContent(nav.current, transitionSpec = { fadeIn() togetherWith fadeOut() }, label = "nav") { route ->
         val parts = route.split('/')
         when (parts[0]) {
