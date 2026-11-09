@@ -148,7 +148,6 @@
         <item quantity="many">%1$d cose da verificare</item>
         <item quantity="other">%1$d cose da verificare</item>
     </plurals>
-    <string name="verdict_counts">%1$d problemi · %2$d da verificare · %3$d funzionanti</string>
     <string name="verdict_running">Controllo in corso…</string>
     <string name="dash_attention">Cosa non va</string>
     <string name="dash_show_all">Mostra tutti (%1$d)</string>
@@ -160,4 +159,9 @@
     <string name="area_run_again">Ricontrolla</string>
     <string name="area_results">Risultati</string>
     <string name="area_tests">Prova tu</string>
+    <plurals name="state_working">
+        <item quantity="one">%1$d funzionante</item>
+        <item quantity="many">%1$d funzionanti</item>
+        <item quantity="other">%1$d funzionanti</item>
+    </plurals>
 </resources>

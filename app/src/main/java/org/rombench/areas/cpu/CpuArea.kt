@@ -149,6 +149,8 @@ object CpuArea : Area {
         val hottest = readable.maxByOrNull { it.tempC!! }
         val bogus = readable.filter { it.tempC!! <= -30 || it.tempC > 150 }
         out += when {
+            zones.isEmpty() && org.rombench.core.Sys.exists("/sys/class/thermal") ->
+                result("thermal", txt(R.string.cpu_r_thermal), Status.INFO, txt(R.string.cpu_thermal_blocked), txt(R.string.cpu_thermal_blocked_why), tDetails)
             zones.isEmpty() -> result("thermal", txt(R.string.cpu_r_thermal), Status.WARN, txt(R.string.cpu_thermal_none), txt(R.string.cpu_thermal_none_why), tDetails)
             readable.isEmpty() -> result("thermal", txt(R.string.cpu_r_thermal), Status.WARN, txt(R.string.cpu_thermal_unreadable, zones.size), txt(R.string.cpu_thermal_unreadable_why), tDetails)
             hottest != null && hottest.tempC!! > 80 && hottest.tempC < 150 -> result("thermal", txt(R.string.cpu_r_thermal), Status.WARN, txt(R.string.cpu_thermal_hot, hottest.type, fmt1(hottest.tempC)), txt(R.string.cpu_thermal_hot_why), tDetails)

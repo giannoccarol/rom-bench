@@ -154,7 +154,6 @@
         <item quantity="one">%1$d thing to check</item>
         <item quantity="other">%1$d things to check</item>
     </plurals>
-    <string name="verdict_counts">%1$d problems · %2$d to check · %3$d working</string>
     <string name="verdict_running">Checking…</string>
     <string name="dash_attention">What needs attention</string>
     <string name="dash_show_all">Show all %1$d</string>
@@ -166,4 +165,8 @@
     <string name="area_run_again">Check again</string>
     <string name="area_results">Results</string>
     <string name="area_tests">Try it yourself</string>
+    <plurals name="state_working">
+        <item quantity="one">%1$d working</item>
+        <item quantity="other">%1$d working</item>
+    </plurals>
 </resources>

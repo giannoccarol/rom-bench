@@ -164,15 +164,16 @@ internal suspend fun WifiArea.runChecks(ctx: Context): List<TestResult> {
     val enabled = state == WifiManager.WIFI_STATE_ENABLED
     val probeLp = WifiUtil.wifiNetwork(cm)?.let { runCatching { cm?.getLinkProperties(it) }.getOrNull() }
     val iface = WifiUtil.ifaceName(probeLp)
-    val ifaceExists = Sys.exists("/sys/class/net/$iface")
+    val presence = ifacePresence(iface, probeLp?.interfaceName)
+    val ifaceExists = presence != false
     val stateDetails = listOf(
         d("wifiState", stateName(state)),
         d("Interface", iface),
-        d("Interface present", ifaceExists),
+        d("Interface present", presence ?: "unknown (sysfs not readable by apps)"),
         d("operstate", Sys.line("/sys/class/net/$iface/operstate")),
     )
     out += when (state) {
-        WifiManager.WIFI_STATE_ENABLED -> if (ifaceExists || !Sys.exists("/sys/class/net")) result(
+        WifiManager.WIFI_STATE_ENABLED -> if (ifaceExists) result(
             "enabled", txt(R.string.wifi_t_enabled), Status.PASS, txt(R.string.wifi_s_on), null, stateDetails,
         ) else result(
             "enabled", txt(R.string.wifi_t_enabled), Status.WARN, txt(R.string.wifi_s_on_no_iface, iface), txt(R.string.wifi_r_on_no_iface), stateDetails,
@@ -408,6 +409,16 @@ private fun WifiArea.macCheck(iface: String, l: WifiLink?, enabled: Boolean): Te
     }
 }
 
+/**
+ * Whether the kernel interface exists: true/false when it can be told, null when /sys/class/net
+ * is not readable (SELinux denies it to apps on most enforcing ROMs; stat() then fails too).
+ */
+internal fun ifacePresence(iface: String, lpIface: String?): Boolean? {
+    if (Sys.exists("/sys/class/net/$iface") || lpIface == iface) return true
+    if (runCatching { java.net.NetworkInterface.getByName(iface) }.getOrNull() != null) return true
+    return if (Sys.list("/sys/class/net").isEmpty()) null else false
+}
+
 private fun assignName(v: String) = when (v) {
     "0" -> "permanent"; "1" -> "random"; "2" -> "stolen"; "3" -> "set by userspace"; else -> "?"
 }
@@ -442,7 +453,7 @@ private fun WifiArea.driverCheck(iface: String, enabled: Boolean): TestResult {
     val name = driver ?: uevent["DRIVER"] ?: if (Sys.exists("/sys/module/wlan")) "wlan" else null
     return when {
         restarting.isNotEmpty() -> result("driver", title, Status.WARN, txt(R.string.wifi_s_driver, name ?: "—"), txt(R.string.wifi_r_restarting, restarting.joinToString()), details)
-        enabled && !Sys.exists(base) -> result("driver", title, Status.FAIL, txt(R.string.wifi_s_no_iface, iface), txt(R.string.wifi_r_on_no_iface), details)
+        enabled && ifacePresence(iface, null) == false -> result("driver", title, Status.FAIL, txt(R.string.wifi_s_no_iface, iface), txt(R.string.wifi_r_on_no_iface), details)
         name == null -> result("driver", title, Status.INFO, txt(R.string.wifi_s_driver_unknown), txt(R.string.wifi_r_driver_unknown), details)
         else -> result("driver", title, Status.INFO, txt(R.string.wifi_s_driver, name), null, details)
     }

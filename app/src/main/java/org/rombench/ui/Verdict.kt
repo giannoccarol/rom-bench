@@ -47,6 +47,14 @@ fun Tally.headline(): String = when {
     else -> stringResource(R.string.state_not_run)
 }
 
+/** "1 problem · 3 to check · 20 working", skipping zero counts. */
+@Composable
+fun Tally.countsLine(): String = listOfNotNull(
+    if (fail > 0) pluralStringResource(R.plurals.state_problems, fail, fail) else null,
+    if (warn > 0) pluralStringResource(R.plurals.state_to_check, warn, warn) else null,
+    if (ok > 0) pluralStringResource(R.plurals.state_working, ok, ok) else null,
+).joinToString(" · ").ifEmpty { stringResource(R.string.state_info_only) }
+
 /** Severity order for lists: problems first. */
 fun TestResult.order() = when (status) {
     Status.FAIL -> 0; Status.WARN -> 1; Status.PASS -> 2; Status.INFO -> 3; Status.SKIP -> 4

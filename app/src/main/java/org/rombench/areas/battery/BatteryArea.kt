@@ -145,7 +145,7 @@ object BatteryArea : Area {
 
         // power_supply nodes
         out += result(
-            "supplies", txt(R.string.battery_r_supplies), if (supplies.isEmpty()) Status.WARN else Status.INFO,
+            "supplies", txt(R.string.battery_r_supplies), if (supplies.isEmpty() && !org.rombench.core.Sys.exists("/sys/class/power_supply")) Status.WARN else Status.INFO,
             txt(R.string.battery_supplies_count, supplies.size, supplies.joinToString { it.name }),
             if (supplies.isEmpty()) txt(R.string.battery_supplies_none_why) else null,
             supplies.map { p -> d(p.name, listOfNotNull(p.type, p.values["online"]?.let { "online=$it" }, p.values["status"]).joinToString(" ")) },

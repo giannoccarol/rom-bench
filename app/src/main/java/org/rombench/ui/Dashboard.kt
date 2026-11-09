@@ -180,7 +180,7 @@ private fun VerdictCard(results: Map<String, TestResult>, run: AutoRunner.State,
                         Text(tally.headline(), style = MaterialTheme.typography.headlineSmall, color = if (tally.worst == Status.FAIL || tally.worst == Status.WARN) sc.of(tally.worst) else MaterialTheme.colorScheme.onSurface)
                         Text(
                             if (tally.total == 0) stringResource(R.string.verdict_none_sub, Areas.all.sumOf { it.autoSeconds } / 60 + 1)
-                            else stringResource(R.string.verdict_counts, tally.fail, tally.warn, tally.ok),
+                            else tally.countsLine(),
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
