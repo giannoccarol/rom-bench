@@ -21,7 +21,14 @@ Non modifica la ROM, non serve rete né Google Play Services.
    "Problema" puoi scrivere una nota che finisce nel report.
 4. **Report** → Testo, Markdown, BBCode (per XDA) o JSON → Condividi / Salva / Copia. Gli identificativi
    (MAC, IMEI, ICCID, seriale, SSID, numeri, celle, UID dei tag) sono nascosti di default.
-5. **Report salvati** (icona orologio): seleziona due report per vedere regressioni, correzioni e
+5. **JSON per agenti** (`latest.agent.json`, sempre generato dopo un controllo completo; formato "Agent JSON
+   + logs" nel report): problemi ordinati per gravità con motivo, righe di log collegate e comandi adb da
+   provare, stato dei servizi `init.svc.*`, percorsi non leggibili e, con `READ_LOGS`, log di errore, radio,
+   kernel, crash/ANR e rifiuti SELinux raggruppati con la regola `allow` proposta (quelli causati da ROM Bench
+   sono contati a parte). Su Android 13+ compare "Consentire l'accesso a tutti i log del dispositivo?": tocca
+   **Consenti**, altrimenti il JSON spiega che i log sono stati rifiutati. Lo script salva anche
+   `logcat-all.txt`, `dmesg.txt` e `getprop.txt` presi via adb (non oscurati, restano sul PC).
+6. **Report salvati** (icona orologio): seleziona due report per vedere regressioni, correzioni e
    proprietà di build/kernel cambiate tra una build e l'altra.
 
 Altri comandi adb utili:
@@ -49,6 +56,16 @@ La build debug ha pacchetto `org.rombench.debug` (si installa accanto alla relea
 - **Memoria**: combinazioni `ro.lmk.*` che fanno uscire lmkd (`use_psi=false` + `use_minfree_levels=true` senza
   `use_new_strategy`), PSI mancante, zram, velocità dell'eMMC.
 - **Sospensione**: prova guidata con sveglia esatta dalla sospensione profonda e percentuale di deep sleep.
+
+## Cosa è verificato
+
+Emulatori AOSP senza Google Play: Android 11, 13 e 17, build debug e release. Funzionano installazione, tutte
+le prove automatiche senza crash (circa 45 s), esportazione in tutti i formati, JSON per agenti con i log dopo
+il consenso, script adb, italiano, tema chiaro e scuro, test unitari.
+
+Non verificato (nessun telefono collegato): tutte le prove sull'hardware vero, soglie tarate solo
+sull'emulatore, prove guidate di audio/fotocamere/sensori/GPS/NFC/USB, chiamate e SMS, sospensione con
+sveglia dalla deep sleep, LED.
 
 ## Sicurezza
 

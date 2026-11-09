@@ -45,6 +45,14 @@ details. Guided answers ("Works" / "Problem" with an optional note / "N/A") are 
   default. The full `getprop` dump can be appended (identifying properties removed when redacting).
 - Every automatic run is saved; **Saved reports** lists them and compares any two: regressions, fixes and
   changed results, plus the build/kernel properties that differ.
+- **Agent JSON** (`rombench-agent-report/1`, `latest.agent.json`): written after every full run and available
+  as a format in the report screen. Meant to be handed to an AI agent or a script: problems sorted by
+  severity with the reason, related log lines and adb commands to investigate next; init service states
+  (restarting/stopped); paths the app could not read; and, when the app holds `READ_LOGS`, Android logs
+  (errors, radio, kernel, crash/ANR events) plus SELinux denials grouped by source/target/class with the
+  matching `allow` rule. Denials caused by ROM Bench's own probing are counted separately. Identifiers are
+  redacted in logs too. On Android 13+ the system asks "Allow access to all device logs?": tap *Allow*,
+  otherwise the JSON says that logs were refused.
 
 ## Automation from a PC
 
@@ -53,7 +61,11 @@ tools/autotest.sh -i app/build/outputs/apk/release/app-release.apk
 ```
 
 installs the APK with its runtime permissions (`adb install -g`), grants `DUMP` and `READ_LOGS` (optional
-extras for dumpsys/logcat based details), runs every automatic check and pulls the report into `reports/`.
+extras for dumpsys/logcat based details), runs every automatic check and pulls the report into
+`reports/<device>-<date>/`: text, Markdown, BBCode, JSON, the agent JSON, and `logcat-all.txt`, `dmesg.txt`,
+`getprop.txt` read through adb (not redacted; they stay on your computer). The report is read through a
+content provider that only the shell can open (`android.permission.DUMP`), because some Android 11 builds
+hide `Android/data` from adb.
 Without the script:
 
 ```bash
@@ -63,6 +75,18 @@ adb pull /sdcard/Android/data/org.rombench/files/reports/latest.json
 
 `--es areas wifi,telephony` limits the run, `--es open area/camera` opens a screen. The debug build's package
 is `org.rombench.debug`. Keep the screen on and unlocked: display, camera and audio checks need it.
+
+## What was verified
+
+Emulators (AOSP images without Google Play services): Android 11 (API 30), Android 13 (API 33) and
+Android 17 (API 37), debug and minified release builds. Verified there: install, every automatic check
+without crashes (about 45 s), report export in all formats, the agent JSON with logs after allowing log
+access, the adb script and content provider, dashboard/area/report/history/settings screens, Italian
+translation, light and dark theme, unit tests (`./gradlew testDebugUnitTest`).
+
+Not verified yet (no phone was connected): every check on real hardware (Lumia 950 XL, 1520, 930),
+thresholds tuned on emulator values only, guided tests that need real audio/camera/sensors/GNSS/NFC/USB,
+calls and SMS, the suspend test with an alarm from deep sleep, and the notification LED.
 
 ## Building
 
