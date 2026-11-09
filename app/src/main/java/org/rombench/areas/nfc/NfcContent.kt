@@ -42,6 +42,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -149,6 +150,7 @@ private const val READER_FLAGS = NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG
 @Composable
 internal fun NfcContent(area: NfcArea) {
     val ctx = LocalContext.current
+    val res = LocalResources.current
     val adapter = remember { nfcAdapter(ctx) }
     val activity = remember(ctx) { ctx.findActivity() }
     val enabled by rememberPolled(1000, adapter) { adapter?.isEnabled ?: false }
@@ -185,7 +187,7 @@ internal fun NfcContent(area: NfcArea) {
             val info = runCatching { parseTag(t) }.getOrNull()
             main.post {
                 if (info == null) {
-                    error = ctx.getString(R.string.nfc_ui_parse_error)
+                    error = res.getString(R.string.nfc_ui_parse_error)
                     return@post
                 }
                 tag = info; count++
@@ -202,7 +204,7 @@ internal fun NfcContent(area: NfcArea) {
         }
         val ok = runCatching { adapter.enableReaderMode(activity, cb, READER_FLAGS, Bundle()) }
         if (ok.isFailure) {
-            error = ctx.getString(R.string.nfc_ui_reader_error, ok.exceptionOrNull()?.javaClass?.simpleName ?: "?")
+            error = res.getString(R.string.nfc_ui_reader_error, ok.exceptionOrNull()?.javaClass?.simpleName ?: "?")
             reading = false
         }
         onDispose { runCatching { adapter.disableReaderMode(activity) } }

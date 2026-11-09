@@ -1,3 +1,5 @@
+@file:Suppress("MissingPermission", "HardwareIds")
+
 package org.rombench.areas.bluetooth
 
 import android.bluetooth.BluetoothAdapter
@@ -196,7 +198,7 @@ private fun BluetoothArea.leCheck(a: BluetoothAdapter, hasLe: Boolean): TestResu
         details += d("LE Audio broadcast source", yes(code { a.isLeAudioBroadcastSourceSupported }))
         details += d("LE Audio broadcast assistant", yes(code { a.isLeAudioBroadcastAssistantSupported }))
     }
-    details += d("Max connected audio devices", runCatching { a.maxConnectedAudioDevices }.getOrNull())
+    if (Build.VERSION.SDK_INT >= 33) details += d("Max connected audio devices", runCatching { a.maxConnectedAudioDevices }.getOrNull())
     val bt5 = phy2m == true || coded == true || ext == true
     val names = listOfNotNull(
         "2M".takeIf { phy2m == true }, "Coded".takeIf { coded == true }, "Ext. adv".takeIf { ext == true },

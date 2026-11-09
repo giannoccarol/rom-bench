@@ -1,3 +1,5 @@
+@file:Suppress("MissingPermission")
+
 package org.rombench.areas.bluetooth
 
 import android.bluetooth.BluetoothAdapter
@@ -45,6 +47,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -105,6 +108,7 @@ private fun openBtSettings(ctx: Context) {
 @Composable
 private fun AdapterSection(adapter: BluetoothAdapter, state: Int) {
     val ctx = LocalContext.current
+    val res = LocalResources.current
     val connectPerm = rememberPermissions(listOf(Perms.BT_CONNECT))
     var enableError by remember { mutableStateOf<String?>(null) }
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
@@ -135,7 +139,7 @@ private fun AdapterSection(adapter: BluetoothAdapter, state: Int) {
                     connectPerm.request()
                 } else {
                     runCatching { launcher.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)) }
-                        .onFailure { enableError = ctx.getString(R.string.bluetooth_ui_enable_failed, it.javaClass.simpleName) }
+                        .onFailure { enableError = res.getString(R.string.bluetooth_ui_enable_failed, it.javaClass.simpleName) }
                 }
             }) {
                 Icon(Icons.Outlined.PowerSettingsNew, null); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.bluetooth_ui_turn_on))
@@ -157,6 +161,7 @@ private fun scanModeName(m: Int) = when (m) {
 @Composable
 private fun ScanSection(area: BluetoothArea, adapter: BluetoothAdapter) {
     val ctx = LocalContext.current
+    val res = LocalResources.current
     val perms = rememberPermissions(area.permissions)
     var scanning by remember { mutableStateOf(false) }
     var devices by remember { mutableStateOf<Map<String, BtSeen>>(emptyMap()) }
@@ -197,7 +202,7 @@ private fun ScanSection(area: BluetoothArea, adapter: BluetoothAdapter) {
             override fun onScanResult(callbackType: Int, r: ScanResult) = add(r)
             override fun onBatchScanResults(results: MutableList<ScanResult>) = results.forEach { add(it) }
             override fun onScanFailed(errorCode: Int) {
-                error = ctx.getString(R.string.bluetooth_ui_scan_error, BtUtil.scanErrorName(errorCode))
+                error = res.getString(R.string.bluetooth_ui_scan_error, BtUtil.scanErrorName(errorCode))
             }
 
             fun add(r: ScanResult) {
@@ -215,9 +220,9 @@ private fun ScanSection(area: BluetoothArea, adapter: BluetoothAdapter) {
         val scanner = adapter.bluetoothLeScanner
         try {
             scanner?.startScan(null, ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(), cb)
-            if (!adapter.startDiscovery()) error = ctx.getString(R.string.bluetooth_ui_disc_refused)
+            if (!adapter.startDiscovery()) error = res.getString(R.string.bluetooth_ui_disc_refused)
         } catch (e: SecurityException) {
-            error = ctx.getString(R.string.bluetooth_ui_scan_error, "SecurityException")
+            error = res.getString(R.string.bluetooth_ui_scan_error, "SecurityException")
         }
         main.postDelayed(stop, UI_SCAN_MS)
         onDispose {

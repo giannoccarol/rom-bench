@@ -21,6 +21,7 @@ object WifiArea : Area {
     override val group = AreaGroup.CONNECTIVITY
 
     /** Android 13+ asks for "nearby Wi-Fi devices" for scans in addition to location. */
+    @Suppress("InlinedApi")
     internal val NEARBY = Perm(
         Manifest.permission.NEARBY_WIFI_DEVICES, R.string.wifi_perm_nearby, R.string.wifi_perm_nearby_why, minSdk = 33,
     )

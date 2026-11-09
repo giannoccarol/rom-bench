@@ -1,3 +1,5 @@
+@file:Suppress("MissingPermission")
+
 package org.rombench.areas.wifi
 
 import android.content.BroadcastReceiver
@@ -23,7 +25,7 @@ import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.Router
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.ShowChart
+import androidx.compose.material.icons.automirrored.outlined.ShowChart
 import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material.icons.outlined.Stop
 import androidx.compose.material.icons.outlined.TravelExplore
@@ -41,6 +43,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -48,6 +51,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -90,7 +94,7 @@ internal fun WifiContent(area: WifiArea) {
     val ctx = LocalContext.current
     val wm = remember { ctx.applicationContext.getSystemService(WifiManager::class.java) }
     if (wm == null) {
-        SectionCard(stringResource(R.string.wifi_live_title), icon = Icons.Outlined.ShowChart) {
+        SectionCard(stringResource(R.string.wifi_live_title), icon = Icons.AutoMirrored.Outlined.ShowChart) {
             Hint(stringResource(R.string.wifi_ui_no_wifi))
         }
         return
@@ -118,8 +122,9 @@ private fun LiveLink(wm: WifiManager) {
     val sc = LocalStatusColors.current
     val rssiBuf = remember { SeriesBuffer(120, 1) }
     val speedBuf = remember { SeriesBuffer(120, 2) }
+    val cm = remember { ctx.applicationContext.getSystemService(ConnectivityManager::class.java) }
     val link by rememberPolled(1000) {
-        readLink(wm).also { l ->
+        readLink(wm, cm).also { l ->
             if (l.connected) {
                 rssiBuf.add(l.rssi.toFloat())
                 speedBuf.add(l.tx.toFloat(), l.rx.toFloat())
@@ -131,7 +136,7 @@ private fun LiveLink(wm: WifiManager) {
     SectionCard(
         stringResource(R.string.wifi_live_title),
         subtitle = stringResource(R.string.wifi_live_sub),
-        icon = Icons.Outlined.ShowChart,
+        icon = Icons.AutoMirrored.Outlined.ShowChart,
         actions = {
             androidx.compose.material3.IconButton(onClick = { openWifiSettings(ctx) }) {
                 Icon(Icons.Outlined.Settings, stringResource(R.string.wifi_ui_settings))
@@ -177,6 +182,7 @@ private fun LiveLink(wm: WifiManager) {
 @Composable
 private fun ScanSection(area: WifiArea, wm: WifiManager) {
     val ctx = LocalContext.current
+    val res = LocalResources.current
     val scope = rememberCoroutineScope()
     val perms = rememberPermissions(area.permissions)
     var results by remember { mutableStateOf<List<ScanResult>>(emptyList()) }
@@ -216,8 +222,8 @@ private fun ScanSection(area: WifiArea, wm: WifiManager) {
                         val s = scanWifi(ctx, wm)
                         results = s.results
                         note = when {
-                            s.fresh -> ctx.getString(R.string.wifi_ui_scan_fresh, s.results.size)
-                            else -> ctx.getString(R.string.wifi_ui_scan_cached, s.ageSec ?: 0)
+                            s.fresh -> res.getString(R.string.wifi_ui_scan_fresh, s.results.size)
+                            else -> res.getString(R.string.wifi_ui_scan_cached, s.ageSec ?: 0)
                         }
                         scanning = false
                     }
@@ -279,13 +285,14 @@ private fun ScanRow(r: ScanResult) {
 @Composable
 private fun SpeedSection(area: WifiArea) {
     val ctx = LocalContext.current
+    val res = LocalResources.current
     val scope = rememberCoroutineScope()
     val cm = remember { ctx.applicationContext.getSystemService(ConnectivityManager::class.java) }
     var job by remember { mutableStateOf<Job?>(null) }
     var conn by remember { mutableStateOf<HttpURLConnection?>(null) }
     var progress by remember { mutableFloatStateOf(0f) }
     var mbps by remember { mutableStateOf<Double?>(null) }
-    var bytes by remember { mutableStateOf(0L) }
+    var bytes by remember { mutableLongStateOf(0L) }
     var error by remember { mutableStateOf<String?>(null) }
     var running by remember { mutableStateOf(false) }
     val url = remember(Settings.version.intValue) { Settings.speedUrl(ctx) }
@@ -315,7 +322,7 @@ private fun SpeedSection(area: WifiArea) {
         job = scope.launch(Dispatchers.IO) {
             val net = WifiUtil.wifiNetwork(cm)
             if (net == null) {
-                error = ctx.getString(R.string.wifi_ui_speed_no_wifi)
+                error = res.getString(R.string.wifi_ui_speed_no_wifi)
                 running = false
                 return@launch
             }

@@ -19,7 +19,7 @@
     <string name="bluetooth_s_on">Bluetooth is on</string>
     <string name="bluetooth_s_off">Bluetooth is off</string>
     <string name="bluetooth_s_stuck">Stuck while turning on</string>
-    <string name="bluetooth_s_hal">%1$d Bluetooth services found</string>
+    <string name="bluetooth_s_hal">Bluetooth services: %1$d</string>
     <string name="bluetooth_s_hal_crash">Crash loop: %1$s</string>
     <string name="bluetooth_s_hal_none">No Bluetooth properties visible</string>
     <string name="bluetooth_s_addr_hidden">Address hidden from apps</string>
@@ -27,13 +27,13 @@
     <string name="bluetooth_s_addr_ok">Address provisioned</string>
     <string name="bluetooth_s_le5">Bluetooth 5 features: %1$s</string>
     <string name="bluetooth_s_le4">Bluetooth 4.x features: %1$s</string>
-    <string name="bluetooth_s_bonded">%1$d paired devices</string>
+    <string name="bluetooth_s_bonded">Paired devices: %1$d</string>
     <string name="bluetooth_s_bonded_unknown">Paired devices unknown</string>
     <string name="bluetooth_s_no_scanner">No LE scanner</string>
     <string name="bluetooth_s_scan_failed">Scan failed: %1$s</string>
-    <string name="bluetooth_s_ble">%1$d devices, strongest %2$d dBm</string>
+    <string name="bluetooth_s_ble">Devices: %1$d, strongest %2$d dBm</string>
     <string name="bluetooth_s_ble_none">No BLE device seen</string>
-    <string name="bluetooth_s_disc">%1$d devices, strongest %2$d dBm</string>
+    <string name="bluetooth_s_disc">Devices: %1$d, strongest %2$d dBm</string>
     <string name="bluetooth_s_disc_none">No discoverable device nearby</string>
     <string name="bluetooth_s_disc_refused">Discovery refused</string>
     <string name="bluetooth_s_disc_no_start">Discovery never started</string>
@@ -77,8 +77,8 @@
     <string name="bluetooth_ui_location_off">Location is off: scans may return nothing until you turn it on.</string>
     <string name="bluetooth_ui_scan">Scan</string>
     <string name="bluetooth_ui_scan_hint">Put a headset or another phone in pairing mode to see classic devices too.</string>
-    <string name="bluetooth_ui_counts">%1$d devices · %2$d LE · %3$d classic</string>
-    <string name="bluetooth_ui_more">…and %1$d more.</string>
+    <string name="bluetooth_ui_counts">Devices: %1$d · LE %2$d · classic %3$d</string>
+    <string name="bluetooth_ui_more">Not shown: %1$d</string>
     <string name="bluetooth_ui_scan_error">Scan error: %1$s</string>
     <string name="bluetooth_ui_disc_refused">Classic discovery refused by the stack.</string>
     <string name="bluetooth_ui_unnamed">(no name)</string>

@@ -44,7 +44,7 @@
     <string name="wifi_s_driver_unknown">Driver non identificato</string>
     <string name="wifi_s_no_iface">Manca l\'interfaccia %1$s</string>
     <string name="wifi_s_location_off">Geolocalizzazione spenta: nessun risultato</string>
-    <string name="wifi_s_scan">%1$d reti: %2$d a 2,4 GHz, %3$d a 5 GHz, %4$d a 6 GHz</string>
+    <string name="wifi_s_scan">Reti: %1$d (2,4 GHz: %2$d, 5 GHz: %3$d, 6 GHz: %4$d)</string>
     <string name="wifi_s_scan_empty">La scansione non ha trovato reti</string>
     <string name="wifi_s_no_gw">Nessun gateway</string>
     <string name="wifi_s_ping">%1$d%% di perdita, media %2$s ms</string>
@@ -136,11 +136,11 @@
     <string name="wifi_ui_location_off">La geolocalizzazione è spenta: Android nasconde i risultati finché non la accendi.</string>
     <string name="wifi_ui_scan">Scansiona ora</string>
     <string name="wifi_ui_scanning">Scansione…</string>
-    <string name="wifi_ui_scan_fresh">Nuova scansione: %1$d reti.</string>
+    <string name="wifi_ui_scan_fresh">Nuova scansione, reti trovate: %1$d.</string>
     <string name="wifi_ui_scan_cached">Scansione limitata da Android: risultati di %1$d s fa.</string>
     <string name="wifi_ui_all">Tutte (%1$d)</string>
     <string name="wifi_ui_scan_empty">Nessuna rete nell\'elenco.</string>
-    <string name="wifi_ui_more">…e altre %1$d.</string>
+    <string name="wifi_ui_more">Non mostrate: %1$d</string>
     <string name="wifi_speed_title">Prova di velocità</string>
     <string name="wifi_speed_sub">Download da %1$s solo tramite Wi-Fi</string>
     <string name="wifi_ui_mbps">Mbit/s</string>

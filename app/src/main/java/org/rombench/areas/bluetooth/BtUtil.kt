@@ -1,3 +1,5 @@
+@file:Suppress("MissingPermission")
+
 package org.rombench.areas.bluetooth
 
 import android.bluetooth.BluetoothAdapter

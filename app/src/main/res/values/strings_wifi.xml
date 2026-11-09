@@ -44,7 +44,7 @@
     <string name="wifi_s_driver_unknown">Driver not identified</string>
     <string name="wifi_s_no_iface">Interface %1$s missing</string>
     <string name="wifi_s_location_off">Location is off: no scan results</string>
-    <string name="wifi_s_scan">%1$d networks: %2$d at 2.4 GHz, %3$d at 5 GHz, %4$d at 6 GHz</string>
+    <string name="wifi_s_scan">Networks: %1$d (2.4 GHz: %2$d, 5 GHz: %3$d, 6 GHz: %4$d)</string>
     <string name="wifi_s_scan_empty">The scan found no networks</string>
     <string name="wifi_s_no_gw">No gateway</string>
     <string name="wifi_s_ping">%1$d%% loss, %2$s ms average</string>
@@ -136,11 +136,11 @@
     <string name="wifi_ui_location_off">Location is off: Android hides scan results until you turn it on.</string>
     <string name="wifi_ui_scan">Scan now</string>
     <string name="wifi_ui_scanning">Scanning…</string>
-    <string name="wifi_ui_scan_fresh">New scan: %1$d networks.</string>
+    <string name="wifi_ui_scan_fresh">New scan, networks found: %1$d.</string>
     <string name="wifi_ui_scan_cached">Scan throttled by Android: showing results from %1$d s ago.</string>
     <string name="wifi_ui_all">All (%1$d)</string>
     <string name="wifi_ui_scan_empty">No networks in the list.</string>
-    <string name="wifi_ui_more">…and %1$d more.</string>
+    <string name="wifi_ui_more">Not shown: %1$d</string>
     <string name="wifi_speed_title">Speed test</string>
     <string name="wifi_speed_sub">Download from %1$s through Wi-Fi only</string>
     <string name="wifi_ui_mbps">Mbit/s</string>

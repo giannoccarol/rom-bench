@@ -19,7 +19,7 @@
     <string name="bluetooth_s_on">Bluetooth acceso</string>
     <string name="bluetooth_s_off">Bluetooth spento</string>
     <string name="bluetooth_s_stuck">Bloccato durante l\'accensione</string>
-    <string name="bluetooth_s_hal">%1$d servizi Bluetooth trovati</string>
+    <string name="bluetooth_s_hal">Servizi Bluetooth: %1$d</string>
     <string name="bluetooth_s_hal_crash">Crash continui: %1$s</string>
     <string name="bluetooth_s_hal_none">Nessuna proprietà Bluetooth visibile</string>
     <string name="bluetooth_s_addr_hidden">Indirizzo nascosto alle app</string>
@@ -27,13 +27,13 @@
     <string name="bluetooth_s_addr_ok">Indirizzo configurato</string>
     <string name="bluetooth_s_le5">Funzioni Bluetooth 5: %1$s</string>
     <string name="bluetooth_s_le4">Funzioni Bluetooth 4.x: %1$s</string>
-    <string name="bluetooth_s_bonded">%1$d dispositivi associati</string>
+    <string name="bluetooth_s_bonded">Dispositivi associati: %1$d</string>
     <string name="bluetooth_s_bonded_unknown">Dispositivi associati sconosciuti</string>
     <string name="bluetooth_s_no_scanner">Nessuno scanner LE</string>
     <string name="bluetooth_s_scan_failed">Scansione fallita: %1$s</string>
-    <string name="bluetooth_s_ble">%1$d dispositivi, il più forte a %2$d dBm</string>
+    <string name="bluetooth_s_ble">Dispositivi: %1$d, il più forte a %2$d dBm</string>
     <string name="bluetooth_s_ble_none">Nessun dispositivo BLE visto</string>
-    <string name="bluetooth_s_disc">%1$d dispositivi, il più forte a %2$d dBm</string>
+    <string name="bluetooth_s_disc">Dispositivi: %1$d, il più forte a %2$d dBm</string>
     <string name="bluetooth_s_disc_none">Nessun dispositivo rilevabile nei dintorni</string>
     <string name="bluetooth_s_disc_refused">Ricerca rifiutata</string>
     <string name="bluetooth_s_disc_no_start">La ricerca non è mai partita</string>
@@ -77,8 +77,8 @@
     <string name="bluetooth_ui_location_off">La geolocalizzazione è spenta: la scansione potrebbe non trovare nulla finché non la accendi.</string>
     <string name="bluetooth_ui_scan">Scansiona</string>
     <string name="bluetooth_ui_scan_hint">Metti in associazione delle cuffie o un altro telefono per vedere anche i dispositivi classici.</string>
-    <string name="bluetooth_ui_counts">%1$d dispositivi · %2$d LE · %3$d classici</string>
-    <string name="bluetooth_ui_more">…e altri %1$d.</string>
+    <string name="bluetooth_ui_counts">Dispositivi: %1$d · LE %2$d · classici %3$d</string>
+    <string name="bluetooth_ui_more">Non mostrati: %1$d</string>
     <string name="bluetooth_ui_scan_error">Errore di scansione: %1$s</string>
     <string name="bluetooth_ui_disc_refused">Ricerca classica rifiutata dallo stack.</string>
     <string name="bluetooth_ui_unnamed">(senza nome)</string>

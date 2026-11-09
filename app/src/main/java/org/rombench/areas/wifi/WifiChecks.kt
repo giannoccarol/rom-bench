@@ -1,3 +1,5 @@
+@file:Suppress("MissingPermission", "HardwareIds", "InlinedApi")
+
 package org.rombench.areas.wifi
 
 import android.content.BroadcastReceiver
@@ -53,10 +55,13 @@ internal data class WifiLink(
 )
 
 @Suppress("DEPRECATION")
-internal fun readLink(wm: WifiManager): WifiLink {
+internal fun readLink(wm: WifiManager, cm: ConnectivityManager?): WifiLink {
     val info: WifiInfo? = runCatching { wm.connectionInfo }.getOrNull()
     val sup = info?.supplicantState
-    val connected = wm.isWifiEnabled && info != null && sup == SupplicantState.COMPLETED && (info.networkId != -1 || info.bssid != null)
+    // SSID, BSSID and network id are redacted without location access: rely on the supplicant
+    // state and on ConnectivityService having a Wi-Fi network instead.
+    val connected = wm.isWifiEnabled && info != null &&
+        (sup == SupplicantState.COMPLETED || WifiUtil.wifiNetwork(cm) != null)
     return WifiLink(
         state = wm.wifiState,
         connected = connected,
@@ -199,7 +204,7 @@ internal suspend fun WifiArea.runChecks(ctx: Context): List<TestResult> {
     }
 
     // ---- association ----
-    val link = readLink(wm)
+    val link = readLink(wm, cm)
     val network = WifiUtil.wifiNetwork(cm)
     val lp = network?.let { runCatching { cm?.getLinkProperties(it) }.getOrNull() }
     val caps = network?.let { runCatching { cm?.getNetworkCapabilities(it) }.getOrNull() }
@@ -248,10 +253,11 @@ internal fun supportedStandards(wm: WifiManager): List<Int> = listOf(
 private fun WifiArea.capabilities(ctx: Context, wm: WifiManager, enabled: Boolean): TestResult {
     val pm = ctx.packageManager
     fun safe(f: () -> Boolean): Boolean? = runCatching { f() }.getOrNull()
-    val b24 = safe { wm.is24GHzBandSupported }
+    // is24GHz/is60GHz exist from Android 12; on 11 every Wi-Fi radio is assumed to do 2.4 GHz.
+    val b24 = if (WifiUtil.sdk(31)) safe { wm.is24GHzBandSupported } else null
     val b5 = safe { wm.is5GHzBandSupported }
     val b6 = safe { wm.is6GHzBandSupported }
-    val b60 = safe { wm.is60GHzBandSupported }
+    val b60 = if (WifiUtil.sdk(31)) safe { wm.is60GHzBandSupported } else null
     val stds = supportedStandards(wm)
     val details = mutableListOf(
         d("2.4 GHz", yes(b24)), d("5 GHz", yes(b5)), d("6 GHz", yes(b6)), d("60 GHz", yes(b60)),
@@ -261,9 +267,9 @@ private fun WifiArea.capabilities(ctx: Context, wm: WifiManager, enabled: Boolea
     if (WifiUtil.sdk(31)) {
         details += d("Bridged AP", yes(safe { wm.isBridgedApConcurrencySupported }))
         details += d("STA + bridged AP", yes(safe { wm.isStaBridgedApConcurrencySupported }))
-        details += d("Dual-band simultaneous", yes(safe { wm.isDualBandSimultaneousSupported }))
         details += d("STA local-only concurrency", yes(safe { wm.isStaConcurrencyForLocalOnlyConnectionsSupported }))
     }
+    if (WifiUtil.sdk(34)) details += d("Dual-band simultaneous", yes(safe { wm.isDualBandSimultaneousSupported }))
     if (WifiUtil.sdk(33)) details += d("STA multi-internet", yes(safe { wm.isStaConcurrencyForMultiInternetSupported }))
     details += d("Wi-Fi Direct (P2P)", yes(safe { wm.isP2pSupported }))
     details += d("TDLS", yes(safe { wm.isTdlsSupported }))
@@ -277,7 +283,7 @@ private fun WifiArea.capabilities(ctx: Context, wm: WifiManager, enabled: Boolea
     details += d("FEATURE_WIFI_PASSPOINT", pm.hasSystemFeature(PackageManager.FEATURE_WIFI_PASSPOINT))
     details += d("FEATURE_WIFI_DIRECT", pm.hasSystemFeature(PackageManager.FEATURE_WIFI_DIRECT))
 
-    val bands = listOfNotNull("2.4".takeIf { b24 == true }, "5".takeIf { b5 == true }, "6".takeIf { b6 == true }, "60".takeIf { b60 == true })
+    val bands = listOfNotNull("2.4".takeIf { b24 == true || (b24 == null && (b5 != null || b6 != null)) }, "5".takeIf { b5 == true }, "6".takeIf { b6 == true }, "60".takeIf { b60 == true })
     val best = stds.filter { it != ScanResult.WIFI_STANDARD_11AD }.maxByOrNull { stdRank(it) }
     val summary = txt(
         R.string.wifi_s_caps,

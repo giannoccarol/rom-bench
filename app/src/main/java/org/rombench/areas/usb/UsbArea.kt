@@ -17,9 +17,11 @@ object UsbArea : Area {
     override val icon: ImageVector = Icons.Outlined.Usb
     override val group = AreaGroup.SYSTEM
 
-    override suspend fun autoCheck(ctx: Context): List<TestResult> = emptyList()
+    /** sysfs and framework reads, plus up to 2 s for a port that is still enumerating. */
+    override val autoSeconds = 4
+
+    override suspend fun autoCheck(ctx: Context): List<TestResult> = runChecks(ctx)
 
     @Composable
-    override fun Content() {
-    }
+    override fun Content() = UsbContent(this)
 }

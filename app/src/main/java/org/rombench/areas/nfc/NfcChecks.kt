@@ -101,6 +101,8 @@ internal fun NfcArea.runChecks(ctx: Context): List<TestResult> {
             details += d("Observe mode supported", yes(runCatching { a.isObserveModeSupported }.getOrNull()))
             details += d("Reader option supported", yes(runCatching { a.isReaderOptionSupported }.getOrNull()))
             details += d("Reader option enabled", yes(runCatching { a.isReaderOptionEnabled }.getOrNull()))
+        }
+        if (Build.VERSION.SDK_INT >= 36) {
             details += d("Tag intent app preference", yes(runCatching { a.isTagIntentAppPreferenceSupported }.getOrNull()))
         }
         out += if (enabled) result("adapter", tAdapter, Status.PASS, txt(R.string.nfc_s_on), null, details)

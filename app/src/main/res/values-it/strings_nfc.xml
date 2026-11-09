@@ -47,7 +47,7 @@
     <string name="nfc_ui_waiting">Appoggia un tag, una carta contactless o un biglietto dei trasporti sul retro del telefono, vicino all\'antenna NFC.</string>
     <string name="nfc_ui_parse_error">Il tag è stato rilevato ma non è stato possibile decodificarlo.</string>
     <string name="nfc_ui_reader_error">Impossibile avviare il lettore (%1$s).</string>
-    <string name="nfc_ui_last_tag">Ultimo tag (letto %1$d volte)</string>
+    <string name="nfc_ui_last_tag">Ultimo tag (letture: %1$d)</string>
     <string name="nfc_ui_records">Record NDEF</string>
     <string name="nfc_ui_reader_hint">Una lettura riuscita viene salvata automaticamente come risultato. Si leggono solo i dati che il tag fornisce senza autenticazione; non viene scritto nulla.</string>
 </resources>
