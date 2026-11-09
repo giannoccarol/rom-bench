@@ -329,7 +329,8 @@ internal fun evaluate(area: Area, c: Collector): TestResult {
     val issues = mutableListOf<Pair<Status, Txt>>()
     if (st.badValues > 0) issues += Status.FAIL to txt(R.string.sensors_r_nan, st.badValues)
     if (st.nonMonotonic > 0) issues += Status.WARN to txt(R.string.sensors_r_timestamps, st.nonMonotonic)
-    if (st.offsetMs > 1000 || st.offsetMs < -100) issues += Status.WARN to txt(R.string.sensors_r_clock, fmt1(st.offsetMs))
+    // On-change sensors may legitimately replay their last (old) event to a new listener.
+    if (e.mode == Mode.CONTINUOUS && (st.offsetMs > 1000 || st.offsetMs < -100)) issues += Status.WARN to txt(R.string.sensors_r_clock, fmt1(st.offsetMs))
     if (e.mode == Mode.CONTINUOUS && st.n >= 3) {
         val expected = 1e6 / e.autoPeriodUs
         if (st.rateHz < expected * 0.5) issues += Status.WARN to txt(R.string.sensors_r_rate_low, fmt1(st.rateHz), fmt1(expected))
