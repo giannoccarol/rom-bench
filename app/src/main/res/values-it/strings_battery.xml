@@ -2,4 +2,52 @@
 <resources>
     <string name="battery_title">Batteria e ricarica</string>
     <string name="battery_subtitle">Corrente, tensione, temperatura, caricatore</string>
+    <string name="battery_r_present">Batteria</string>
+    <string name="battery_r_voltage">Tensione</string>
+    <string name="battery_r_temp">Temperatura</string>
+    <string name="battery_r_current">Corrente</string>
+    <string name="battery_r_charger">Caricatore</string>
+    <string name="battery_r_health">Salute e capacità</string>
+    <string name="battery_r_supplies">Driver di alimentazione</string>
+    <string name="battery_r_charge_test">Ricarica rilevata</string>
+    <string name="battery_r_charge_speed">Velocità di ricarica come previsto</string>
+    <string name="battery_r_charge_pc">Si ricarica da una porta del PC</string>
+    <string name="battery_absent">Nessuna batteria rilevata</string>
+    <string name="battery_absent_why">L\'HAL della batteria/healthd non vede la batteria: controlla il driver del fuel gauge (nodo power_supply \"battery\") e l\'HAL health.</string>
+    <string name="battery_level">%1$d %%, %2$s</string>
+    <string name="battery_not_reported">Non riportata</string>
+    <string name="battery_voltage_missing_why">Il fuel gauge non espone voltage_now o l\'HAL health non riesce a leggerlo.</string>
+    <string name="battery_voltage_uv_why">Sembra in µV dove Android si aspetta mV: l\'HAL health non scala voltage_now.</string>
+    <string name="battery_voltage_v_why">Sembra in volt dove Android si aspetta mV: la scala dell\'HAL health è sbagliata.</string>
+    <string name="battery_voltage_range_why">Fuori da 3,0–4,6 V per una cella Li-ion: scala sbagliata o problema del fuel gauge.</string>
+    <string name="battery_temp_missing_why">La temperatura è esattamente 0: il termistore della batteria non viene letto (nodo temp mancante o canale ADC sbagliato).</string>
+    <string name="battery_temp_odd_why">Temperatura non plausibile: scala o canale del termistore sbagliati.</string>
+    <string name="battery_temp_hot_why">La batteria è calda e la ricarica può essere limitata. Ripeti quando si è raffreddata.</string>
+    <string name="battery_current_missing_why">CURRENT_NOW non disponibile: il fuel gauge non espone current_now o healthd non lo legge. Non si può misurare la velocità di ricarica.</string>
+    <string name="battery_current_ma_why">Il valore sembra in mA dove Android si aspetta µA (un telefono con lo schermo acceso assorbe più di 20 mA): il driver o l\'HAL health usano l\'unità sbagliata.</string>
+    <string name="battery_current_sign_why">Il segno è opposto alla convenzione AOSP (positivo = in carica). Frequente sui fuel gauge Qualcomm; le app possono mostrare la carica come scarica.</string>
+    <string name="battery_current_static_why">Il valore non è cambiato in 3 s; alcuni fuel gauge si aggiornano lentamente. Guarda il grafico in tempo reale.</string>
+    <string name="battery_unplugged">Non collegato</string>
+    <string name="battery_unplugged_hint">Collega un caricatore e riprova, oppure usa la prova di ricarica in tempo reale qui sotto.</string>
+    <string name="battery_charging_via">In carica via %1$s a %2$s mA</string>
+    <string name="battery_plugged_not_charging">Collegato (%1$s) ma %2$s</string>
+    <string name="battery_plugged_not_charging_why">Il caricatore è rilevato ma la batteria non si carica: configurazione del chip di ricarica, limite di corrente in ingresso (AICL) o limite di temperatura. Controlla i valori del power_supply usb.</string>
+    <string name="battery_plugged_full">Collegato (%1$s), batteria carica</string>
+    <string name="battery_capacity_pct">%1$s %% della capacità di progetto</string>
+    <string name="battery_capacity_low_why">Il fuel gauge riporta meno del 70 per cento della capacità di progetto: batteria usurata o capacità appresa sbagliata.</string>
+    <string name="battery_health_bad_why">L\'HAL health segnala un guasto (temperatura, tensione o errore).</string>
+    <string name="battery_capacity_unknown_why">charge_full / charge_full_design non sono leggibili su questa ROM.</string>
+    <string name="battery_supplies_count">%1$d nodi: %2$s</string>
+    <string name="battery_supplies_none_why">/sys/class/power_supply è vuoto o non leggibile dalle app (SELinux).</string>
+    <string name="battery_charge_test_ok">In carica via %1$s, fino a %2$s mA</string>
+    <string name="battery_sec_live">In tempo reale</string>
+    <string name="battery_m_level">livello</string>
+    <string name="battery_live_line">%1$s · %2$s · %3$s W</string>
+    <string name="battery_chart_current">Corrente (positiva = in carica)</string>
+    <string name="battery_chart_voltage">Tensione</string>
+    <string name="battery_sec_charge">Prova di ricarica</string>
+    <string name="battery_charge_help">Collega un caricatore: la prova passa da sola quando vede una vera corrente di carica. Poi rispondi alle domande.</string>
+    <string name="battery_q_charge_speed">Con il solito caricatore, la ricarica è veloce come previsto?</string>
+    <string name="battery_q_charge_pc">Si ricarica da una porta USB del PC?</string>
+    <string name="battery_sec_sysfs">Nodi di alimentazione</string>
 </resources>

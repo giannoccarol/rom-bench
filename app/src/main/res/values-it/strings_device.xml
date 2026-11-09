@@ -2,4 +2,36 @@
 <resources>
     <string name="device_title">Riepilogo dispositivo</string>
     <string name="device_subtitle">Build, kernel, SELinux, patch, proprietà</string>
+    <string name="device_r_build">Build</string>
+    <string name="device_r_selinux">SELinux</string>
+    <string name="device_r_patch">Patch di sicurezza</string>
+    <string name="device_r_kernel">Kernel</string>
+    <string name="device_r_fingerprint">Fingerprint della build</string>
+    <string name="device_r_boot">Tipo di build e avvio verificato</string>
+    <string name="device_r_gms">Google Play Services</string>
+    <string name="device_selinux_enforcing">Enforcing</string>
+    <string name="device_selinux_permissive">Permissive</string>
+    <string name="device_selinux_permissive_why">Va bene durante il porting, ma una build di rilascio dovrebbe essere enforcing: in permissive i rifiuti non si vedono, le funzioni si rompono dopo e la sicurezza è più debole.</string>
+    <string name="device_selinux_unknown_why">Su questa ROM le app non possono leggere lo stato di SELinux.</string>
+    <string name="device_patch_age">%1$s (di %2$d mesi fa)</string>
+    <string name="device_patch_unparsable">ro.build.version.security_patch è vuota o non è una data.</string>
+    <string name="device_patch_old_why">La patch di sicurezza ha più di un anno.</string>
+    <string name="device_kernel_legacy">%1$s, più vecchio di %2$s</string>
+    <string name="device_kernel_legacy_why">Più vecchio del kernel minimo previsto da Android per questa versione: eBPF, PSI o io_uring dipendono da backport. Normale nei port legacy, utile da sapere quando si indagano netd, lmkd o bpfloader.</string>
+    <string name="device_fp_same">Tutti i %1$d fingerprint coincidono</string>
+    <string name="device_fp_diff">%1$d fingerprint di partizione diversi</string>
+    <string name="device_fp_diff_why">Le partizioni vengono da build diverse (vendor precompilato, firmware di un\'altra ROM). Normale nei port; da citare nelle segnalazioni.</string>
+    <string name="device_boot_summary">%1$s, avvio verificato %2$s</string>
+    <string name="device_boot_orange">Bootloader sbloccato (stato orange).</string>
+    <string name="device_gms_present">Installati</string>
+    <string name="device_gms_absent">Non installati</string>
+    <string name="device_gms_absent_why">Le app che richiedono Play Services (posizione fused, notifiche push) si comportano diversamente; ROM Bench non ne ha bisogno.</string>
+    <string name="device_sec_build">Build</string>
+    <string name="device_sec_kernel">Kernel e avvio</string>
+    <string name="device_sec_security">Sicurezza</string>
+    <string name="device_sec_props">Proprietà di sistema</string>
+    <string name="device_cmdline_hint">Con SELinux enforcing /proc/cmdline è spesso bloccato per le app.</string>
+    <string name="device_props_count">%1$d proprietà leggibili</string>
+    <string name="device_props_filter">Filtro (nome o valore)</string>
+    <string name="device_props_more">Altre %1$d: affina il filtro.</string>
 </resources>

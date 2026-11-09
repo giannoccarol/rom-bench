@@ -2,4 +2,52 @@
 <resources>
     <string name="battery_title">Battery &amp; charging</string>
     <string name="battery_subtitle">Current, voltage, temperature, charger</string>
+    <string name="battery_r_present">Battery</string>
+    <string name="battery_r_voltage">Voltage</string>
+    <string name="battery_r_temp">Temperature</string>
+    <string name="battery_r_current">Current</string>
+    <string name="battery_r_charger">Charger</string>
+    <string name="battery_r_health">Health and capacity</string>
+    <string name="battery_r_supplies">Power supply drivers</string>
+    <string name="battery_r_charge_test">Charging observed</string>
+    <string name="battery_r_charge_speed">Charging speed as expected</string>
+    <string name="battery_r_charge_pc">Charges from a PC port</string>
+    <string name="battery_absent">No battery reported</string>
+    <string name="battery_absent_why">The battery HAL/healthd sees no battery: check the fuel gauge driver (power_supply \"battery\" node) and the health HAL.</string>
+    <string name="battery_level">%1$d %%, %2$s</string>
+    <string name="battery_not_reported">Not reported</string>
+    <string name="battery_voltage_missing_why">The fuel gauge does not export voltage_now, or the health HAL cannot read it.</string>
+    <string name="battery_voltage_uv_why">Looks like µV where Android expects mV: the health HAL does not scale voltage_now.</string>
+    <string name="battery_voltage_v_why">Looks like volts where Android expects mV: the health HAL scale is wrong.</string>
+    <string name="battery_voltage_range_why">Outside 3.0–4.6 V for a Li-ion cell: wrong scale or a fuel gauge problem.</string>
+    <string name="battery_temp_missing_why">Temperature is exactly 0: the battery thermistor is not read (missing temp node or wrong ADC channel).</string>
+    <string name="battery_temp_odd_why">Implausible temperature: wrong scale or thermistor channel.</string>
+    <string name="battery_temp_hot_why">The battery is hot; charging may be throttled. Repeat after it cools down.</string>
+    <string name="battery_current_missing_why">CURRENT_NOW is not available: the fuel gauge does not export current_now or healthd does not read it. Charge speed cannot be measured.</string>
+    <string name="battery_current_ma_why">The value looks like mA where Android expects µA (a phone with the screen on draws more than 20 mA): the driver or health HAL uses the wrong unit.</string>
+    <string name="battery_current_sign_why">The sign is opposite to the AOSP convention (positive = charging). Common on Qualcomm gauges; apps may show charging as discharging.</string>
+    <string name="battery_current_static_why">The value did not change in 3 s; some gauges update slowly. Watch the live chart.</string>
+    <string name="battery_unplugged">Not plugged in</string>
+    <string name="battery_unplugged_hint">Plug in a charger and run again, or use the live charging test below.</string>
+    <string name="battery_charging_via">Charging via %1$s at %2$s mA</string>
+    <string name="battery_plugged_not_charging">Plugged in (%1$s) but %2$s</string>
+    <string name="battery_plugged_not_charging_why">A charger is detected but the battery does not charge: charger IC configuration, input current limit (AICL) or a temperature limit. Check the usb power_supply values.</string>
+    <string name="battery_plugged_full">Plugged in (%1$s), battery full</string>
+    <string name="battery_capacity_pct">%1$s %% of design capacity</string>
+    <string name="battery_capacity_low_why">The fuel gauge reports less than 70 per cent of the design capacity: a worn battery or a wrong learned capacity.</string>
+    <string name="battery_health_bad_why">The health HAL reports a fault (temperature, voltage or failure).</string>
+    <string name="battery_capacity_unknown_why">charge_full / charge_full_design are not readable on this ROM.</string>
+    <string name="battery_supplies_count">%1$d nodes: %2$s</string>
+    <string name="battery_supplies_none_why">/sys/class/power_supply is empty or not readable by apps (SELinux).</string>
+    <string name="battery_charge_test_ok">Charging via %1$s, up to %2$s mA</string>
+    <string name="battery_sec_live">Live</string>
+    <string name="battery_m_level">level</string>
+    <string name="battery_live_line">%1$s · %2$s · %3$s W</string>
+    <string name="battery_chart_current">Current (positive = charging)</string>
+    <string name="battery_chart_voltage">Voltage</string>
+    <string name="battery_sec_charge">Charging test</string>
+    <string name="battery_charge_help">Plug in a charger: the test passes by itself when real charging current is seen. Then answer the questions.</string>
+    <string name="battery_q_charge_speed">With the usual charger, is charging as fast as expected?</string>
+    <string name="battery_q_charge_pc">Does it charge from a PC USB port?</string>
+    <string name="battery_sec_sysfs">Power supply nodes</string>
 </resources>

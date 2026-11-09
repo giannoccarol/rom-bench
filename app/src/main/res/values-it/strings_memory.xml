@@ -2,4 +2,49 @@
 <resources>
     <string name="memory_title">Memoria e archiviazione</string>
     <string name="memory_subtitle">RAM, zram, partizioni e velocità di I/O</string>
+    <string name="memory_r_ram">RAM</string>
+    <string name="memory_r_swap">Swap / zram</string>
+    <string name="memory_r_lmkd">Low memory killer</string>
+    <string name="memory_r_data">Partizione dati</string>
+    <string name="memory_r_flash">Chip di memoria</string>
+    <string name="memory_r_io">Velocità di archiviazione (rapida)</string>
+    <string name="memory_r_io_long">Velocità di archiviazione (benchmark)</string>
+    <string name="memory_r_io_sd">Velocità della scheda SD</string>
+    <string name="memory_r_volumes">Volumi di archiviazione</string>
+    <string name="memory_ram_summary">%1$s totali, %2$s disponibili</string>
+    <string name="memory_ram_low_why">Subito dopo l\'avvio è disponibile meno del 10 per cento della RAM: un servizio che perde memoria, un CMA/carveout grande o zram assente.</string>
+    <string name="memory_swap_none">Nessuno swap</string>
+    <string name="memory_swap_none_why">I telefoni con poca RAM si affidano a zram; senza, lmkd chiude le app molto prima. Controlla la voce zramsize nel fstab e il driver zram.</string>
+    <string name="memory_swap_summary">%1$s (%2$s)</string>
+    <string name="memory_lmkd_stopped">lmkd è %1$s</string>
+    <string name="memory_lmkd_stopped_why">lmkd non è in esecuzione: senza, il sistema si blocca o si riavvia quando la memoria finisce. Una configurazione ro.lmk sbagliata lo fa uscire all\'avvio.</string>
+    <string name="memory_lmkd_combo">ro.lmk.use_psi=false con i livelli minfree</string>
+    <string name="memory_lmkd_combo_why">use_minfree_levels=true senza use_new_strategy=true e con PSI disattivato fa uscire lmkd nelle versioni recenti di Android, con riavvii in loop.</string>
+    <string name="memory_lmkd_nopsi">Modalità PSI senza PSI nel kernel</string>
+    <string name="memory_lmkd_nopsi_why">lmkd usa PSI ma manca /proc/pressure/memory: abilita CONFIG_PSI (o fai il backport) oppure configura i livelli minfree con la nuova strategia.</string>
+    <string name="memory_lmkd_psi">Basato su PSI, supportato dal kernel</string>
+    <string name="memory_lmkd_minfree">Livelli minfree</string>
+    <string name="memory_unreadable">Non leggibile</string>
+    <string name="memory_data_summary">%1$s liberi su %2$s (%3$s)</string>
+    <string name="memory_data_full_why">Meno del 10 per cento libero: app e aggiornamenti possono non riuscire.</string>
+    <string name="memory_flash_unreadable_why">Su questa ROM le app non possono leggere informazioni sull\'eMMC/UFS.</string>
+    <string name="memory_flash_eol_why">L\'eMMC segnala i blocchi di riserva come consumati (pre_eol_info): fai un backup e aspettati guasti.</string>
+    <string name="memory_io_failed">Benchmark non riuscito</string>
+    <string name="memory_io_failed_why">Scrivere un file di prova nei dati dell\'app non è riuscito: /data piena o un errore di I/O (cerca errori mmc nel dmesg).</string>
+    <string name="memory_io_summary">Scrittura %1$s MB/s, lettura %2$s MB/s, 4K %3$s IOPS</string>
+    <string name="memory_io_slow_why">Scritture molto lente: l\'eMMC può lavorare in una modalità di bus lenta (senza HS200/HS400) o il filesystem è montato con opzioni sync/discard.</string>
+    <string name="memory_volumes_summary">%1$d volumi, %2$d rimovibili</string>
+    <string name="memory_sec_ram">RAM</string>
+    <string name="memory_m_total">totale</string>
+    <string name="memory_m_available">disponibile</string>
+    <string name="memory_m_swap_used">swap usato</string>
+    <string name="memory_sec_storage">Archiviazione</string>
+    <string name="memory_sec_bench">Benchmark di archiviazione</string>
+    <string name="memory_bench_help">Scrive un file con fsync, lo rilegge ed esegue scritture casuali da 4K. Alla fine il file viene eliminato.</string>
+    <string name="memory_bench_sd">Su scheda SD</string>
+    <string name="memory_bench_start">Avvia benchmark</string>
+    <string name="memory_sec_mounts">Filesystem montati</string>
+    <string name="memory_mounts_count">%1$d filesystem a blocchi o utente su %2$d mount</string>
+    <string name="memory_show_all">Mostra tutti</string>
+    <string name="memory_show_less">Mostra meno</string>
 </resources>

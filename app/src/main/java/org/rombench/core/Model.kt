@@ -27,7 +27,8 @@ sealed interface Txt {
 
 data class ResTxt(@StringRes val id: Int, val args: List<Any?> = emptyList()) : Txt {
     override fun resolve(ctx: Context): String {
-        if (args.isEmpty()) return ctx.getString(id)
+        // Strings written for String.format escape % as %%; unformatted ones are unescaped here.
+        if (args.isEmpty()) return ctx.getString(id).replace("%%", "%")
         val resolved = args.map { if (it is Txt) it.resolve(ctx) else it ?: "—" }.toTypedArray()
         return try {
             ctx.getString(id, *resolved)

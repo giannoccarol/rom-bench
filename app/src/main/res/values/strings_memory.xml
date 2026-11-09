@@ -2,4 +2,49 @@
 <resources>
     <string name="memory_title">Memory &amp; storage</string>
     <string name="memory_subtitle">RAM, zram, partitions and I/O speed</string>
+    <string name="memory_r_ram">RAM</string>
+    <string name="memory_r_swap">Swap / zram</string>
+    <string name="memory_r_lmkd">Low memory killer</string>
+    <string name="memory_r_data">Data partition</string>
+    <string name="memory_r_flash">Flash chip</string>
+    <string name="memory_r_io">Storage speed (quick)</string>
+    <string name="memory_r_io_long">Storage speed (benchmark)</string>
+    <string name="memory_r_io_sd">SD card speed</string>
+    <string name="memory_r_volumes">Storage volumes</string>
+    <string name="memory_ram_summary">%1$s total, %2$s available</string>
+    <string name="memory_ram_low_why">Less than 10 per cent of RAM is available right after start: a leaking service, a big CMA/carveout or missing zram.</string>
+    <string name="memory_swap_none">No swap</string>
+    <string name="memory_swap_none_why">Phones with little RAM rely on zram; without it lmkd kills apps much earlier. Check the fstab zramsize entry and the zram driver.</string>
+    <string name="memory_swap_summary">%1$s (%2$s)</string>
+    <string name="memory_lmkd_stopped">lmkd is %1$s</string>
+    <string name="memory_lmkd_stopped_why">lmkd is not running: without it the system freezes or reboots when memory runs out. A wrong ro.lmk configuration makes it exit at start.</string>
+    <string name="memory_lmkd_combo">ro.lmk.use_psi=false with minfree levels</string>
+    <string name="memory_lmkd_combo_why">use_minfree_levels=true without use_new_strategy=true and with PSI disabled makes lmkd exit on recent Android versions, which leads to boot loops.</string>
+    <string name="memory_lmkd_nopsi">PSI mode without kernel PSI</string>
+    <string name="memory_lmkd_nopsi_why">lmkd uses PSI but /proc/pressure/memory is missing: enable CONFIG_PSI (or backport it) or configure minfree levels with the new strategy.</string>
+    <string name="memory_lmkd_psi">PSI based, kernel supports it</string>
+    <string name="memory_lmkd_minfree">minfree levels</string>
+    <string name="memory_unreadable">Not readable</string>
+    <string name="memory_data_summary">%1$s free of %2$s (%3$s)</string>
+    <string name="memory_data_full_why">Less than 10 per cent free: apps and updates may fail.</string>
+    <string name="memory_flash_unreadable_why">No eMMC/UFS information is readable by apps on this ROM.</string>
+    <string name="memory_flash_eol_why">The eMMC reports its reserved blocks as worn (pre_eol_info): back up and expect failures.</string>
+    <string name="memory_io_failed">Benchmark failed</string>
+    <string name="memory_io_failed_why">Writing a test file in the app data failed: /data full or an I/O error (check dmesg for mmc errors).</string>
+    <string name="memory_io_summary">Write %1$s MB/s, read %2$s MB/s, 4K %3$s IOPS</string>
+    <string name="memory_io_slow_why">Very slow writes: the eMMC may run in a slow bus mode (no HS200/HS400), or the filesystem is mounted with sync/discard options.</string>
+    <string name="memory_volumes_summary">%1$d volumes, %2$d removable</string>
+    <string name="memory_sec_ram">RAM</string>
+    <string name="memory_m_total">total</string>
+    <string name="memory_m_available">available</string>
+    <string name="memory_m_swap_used">swap used</string>
+    <string name="memory_sec_storage">Storage</string>
+    <string name="memory_sec_bench">Storage benchmark</string>
+    <string name="memory_bench_help">Writes a file with fsync, reads it back and does random 4K writes. The file is deleted afterwards.</string>
+    <string name="memory_bench_sd">On SD card</string>
+    <string name="memory_bench_start">Run benchmark</string>
+    <string name="memory_sec_mounts">Mounted filesystems</string>
+    <string name="memory_mounts_count">%1$d block or user filesystems of %2$d mounts</string>
+    <string name="memory_show_all">Show all</string>
+    <string name="memory_show_less">Show fewer</string>
 </resources>
