@@ -2,4 +2,94 @@
 <resources>
     <string name="bluetooth_title">Bluetooth</string>
     <string name="bluetooth_subtitle">Adattatore, scansione BLE e classica</string>
+
+    <!-- Result titles -->
+    <string name="bluetooth_t_adapter">Adattatore Bluetooth</string>
+    <string name="bluetooth_t_hal">HAL e servizi Bluetooth</string>
+    <string name="bluetooth_t_address">Indirizzo Bluetooth</string>
+    <string name="bluetooth_t_le">Funzioni Bluetooth LE</string>
+    <string name="bluetooth_t_bonded">Dispositivi associati</string>
+    <string name="bluetooth_t_ble_scan">Scansione BLE</string>
+    <string name="bluetooth_t_discovery">Ricerca classica</string>
+
+    <!-- Summaries -->
+    <string name="bluetooth_s_no_bt">Questo dispositivo non ha il Bluetooth</string>
+    <string name="bluetooth_s_no_adapter">Nessun adattatore Bluetooth</string>
+    <string name="bluetooth_s_state">Adattatore %1$s</string>
+    <string name="bluetooth_s_on">Bluetooth acceso</string>
+    <string name="bluetooth_s_off">Bluetooth spento</string>
+    <string name="bluetooth_s_stuck">Bloccato durante l\'accensione</string>
+    <string name="bluetooth_s_hal">Servizi Bluetooth: %1$d</string>
+    <string name="bluetooth_s_hal_crash">Crash continui: %1$s</string>
+    <string name="bluetooth_s_hal_none">Nessuna proprietà Bluetooth visibile</string>
+    <string name="bluetooth_s_addr_hidden">Indirizzo nascosto alle app</string>
+    <string name="bluetooth_s_addr_placeholder">Indirizzo segnaposto</string>
+    <string name="bluetooth_s_addr_ok">Indirizzo configurato</string>
+    <string name="bluetooth_s_le5">Funzioni Bluetooth 5: %1$s</string>
+    <string name="bluetooth_s_le4">Funzioni Bluetooth 4.x: %1$s</string>
+    <string name="bluetooth_s_bonded">Dispositivi associati: %1$d</string>
+    <string name="bluetooth_s_bonded_unknown">Dispositivi associati sconosciuti</string>
+    <string name="bluetooth_s_no_scanner">Nessuno scanner LE</string>
+    <string name="bluetooth_s_scan_failed">Scansione fallita: %1$s</string>
+    <string name="bluetooth_s_ble">Dispositivi: %1$d, il più forte a %2$d dBm</string>
+    <string name="bluetooth_s_ble_none">Nessun dispositivo BLE visto</string>
+    <string name="bluetooth_s_disc">Dispositivi: %1$d, il più forte a %2$d dBm</string>
+    <string name="bluetooth_s_disc_none">Nessun dispositivo rilevabile nei dintorni</string>
+    <string name="bluetooth_s_disc_refused">Ricerca rifiutata</string>
+    <string name="bluetooth_s_disc_no_start">La ricerca non è mai partita</string>
+
+    <!-- Reasons -->
+    <string name="bluetooth_r_no_bt">Nessuna funzione Bluetooth e nessun adattatore: non c\'è niente da provare.</string>
+    <string name="bluetooth_r_no_adapter">FEATURE_BLUETOOTH è dichiarata ma non c\'è un adattatore: il servizio Bluetooth (com.android.bluetooth) non è partito o è andato in crash. Controlla BluetoothManagerService nel logcat.</string>
+    <string name="bluetooth_r_no_feature">C\'è un adattatore ma FEATURE_BLUETOOTH non è dichiarata: manca android.hardware.bluetooth.xml in vendor/etc/permissions, quindi le app che richiedono il Bluetooth vengono nascoste.</string>
+    <string name="bluetooth_r_hard_block">rfkill indica un blocco hardware sul Bluetooth: il GPIO di alimentazione o l\'interruttore della scheda tengono spento il chip anche se lo stack lo crede acceso.</string>
+    <string name="bluetooth_r_stuck">Il Bluetooth non è arrivato a ON entro 8 s. Di solito è l\'avvio del controller: download del firmware (rampatch / nvm_tlv), trasporto UART/SMD o sequenza di alimentazione del chip. Cerca timeout di hci e bt_vendor nel logcat.</string>
+    <string name="bluetooth_r_off">Accendi il Bluetooth dalla schermata dell\'area e ripeti. Se torna spento da solo, il controller non si è avviato (firmware, trasporto, alimentazione).</string>
+    <string name="bluetooth_r_needs_on">Serve il Bluetooth acceso.</string>
+    <string name="bluetooth_r_hal_crash">Un servizio Bluetooth si riavvia in continuazione. Leggi tombstone e logcat: un HAL del vendor che va in crash impedisce all\'adattatore di accendersi.</string>
+    <string name="bluetooth_r_hal_none">La ROM nasconde alle app le proprietà Bluetooth. Non è un guasto.</string>
+    <string name="bluetooth_r_addr_hidden">Da Android 6 le app ricevono 02:00:00:00:00:00 al posto dell\'indirizzo reale, e l\'impostazione protetta è riservata. Non è un guasto: l\'indirizzo si legge in Impostazioni → Informazioni sul telefono o con adb.</string>
+    <string name="bluetooth_r_addr_placeholder">L\'indirizzo è un segnaposto noto (tutto a zero, 00:00:00:00:5A:AD dai valori NV predefiniti Qualcomm, o una sequenza di prova): l\'indirizzo BD reale non è stato configurato. Tutti i telefoni con questa ROM lo condivideranno e l\'associazione può confondere i dispositivi.</string>
+    <string name="bluetooth_r_no_le_feature">L\'adattatore gestisce il LE ma FEATURE_BLUETOOTH_LE non è dichiarata: manca android.hardware.bluetooth_le.xml e le app per smartwatch, tracker e braccialetti non si installano.</string>
+    <string name="bluetooth_r_le_minimal">Niente pubblicità multipla né offload: tipico di un controller Bluetooth 4.0, o di un HAL del vendor che non riporta le funzioni LE (le_local_supported_features).</string>
+    <string name="bluetooth_r_bonded_unknown">Non è stato possibile leggere l\'elenco dei dispositivi associati.</string>
+    <string name="bluetooth_r_no_scanner">Il Bluetooth è acceso ma getBluetoothLeScanner() ha restituito null: lo stack non supporta la scansione LE su questo controller.</string>
+    <string name="bluetooth_r_scan_failed">Lo stack ha rifiutato la scansione LE. REGISTRATION_FAILED o INTERNAL_ERROR indicano che il controller ha respinto i comandi di scansione (firmware o HAL); TOO_FREQUENTLY vuol dire più di 5 scansioni in 30 s: aspetta e ripeti.</string>
+    <string name="bluetooth_r_location_off">La geolocalizzazione è spenta: Android non consegna risultati di scansione alle app che potrebbero usarli per la posizione. Accendila e ripeti.</string>
+    <string name="bluetooth_r_ble_none">Nessun dispositivo BLE visto in 8 s. Quasi ovunque ce n\'è qualcuno (telefoni, TV, auricolari, tracker): se ce ne sono nei dintorni, il controller non riceve. Sospetta il firmware (rampatch/nvm), il percorso d\'antenna o un\'impostazione di coesistenza che lascia la radio al Wi-Fi.</string>
+    <string name="bluetooth_r_rssi_stuck">Tutti i dispositivi hanno lo stesso RSSI (%1$d dBm): il controller o l\'HAL riportano un valore fisso.</string>
+    <string name="bluetooth_r_rssi_odd">Alcuni dispositivi hanno valori RSSI impossibili (da 0 dBm in su, o sotto -120 dBm).</string>
+    <string name="bluetooth_r_disc_refused">startDiscovery() ha restituito false: lo stack non è pronto o mancano i permessi.</string>
+    <string name="bluetooth_r_disc_no_start">La ricerca è stata accettata ma non è mai risultata avviata e non ha trovato niente: il controller non esegue l\'inquiry HCI.</string>
+    <string name="bluetooth_r_disc_none">L\'inquiry è stata eseguita ma nessun dispositivo classico ha risposto. La maggior parte di telefoni e cuffie è rilevabile solo in modalità di associazione: mettine uno in associazione e ripeti.</string>
+
+    <!-- Screen -->
+    <string name="bluetooth_ui_adapter">Adattatore</string>
+    <string name="bluetooth_ui_no_adapter">Questo dispositivo non ha un adattatore Bluetooth.</string>
+    <string name="bluetooth_ui_off">Il Bluetooth è spento. Accendilo per la scansione; Android chiede conferma.</string>
+    <string name="bluetooth_ui_turning_on">Accensione in corso…</string>
+    <string name="bluetooth_ui_turn_on">Accendi</string>
+    <string name="bluetooth_ui_settings">Impostazioni Bluetooth</string>
+    <string name="bluetooth_ui_enable_failed">Impossibile chiedere l\'accensione del Bluetooth (%1$s).</string>
+    <string name="bluetooth_ui_scan_title">Dispositivi nei dintorni</string>
+    <string name="bluetooth_ui_scan_sub">Scansione BLE e inquiry classica insieme, 12 s</string>
+    <string name="bluetooth_ui_scan_perm">Concedi qui sopra i permessi di dispositivi nelle vicinanze e posizione per la scansione.</string>
+    <string name="bluetooth_ui_location_off">La geolocalizzazione è spenta: la scansione potrebbe non trovare nulla finché non la accendi.</string>
+    <string name="bluetooth_ui_scan">Scansiona</string>
+    <string name="bluetooth_ui_scan_hint">Metti in associazione delle cuffie o un altro telefono per vedere anche i dispositivi classici.</string>
+    <string name="bluetooth_ui_counts">Dispositivi: %1$d · LE %2$d · classici %3$d</string>
+    <string name="bluetooth_ui_more">Non mostrati: %1$d</string>
+    <string name="bluetooth_ui_scan_error">Errore di scansione: %1$s</string>
+    <string name="bluetooth_ui_disc_refused">Ricerca classica rifiutata dallo stack.</string>
+    <string name="bluetooth_ui_unnamed">(senza nome)</string>
+    <string name="bluetooth_ui_paired">associato</string>
+    <string name="bluetooth_ui_paired_title">Dispositivi associati</string>
+    <string name="bluetooth_ui_paired_perm">Concedi il permesso dispositivi nelle vicinanze per vedere i dispositivi associati.</string>
+    <string name="bluetooth_ui_paired_none">Nessun dispositivo associato.</string>
+    <string name="bluetooth_guided_title">Dispositivi audio</string>
+    <string name="bluetooth_g_hint">Associa delle cuffie, degli auricolari o una cassa dalle impostazioni Bluetooth, poi riproduci un po\' di musica e, se puoi, fai una breve chiamata.</string>
+    <string name="bluetooth_g_audio">Riproduzione audio Bluetooth</string>
+    <string name="bluetooth_g_audio_q">Si associa e riproduce la musica in modo pulito, senza interruzioni o fruscii?</string>
+    <string name="bluetooth_g_call">Audio delle chiamate Bluetooth</string>
+    <string name="bluetooth_g_call_q">Durante una chiamata con le cuffie, le due persone si sentono a vicenda?</string>
 </resources>

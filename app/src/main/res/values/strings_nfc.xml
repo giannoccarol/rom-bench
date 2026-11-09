@@ -2,4 +2,52 @@
 <resources>
     <string name="nfc_title">NFC</string>
     <string name="nfc_subtitle">Controller state and tag reading</string>
+
+    <!-- Result titles -->
+    <string name="nfc_t_feature">NFC features</string>
+    <string name="nfc_t_adapter">NFC adapter</string>
+    <string name="nfc_t_hal">NFC controller and HAL</string>
+    <string name="nfc_t_tag">NFC tag reading</string>
+
+    <!-- Summaries -->
+    <string name="nfc_s_feature">NFC declared; extras: %1$s</string>
+    <string name="nfc_s_feature_missing">NFC hardware found, feature missing</string>
+    <string name="nfc_s_none">No NFC on this device</string>
+    <string name="nfc_s_no_service">NFC service not running</string>
+    <string name="nfc_s_on">NFC is on</string>
+    <string name="nfc_s_off">NFC is off</string>
+    <string name="nfc_s_hal">Controller: %1$s</string>
+    <string name="nfc_s_hal_crash">HAL crash loop: %1$s</string>
+    <string name="nfc_s_hal_unbound">Kernel driver without a device</string>
+    <string name="nfc_s_hal_hidden">Controller details hidden</string>
+    <string name="nfc_s_tag">Tag read: %1$s</string>
+
+    <!-- Reasons -->
+    <string name="nfc_r_none">No NFC feature, adapter, HAL or kernel driver: nothing to test.</string>
+    <string name="nfc_r_no_hce">NFC is declared without host card emulation: android.hardware.nfc.hce.xml is missing, so payment and transit apps cannot emulate cards.</string>
+    <string name="nfc_r_feature_missing">The kernel or init shows an NFC controller but FEATURE_NFC is not declared: android.hardware.nfc.xml is missing from vendor/etc/permissions, so the NFC service never starts and Settings has no NFC switch.</string>
+    <string name="nfc_r_no_service">FEATURE_NFC is declared but there is no NfcAdapter: com.android.nfc is not installed or crashed at start, often because the NFC HAL or its config (libnfc-nci.conf, libnfc-nxp.conf) is missing.</string>
+    <string name="nfc_r_off">Turn NFC on in Settings and run again. If the switch turns itself off, the HAL could not initialise the controller (firmware download, wrong config file, I2C or GPIO problem).</string>
+    <string name="nfc_r_hal_crash">An NFC service is restarting in a loop: the HAL crashes while talking to the controller. Check its tombstones and logcat (NfcHal, NxpHal, libnfc).</string>
+    <string name="nfc_r_hal_unbound">An NFC driver is registered on I2C but no device is bound to it: the probe failed. Check the device tree node (I2C address, interrupt, enable and firmware GPIOs, clock request) and dmesg.</string>
+    <string name="nfc_r_hal_hidden">FEATURE_NFC is declared but no NFC properties, services or device nodes are visible to apps (SELinux). Not a fault by itself.</string>
+    <string name="nfc_r_tag_odd">A tag was detected but its UID or technology list is empty: the controller reports incomplete activation data.</string>
+
+    <!-- Screen -->
+    <string name="nfc_ui_state">NFC state</string>
+    <string name="nfc_ui_no_adapter">No NFC adapter available.</string>
+    <string name="nfc_ui_on">NFC is on and ready.</string>
+    <string name="nfc_ui_off">NFC is off: turn it on in Settings.</string>
+    <string name="nfc_ui_settings">NFC settings</string>
+    <string name="nfc_ui_reader">Tag reader</string>
+    <string name="nfc_ui_reader_sub">UID, technologies, ATQA/SAK and NDEF records</string>
+    <string name="nfc_ui_no_activity">The reader needs the app window in the foreground.</string>
+    <string name="nfc_ui_turn_on_first">Turn NFC on first.</string>
+    <string name="nfc_ui_start">Start reading</string>
+    <string name="nfc_ui_waiting">Hold a tag, a contactless card or a transit card against the back of the phone, near the NFC antenna.</string>
+    <string name="nfc_ui_parse_error">The tag was detected but could not be decoded.</string>
+    <string name="nfc_ui_reader_error">Could not start the reader (%1$s).</string>
+    <string name="nfc_ui_last_tag">Last tag (reads: %1$d)</string>
+    <string name="nfc_ui_records">NDEF records</string>
+    <string name="nfc_ui_reader_hint">A successful read is saved as a result automatically. Only data the tag gives without authentication is read; nothing is written.</string>
 </resources>

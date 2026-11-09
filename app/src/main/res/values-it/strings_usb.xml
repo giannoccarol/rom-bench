@@ -1,5 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="usb_title">USB e OTG</string>
-    <string name="usb_subtitle">Stato della porta, modalità host e dispositivi</string>
+    <string name="usb_subtitle">Stato della porta, modalità host e dispositivi collegati</string>
+
+    <!-- Result titles -->
+    <string name="usb_t_port">Porta USB (modalità dispositivo)</string>
+    <string name="usb_t_power">Alimentazione USB in ingresso</string>
+    <string name="usb_t_typec">Ruolo USB Type-C</string>
+    <string name="usb_t_host">Modalità host USB</string>
+    <string name="usb_t_devices">Dispositivi USB collegati</string>
+    <string name="usb_t_storage">Memorie rimovibili</string>
+    <string name="usb_t_input">Dispositivi di input esterni</string>
+    <string name="usb_t_accessory">Modalità accessorio USB</string>
+
+    <!-- Summaries -->
+    <string name="usb_s_no_state">Il framework non fornisce lo stato USB</string>
+    <string name="usb_s_config_mismatch">Richiesta la configurazione %1$s, lo stato è %2$s</string>
+    <string name="usb_s_not_configured">Collegato ma non configurato</string>
+    <string name="usb_s_no_data">Porta %1$s in carica, nessun collegamento dati</string>
+    <string name="usb_s_connected">Collegato a un host: %1$s</string>
+    <string name="usb_s_host_mode">Porta in modalità host</string>
+    <string name="usb_s_idle">Nessun host collegato (funzioni: %1$s)</string>
+    <string name="usb_s_no_supply">Nessuna alimentazione USB in sysfs</string>
+    <string name="usb_s_unplugged">Niente collegato</string>
+    <string name="usb_s_power">Ingresso: %1$s</string>
+    <string name="usb_s_power_mismatch">Caricatore e servizio batteria non concordano</string>
+    <string name="usb_s_typec">Dati %1$s, alimentazione %2$s, partner: %3$s</string>
+    <string name="usb_s_dual_role">Modalità %1$s, dati %2$s, alimentazione %3$s</string>
+    <string name="usb_s_typec_charger">Stato Type-C solo nel driver del caricatore</string>
+    <string name="usb_s_typec_none">Nessuna classe Type-C in sysfs</string>
+    <string name="usb_s_host_no_feature">Controller host presente, funzione mancante</string>
+    <string name="usb_s_host_undeclared">Modalità host non dichiarata</string>
+    <string name="usb_s_host_active">Controller host attivo (hub radice: %1$d)</string>
+    <string name="usb_s_host_idle">Modalità host dichiarata, controller inattivo</string>
+    <string name="usb_s_devices">Dispositivi (%1$d): %2$s</string>
+    <string name="usb_s_kernel_only">Visti solo dal kernel: %1$d</string>
+    <string name="usb_s_no_devices">Nessun dispositivo USB collegato</string>
+    <string name="usb_s_storage_bad">%1$s: %2$s</string>
+    <string name="usb_s_storage_unmounted">Chiavetta collegata ma non montata</string>
+    <string name="usb_s_storage">Montati (%1$d): %2$s</string>
+    <string name="usb_s_storage_none">Nessuna memoria rimovibile</string>
+    <string name="usb_s_input">Dispositivi (%1$d): %2$s</string>
+    <string name="usb_s_input_hid_only">HID collegato, nessun dispositivo di input</string>
+    <string name="usb_s_input_none">Nessun dispositivo di input esterno</string>
+    <string name="usb_s_accessory">Accessorio: %1$s</string>
+    <string name="usb_s_accessory_none">Nessun accessorio collegato</string>
+    <string name="usb_s_accessory_undeclared">Modalità accessorio non dichiarata</string>
+
+    <!-- Reasons -->
+    <string name="usb_r_no_state">Il broadcast persistente USB_STATE non è mai stato inviato: UsbDeviceManager non ha trovato un driver gadget (né /sys/class/android_usb né configfs), quindi MTP e ADB via USB non possono funzionare.</string>
+    <string name="usb_r_config_mismatch">init non ha applicato la configurazione USB richiesta: sys.usb.state resta indietro rispetto a sys.usb.config. Manca una funzione in init.usb.rc / configfs (per esempio l\'istanza f_ffs di adb o mtp), oppure il nome dell\'UDC in sys.usb.controller è sbagliato.</string>
+    <string name="usb_r_not_configured">Le linee dati sono collegate ma l\'host non ha mai scelto una configurazione: il PC non ha un driver per questa composizione, o una funzione gadget non si è collegata. Prova un\'altra funzione (MTP o solo ricarica) e controlla l\'UDC in dmesg.</string>
+    <string name="usb_r_no_data">Il driver del caricatore riconosce una porta di PC o hub, ma il lato gadget non vede alcun collegamento: l\'UDC non è collegato, il VBUS non arriva al controller, oppure il mux Type-C non porta D+/D- al controller.</string>
+    <string name="usb_r_idle">Collega il telefono a un PC per provare MTP e ADB via USB.</string>
+    <string name="usb_r_no_supply">In /sys/class/power_supply non c\'è una voce usb, pc_port o ac (o SELinux la nasconde): non si può verificare il riconoscimento del caricatore.</string>
+    <string name="usb_r_unplugged">Collega un caricatore o un PC per verificare riconoscimento, corrente in ingresso e tensione.</string>
+    <string name="usb_r_plugged_no_supply">Il servizio batteria dice che è collegato un caricatore, ma in sysfs nessuna alimentazione USB risulta online: l\'HAL health legge un\'alimentazione diversa da quella controllata qui.</string>
+    <string name="usb_r_supply_not_plugged">L\'alimentazione %1$s è online ma il servizio batteria dice che non è collegato niente: healthd/HAL health non legge quella voce, quindi la ricarica non viene mostrata e i comportamenti legati alla ricarica (schermo acceso, sveglie) sono sbagliati.</string>
+    <string name="usb_r_zero_current">Il caricatore è riconosciuto con un limite di ingresso di 0 mA: il riconoscimento del tipo di caricatore (APSD) o l\'AICL del driver sono falliti, quindi il telefono potrebbe non caricarsi. L\'area batteria mostra la corrente effettiva.</string>
+    <string name="usb_r_vbus_range">Il VBUS indica %1$s V, fuori dall\'intervallo di una sorgente USB: il driver del caricatore usa un\'unità sbagliata o un canale ADC errato.</string>
+    <string name="usb_r_typec_private">Nessuna classe Type-C standard: i ruoli sono gestiti in privato dal PHY, dal caricatore o da un driver Type-C del vendor (comune sui kernel più vecchi). Il framework allora non mostra porte USB nelle Impostazioni, ma l\'OTG può funzionare lo stesso.</string>
+    <string name="usb_r_host_no_feature">Il kernel ha un controller host USB ma FEATURE_USB_HOST non è dichiarata: manca android.hardware.usb.host.xml, quindi UsbManager ignora i dispositivi collegati. I driver del kernel (memorie, tastiere) funzionano comunque.</string>
+    <string name="usb_r_host_undeclared">FEATURE_USB_HOST non è dichiarata e nessun controller host è attivo. Se il telefono supporta l\'OTG, aggiungi android.hardware.usb.host.xml.</string>
+    <string name="usb_r_host_idle">Sui controller dual-role (dwc3) il lato host compare solo mentre è collegato un adattatore o un dispositivo OTG. Collegane uno e ripeti.</string>
+    <string name="usb_r_kernel_only">Il kernel ha enumerato dei dispositivi ma UsbManager non ne elenca nessuno: UsbHostManager li filtra (config_usbHostDenylist) o non riesce ad aprire /dev/bus/usb (permessi di ueventd, SELinux). Le app non possono comunicare con questi dispositivi.</string>
+    <string name="usb_r_kernel_only_nofeature">Il kernel ha enumerato dei dispositivi; le app non li vedono perché FEATURE_USB_HOST non è dichiarata.</string>
+    <string name="usb_r_no_devices">Collega una chiavetta, una tastiera o un hub con un adattatore OTG per provare la modalità host.</string>
+    <string name="usb_r_storage_bad">Il volume è in errore: file system non supportato (exFAT o NTFS senza supporto nel kernel o via FUSE) o unità danneggiata. Prova con una chiavetta FAT32.</string>
+    <string name="usb_r_storage_unmounted">È enumerata un\'interfaccia di memoria di massa ma nessun volume rimovibile è montato: vold ha ignorato il disco. Controlla la voce voldmanaged del percorso host USB nel fstab, il supporto dei file system e le negazioni SELinux per vold.</string>
+    <string name="usb_r_storage_none">Collega una chiavetta USB con un adattatore OTG per provare il montaggio.</string>
+    <string name="usb_r_input_hid_only">È enumerata un\'interfaccia HID ma non esiste alcun dispositivo di input esterno: manca il driver HID del kernel (CONFIG_USB_HID, hid-generic), oppure i permessi di /dev/input bloccano InputReader.</string>
+    <string name="usb_r_input_none">Collega una tastiera o un mouse con un adattatore OTG per provare l\'input.</string>
+
+    <!-- Screen -->
+    <string name="usb_ui_port">Porta</string>
+    <string name="usb_ui_port_sub">Ruolo dati, funzioni gadget e alimentazione, in tempo reale</string>
+    <string name="usb_ui_events">Eventi recenti</string>
+    <string name="usb_ui_devices">Dispositivi collegati</string>
+    <string name="usb_ui_devices_sub">ID produttore:prodotto, nome e classe</string>
+    <string name="usb_ui_no_devices">Nessun dispositivo USB collegato. Usa un adattatore OTG o un hub USB-C.</string>
+    <string name="usb_ui_kernel_only">Visti solo dal kernel</string>
+    <string name="usb_ui_storage">Chiavette USB</string>
+    <string name="usb_ui_no_storage">Nessun volume rimovibile.</string>
+    <string name="usb_ui_storage_waiting">C\'è una chiavetta collegata ma non è ancora montata.</string>
+    <string name="usb_g_storage">Chiavetta OTG</string>
+    <string name="usb_g_storage_q">La chiavetta viene montata e i suoi file si vedono nell\'app File?</string>
+    <string name="usb_ui_input">Tastiera e mouse</string>
+    <string name="usb_ui_no_input">Nessun dispositivo di input esterno.</string>
+    <string name="usb_ui_type_here">Scrivi qui con la tastiera USB</string>
+    <string name="usb_g_input">Tastiera e mouse OTG</string>
+    <string name="usb_g_input_q">I tasti della tastiera scrivono e il puntatore del mouse si muove e fa clic?</string>
+    <string name="usb_ui_charging">Ricarica e modalità host</string>
+    <string name="usb_ui_charging_hint">Collega il telefono a un caricatore da muro, poi a un PC: nella scheda della porta qui sopra devono cambiare il tipo di caricatore e il limite di corrente.</string>
+    <string name="usb_g_charging">Riconoscimento del caricatore</string>
+    <string name="usb_g_charging_q">La ricarica da caricatore e da PC viene riconosciuta, con l\'indicatore di carica acceso?</string>
+    <string name="usb_ui_host_title">Cosa serve per la modalità host</string>
+    <string name="usb_ui_host_explain">Per fare da host il telefono deve portare il controller nel ruolo host e alimentare il bus. Sul micro-USB lo fa scattare il pin ID dell\'adattatore OTG (collegato a massa); sull\'USB-C la resistenza Rd dell\'adattatore, vista dal controller Type-C. Poi il telefono deve fornire 5 V sul VBUS (regolatore boost, alimentazione \"otg\" nel driver del caricatore). Se non viene enumerato nulla, controlla in dmesg che il cambio di ruolo avvenga e che il VBUS sia attivo; un hub alimentato aiuta a distinguere i problemi di alimentazione da quelli dei dati.</string>
 </resources>

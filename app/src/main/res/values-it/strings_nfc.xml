@@ -2,4 +2,52 @@
 <resources>
     <string name="nfc_title">NFC</string>
     <string name="nfc_subtitle">Stato del controller e lettura dei tag</string>
+
+    <!-- Result titles -->
+    <string name="nfc_t_feature">Funzioni NFC</string>
+    <string name="nfc_t_adapter">Adattatore NFC</string>
+    <string name="nfc_t_hal">Controller e HAL NFC</string>
+    <string name="nfc_t_tag">Lettura di tag NFC</string>
+
+    <!-- Summaries -->
+    <string name="nfc_s_feature">NFC dichiarato; extra: %1$s</string>
+    <string name="nfc_s_feature_missing">Hardware NFC presente, funzione mancante</string>
+    <string name="nfc_s_none">Questo dispositivo non ha l\'NFC</string>
+    <string name="nfc_s_no_service">Servizio NFC non attivo</string>
+    <string name="nfc_s_on">NFC acceso</string>
+    <string name="nfc_s_off">NFC spento</string>
+    <string name="nfc_s_hal">Controller: %1$s</string>
+    <string name="nfc_s_hal_crash">HAL in crash continui: %1$s</string>
+    <string name="nfc_s_hal_unbound">Driver del kernel senza dispositivo</string>
+    <string name="nfc_s_hal_hidden">Dettagli del controller nascosti</string>
+    <string name="nfc_s_tag">Tag letto: %1$s</string>
+
+    <!-- Reasons -->
+    <string name="nfc_r_none">Nessuna funzione, adattatore, HAL o driver NFC: non c\'è niente da provare.</string>
+    <string name="nfc_r_no_hce">L\'NFC è dichiarato senza emulazione di carta da parte dell\'host: manca android.hardware.nfc.hce.xml, quindi le app di pagamento e dei trasporti non possono emulare le carte.</string>
+    <string name="nfc_r_feature_missing">Kernel o init mostrano un controller NFC, ma FEATURE_NFC non è dichiarata: manca android.hardware.nfc.xml in vendor/etc/permissions, quindi il servizio NFC non parte e nelle Impostazioni non c\'è l\'interruttore NFC.</string>
+    <string name="nfc_r_no_service">FEATURE_NFC è dichiarata ma non c\'è un NfcAdapter: com.android.nfc non è installato o va in crash all\'avvio, spesso perché manca l\'HAL NFC o la sua configurazione (libnfc-nci.conf, libnfc-nxp.conf).</string>
+    <string name="nfc_r_off">Accendi l\'NFC nelle Impostazioni e ripeti. Se l\'interruttore si spegne da solo, l\'HAL non è riuscito a inizializzare il controller (download del firmware, file di configurazione sbagliato, problema di I2C o GPIO).</string>
+    <string name="nfc_r_hal_crash">Un servizio NFC si riavvia in continuazione: l\'HAL va in crash mentre parla con il controller. Controlla tombstone e logcat (NfcHal, NxpHal, libnfc).</string>
+    <string name="nfc_r_hal_unbound">Un driver NFC è registrato sull\'I2C ma nessun dispositivo è collegato: il probe è fallito. Controlla il nodo del device tree (indirizzo I2C, interrupt, GPIO di abilitazione e firmware, richiesta di clock) e dmesg.</string>
+    <string name="nfc_r_hal_hidden">FEATURE_NFC è dichiarata ma le app non vedono proprietà, servizi o nodi di dispositivo NFC (SELinux). Di per sé non è un guasto.</string>
+    <string name="nfc_r_tag_odd">Il tag è stato rilevato ma UID o elenco delle tecnologie sono vuoti: il controller riporta dati di attivazione incompleti.</string>
+
+    <!-- Screen -->
+    <string name="nfc_ui_state">Stato dell\'NFC</string>
+    <string name="nfc_ui_no_adapter">Nessun adattatore NFC disponibile.</string>
+    <string name="nfc_ui_on">NFC acceso e pronto.</string>
+    <string name="nfc_ui_off">L\'NFC è spento: accendilo nelle Impostazioni.</string>
+    <string name="nfc_ui_settings">Impostazioni NFC</string>
+    <string name="nfc_ui_reader">Lettore di tag</string>
+    <string name="nfc_ui_reader_sub">UID, tecnologie, ATQA/SAK e record NDEF</string>
+    <string name="nfc_ui_no_activity">Il lettore richiede la finestra dell\'app in primo piano.</string>
+    <string name="nfc_ui_turn_on_first">Prima accendi l\'NFC.</string>
+    <string name="nfc_ui_start">Avvia lettura</string>
+    <string name="nfc_ui_waiting">Appoggia un tag, una carta contactless o un biglietto dei trasporti sul retro del telefono, vicino all\'antenna NFC.</string>
+    <string name="nfc_ui_parse_error">Il tag è stato rilevato ma non è stato possibile decodificarlo.</string>
+    <string name="nfc_ui_reader_error">Impossibile avviare il lettore (%1$s).</string>
+    <string name="nfc_ui_last_tag">Ultimo tag (letture: %1$d)</string>
+    <string name="nfc_ui_records">Record NDEF</string>
+    <string name="nfc_ui_reader_hint">Una lettura riuscita viene salvata automaticamente come risultato. Si leggono solo i dati che il tag fornisce senza autenticazione; non viene scritto nulla.</string>
 </resources>

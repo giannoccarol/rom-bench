@@ -2,4 +2,98 @@
 <resources>
     <string name="usb_title">USB &amp; OTG</string>
     <string name="usb_subtitle">Port state, host mode and attached devices</string>
+
+    <!-- Result titles -->
+    <string name="usb_t_port">USB port (device mode)</string>
+    <string name="usb_t_power">USB power input</string>
+    <string name="usb_t_typec">USB Type-C role</string>
+    <string name="usb_t_host">USB host mode</string>
+    <string name="usb_t_devices">Attached USB devices</string>
+    <string name="usb_t_storage">Removable storage</string>
+    <string name="usb_t_input">External input devices</string>
+    <string name="usb_t_accessory">USB accessory mode</string>
+
+    <!-- Summaries -->
+    <string name="usb_s_no_state">No USB state from the framework</string>
+    <string name="usb_s_config_mismatch">Config %1$s requested, state is %2$s</string>
+    <string name="usb_s_not_configured">Connected but not configured</string>
+    <string name="usb_s_no_data">%1$s port charging, no data link</string>
+    <string name="usb_s_connected">Connected to a host: %1$s</string>
+    <string name="usb_s_host_mode">Port in host mode</string>
+    <string name="usb_s_idle">No host connected (functions: %1$s)</string>
+    <string name="usb_s_no_supply">No USB power supply in sysfs</string>
+    <string name="usb_s_unplugged">Nothing plugged in</string>
+    <string name="usb_s_power">Power in: %1$s</string>
+    <string name="usb_s_power_mismatch">Charger and battery service disagree</string>
+    <string name="usb_s_typec">Data %1$s, power %2$s, partner: %3$s</string>
+    <string name="usb_s_dual_role">Mode %1$s, data %2$s, power %3$s</string>
+    <string name="usb_s_typec_charger">Type-C state only in the charger driver</string>
+    <string name="usb_s_typec_none">No Type-C class in sysfs</string>
+    <string name="usb_s_host_no_feature">Host controller present, feature missing</string>
+    <string name="usb_s_host_undeclared">Host mode not declared</string>
+    <string name="usb_s_host_active">Host controller active (root hubs: %1$d)</string>
+    <string name="usb_s_host_idle">Host mode declared, controller idle</string>
+    <string name="usb_s_devices">Devices (%1$d): %2$s</string>
+    <string name="usb_s_kernel_only">Seen by the kernel only: %1$d</string>
+    <string name="usb_s_no_devices">No USB device attached</string>
+    <string name="usb_s_storage_bad">%1$s: %2$s</string>
+    <string name="usb_s_storage_unmounted">USB drive attached but not mounted</string>
+    <string name="usb_s_storage">Mounted (%1$d): %2$s</string>
+    <string name="usb_s_storage_none">No removable storage</string>
+    <string name="usb_s_input">Devices (%1$d): %2$s</string>
+    <string name="usb_s_input_hid_only">HID attached, no input device</string>
+    <string name="usb_s_input_none">No external input device</string>
+    <string name="usb_s_accessory">Accessory: %1$s</string>
+    <string name="usb_s_accessory_none">No accessory connected</string>
+    <string name="usb_s_accessory_undeclared">Accessory mode not declared</string>
+
+    <!-- Reasons -->
+    <string name="usb_r_no_state">The sticky USB_STATE broadcast was never sent: UsbDeviceManager found no gadget driver (neither /sys/class/android_usb nor configfs), so MTP and ADB over USB cannot work.</string>
+    <string name="usb_r_config_mismatch">init did not apply the requested USB configuration: sys.usb.state stays behind sys.usb.config. A function is missing from init.usb.rc / configfs (for example the f_ffs instance for adb or mtp), or the UDC name in sys.usb.controller is wrong.</string>
+    <string name="usb_r_not_configured">The data lines are connected but the host never selected a configuration: the PC has no driver for the composition, or a gadget function failed to bind. Try another function (MTP vs. charging only) and check dmesg for the UDC.</string>
+    <string name="usb_r_no_data">The charger driver detects a PC or hub port, but the gadget side reports no connection: the UDC is not bound, VBUS is not passed to the controller, or the Type-C mux does not route D+/D- to it.</string>
+    <string name="usb_r_idle">Connect the phone to a PC to test MTP and ADB over USB.</string>
+    <string name="usb_r_no_supply">No usb, pc_port or ac entry in /sys/class/power_supply (or SELinux hides it): charger detection cannot be checked.</string>
+    <string name="usb_r_unplugged">Plug in a charger or a PC to check detection, input current and voltage.</string>
+    <string name="usb_r_plugged_no_supply">The battery service says a charger is plugged in, but no USB power supply is online in sysfs: the health HAL reads a different supply than the one checked here.</string>
+    <string name="usb_r_supply_not_plugged">Power supply %1$s is online but the battery service says nothing is plugged in: healthd/health HAL does not read that supply, so charging is not shown and charging-related behaviour (screen on, alarms) is wrong.</string>
+    <string name="usb_r_zero_current">The charger is detected with a 0 mA input limit: charger type detection (APSD) or AICL in the charger driver failed, so the phone may not charge. The battery area shows the current flowing.</string>
+    <string name="usb_r_vbus_range">VBUS reads %1$s V, outside the range of a USB source: the charger driver reports a wrong unit or a bad ADC channel.</string>
+    <string name="usb_r_typec_private">No standard Type-C class: roles are handled privately by the PHY, charger or a vendor Type-C driver (common on older kernels). The framework then shows no USB port in Settings, but OTG can still work.</string>
+    <string name="usb_r_host_no_feature">The kernel has a USB host controller but FEATURE_USB_HOST is not declared: android.hardware.usb.host.xml is missing, so UsbManager ignores attached devices. Kernel drivers (storage, keyboards) still work.</string>
+    <string name="usb_r_host_undeclared">FEATURE_USB_HOST is not declared and no host controller is active. If the phone supports OTG, add android.hardware.usb.host.xml.</string>
+    <string name="usb_r_host_idle">On dual-role controllers (dwc3) the host side appears only while an OTG adapter or device is attached. Attach one and run again.</string>
+    <string name="usb_r_kernel_only">The kernel enumerated devices but UsbManager lists none: UsbHostManager filters them (config_usbHostDenylist) or cannot open /dev/bus/usb (ueventd permissions, SELinux). Apps cannot talk to these devices.</string>
+    <string name="usb_r_kernel_only_nofeature">The kernel enumerated devices; apps do not see them because FEATURE_USB_HOST is not declared.</string>
+    <string name="usb_r_no_devices">Attach a flash drive, keyboard or hub with an OTG adapter to test host mode.</string>
+    <string name="usb_r_storage_bad">The volume is in an error state: unsupported filesystem (exFAT or NTFS without kernel or FUSE support) or a damaged drive. Try a FAT32 drive.</string>
+    <string name="usb_r_storage_unmounted">A mass-storage interface is enumerated but no removable volume is mounted: vold ignored the disk. Check the voldmanaged entry for the USB host path in fstab, the filesystem support and SELinux denials for vold.</string>
+    <string name="usb_r_storage_none">Attach a USB flash drive with an OTG adapter to test mounting.</string>
+    <string name="usb_r_input_hid_only">A HID interface is enumerated but no external input device exists: the kernel HID driver (CONFIG_USB_HID, hid-generic) is missing, or /dev/input permissions block InputReader.</string>
+    <string name="usb_r_input_none">Attach a keyboard or mouse with an OTG adapter to test input.</string>
+
+    <!-- Screen -->
+    <string name="usb_ui_port">Port</string>
+    <string name="usb_ui_port_sub">Data role, gadget functions and power input, live</string>
+    <string name="usb_ui_events">Recent events</string>
+    <string name="usb_ui_devices">Attached devices</string>
+    <string name="usb_ui_devices_sub">Vendor:product ID, name and class</string>
+    <string name="usb_ui_no_devices">No USB device attached. Use an OTG adapter or a USB-C hub.</string>
+    <string name="usb_ui_kernel_only">Seen by the kernel only</string>
+    <string name="usb_ui_storage">Flash drives</string>
+    <string name="usb_ui_no_storage">No removable volume.</string>
+    <string name="usb_ui_storage_waiting">A USB drive is attached but not mounted yet.</string>
+    <string name="usb_g_storage">OTG flash drive</string>
+    <string name="usb_g_storage_q">Is the flash drive mounted, with its files visible in the Files app?</string>
+    <string name="usb_ui_input">Keyboard and mouse</string>
+    <string name="usb_ui_no_input">No external input device.</string>
+    <string name="usb_ui_type_here">Type here with the USB keyboard</string>
+    <string name="usb_g_input">OTG keyboard and mouse</string>
+    <string name="usb_g_input_q">Do the keyboard keys type and does the mouse pointer move and click?</string>
+    <string name="usb_ui_charging">Charging and host mode</string>
+    <string name="usb_ui_charging_hint">Plug the phone into a wall charger, then into a PC: the port card above should show the charger type and the current limit change.</string>
+    <string name="usb_g_charging">Charger detection</string>
+    <string name="usb_g_charging_q">Is charging from a wall charger and from a PC detected, with the charging indicator on?</string>
+    <string name="usb_ui_host_title">What host mode needs</string>
+    <string name="usb_ui_host_explain">To act as a host the phone must switch the controller to host role and power the bus. On micro-USB this is triggered by the ID pin of the OTG adapter (grounded); on USB-C by the Rd resistor of the adapter, seen by the Type-C controller. The phone must then output 5 V on VBUS (boost regulator, \"otg\" supply in the charger driver). If nothing enumerates, check in dmesg that the role switch happens and that VBUS is enabled; a powered hub helps to tell power problems from data problems.</string>
 </resources>
