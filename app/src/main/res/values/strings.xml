@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">ROM Bench</string>
+    <string name="channel_tests">Hardware tests</string>
+
+    <string name="group_connectivity">Connectivity</string>
+    <string name="group_media">Multimedia &amp; input</string>
+    <string name="group_system">System</string>
+
+    <string name="status_pass">OK</string>
+    <string name="status_warn">Warning</string>
+    <string name="status_fail">Error</string>
+    <string name="status_info">Info</string>
+    <string name="status_skip">Skipped</string>
+
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
+    <string name="delete">Delete</string>
+    <string name="stop">Stop</string>
+    <string name="copy">Copy</string>
+    <string name="copied">Copied</string>
+    <string name="share">Share</string>
+    <string name="save_file">Save to file</string>
+    <string name="loading">Loading…</string>
+    <string name="history">Saved reports</string>
+    <string name="settings">Settings</string>
+    <string name="report">Report</string>
+    <string name="compare">Compare</string>
+
+    <!-- Dashboard -->
+    <string name="dash_no_results">No results yet.</string>
+    <string name="dash_run_all">Run automatic tests</string>
+    <string name="dash_run_hint">About %1$d min. Guided tests (sound, touch, keys…) are inside each area.</string>
+    <string name="dash_running">%1$s (%2$d of %3$d)</string>
+    <string name="tile_not_tested">Not tested</string>
+    <plurals name="tile_checks">
+        <item quantity="one">%1$d check</item>
+        <item quantity="other">%1$d checks</item>
+    </plurals>
+    <string name="clear_title">Clear all results?</string>
+    <string name="clear_body">Automatic and guided results of this session are removed. Saved reports are kept.</string>
+    <string name="preflight_title">Permissions for the tests</string>
+    <string name="preflight_body">Some checks need a permission. Nothing leaves the phone: results stay in the app until you export a report.</string>
+    <string name="preflight_grant">Grant and run</string>
+    <string name="preflight_skip">Run without</string>
+
+    <!-- Area frame -->
+    <string name="area_auto_title">Automatic checks</string>
+    <string name="area_auto_sub">Run without touching the phone; results below.</string>
+    <string name="area_run">Run checks</string>
+    <string name="area_running">Running…</string>
+    <string name="area_no_results">Not run yet.</string>
+    <string name="auto_timeout">No answer within %1$d s</string>
+    <string name="auto_timeout_reason">The check was stopped. A HAL or service that never answers often means a missing blob or a blocked SELinux call; look at logcat.</string>
+    <string name="auto_crash">The check crashed</string>
+    <string name="skip_permission">Not run: permission missing</string>
+    <string name="skip_permission_reason">Grant %1$s in the area screen and run again.</string>
+
+    <!-- Guided -->
+    <string name="guided">Guided test</string>
+    <string name="guided_ok">Confirmed working by the tester</string>
+    <string name="guided_problem">Problem reported by the tester</string>
+    <string name="guided_na">Not applicable</string>
+    <string name="guided_btn_ok">Works</string>
+    <string name="guided_btn_problem">Problem</string>
+    <string name="guided_btn_na">N/A</string>
+    <string name="guided_note_title">What is wrong?</string>
+    <string name="guided_note_hint">Optional note, e.g. \"crackling, only left channel\"</string>
+
+    <!-- Permissions -->
+    <string name="perm_title">Permission needed</string>
+    <string name="perm_grant">Grant</string>
+    <string name="perm_settings">Open app settings</string>
+    <string name="perm_location">Location</string>
+    <string name="perm_location_why">Android shows Wi-Fi scan results, cell identities, Bluetooth scans and GNSS satellites only to apps with location access.</string>
+    <string name="perm_bt_scan">Nearby devices: scan</string>
+    <string name="perm_bt_scan_why">Needed to find Bluetooth devices around you.</string>
+    <string name="perm_bt_connect">Nearby devices: connect</string>
+    <string name="perm_bt_connect_why">Needed to read the adapter name, address and paired devices, and to turn Bluetooth on.</string>
+    <string name="perm_phone">Phone</string>
+    <string name="perm_phone_why">Reads SIM state, network registration, signal and call state. No call is placed by the app.</string>
+    <string name="perm_sms_send">Send SMS</string>
+    <string name="perm_sms_send_why">Only for the SMS test, which sends one message to the number you type.</string>
+    <string name="perm_sms_receive">Receive SMS</string>
+    <string name="perm_sms_receive_why">Lets the SMS test notice when the message comes back to this phone.</string>
+    <string name="perm_mic">Microphone</string>
+    <string name="perm_mic_why">Records a few seconds from each microphone to check level and play it back. Nothing is saved.</string>
+    <string name="perm_camera">Camera</string>
+    <string name="perm_camera_why">Opens each camera to check that frames arrive and to show the preview.</string>
+    <string name="perm_notifications">Notifications</string>
+    <string name="perm_notifications_why">Used by the notification LED test and to show progress.</string>
+
+    <!-- Report -->
+    <string name="report_saved">Saved report</string>
+    <string name="report_details">Include technical details</string>
+    <string name="report_save_hint">Keep this report to compare it with the next build.</string>
+    <string name="report_saved_as">Saved as %1$s</string>
+    <string name="report_keep">Keep</string>
+    <string name="report_saved_file">File saved</string>
+    <string name="history_empty">No saved reports. A report is saved after every \"Run automatic tests\" and when you tap Keep in the report.</string>
+    <string name="history_hint">Tap a report to open it, tick two to compare builds.</string>
+    <string name="delete_report_title">Delete this report?</string>
+    <string name="compare_builds">Builds</string>
+    <string name="compare_old">Older</string>
+    <string name="compare_new">Newer</string>
+    <string name="compare_show_same">Unchanged (%1$d)</string>
+    <string name="change_regression">Regressions</string>
+    <string name="change_improvement">Fixed</string>
+    <string name="change_changed">Changed</string>
+    <string name="change_same">Unchanged</string>
+    <string name="change_only_old">Only in older</string>
+    <string name="change_only_new">Only in newer</string>
+
+    <!-- Settings -->
+    <string name="set_report">Report</string>
+    <string name="set_redact">Hide identifiers</string>
+    <string name="set_redact_sub">MAC addresses, IMEI, serial, SSID, phone numbers and similar values are replaced in exported reports.</string>
+    <string name="set_english">Report in English</string>
+    <string name="set_english_sub">Best for XDA and bug trackers. Off: the phone language.</string>
+    <string name="set_props">Include all properties</string>
+    <string name="set_props_sub">Appends the full getprop output (identifying properties removed when hiding identifiers).</string>
+    <string name="set_network">Network tests</string>
+    <string name="set_network_sub">Optional: every test also works offline and reports what it could not reach.</string>
+    <string name="set_ping">Ping host</string>
+    <string name="set_probe">Connectivity probe URL</string>
+    <string name="set_speed">Download test URL</string>
+    <string name="set_look">Appearance</string>
+    <string name="set_dynamic">System colours</string>
+    <string name="set_dynamic_sub">Use the wallpaper palette (Android 12 and later).</string>
+    <string name="set_adb">From a PC (adb)</string>
+    <string name="set_adb_sub">Tap a command to copy it.</string>
+    <string name="set_adb_grant">Extra permissions for userdebug ROMs: DUMP %1$s, READ_LOGS %2$s. They enable dumpsys and logcat based details.</string>
+    <string name="set_adb_autorun">Run every automatic check and fetch the report:</string>
+    <string name="about">About</string>
+    <string name="about_body">Hardware test bench for custom ROM bring-up. Works offline and without Google Play services. Free software under the GNU GPL v3 or later.</string>
+    <string name="about_credits">Built with Jetpack Compose, Material 3 and Material Symbols icons (Apache License 2.0) by the Android Open Source Project and Google.</string>
+</resources>

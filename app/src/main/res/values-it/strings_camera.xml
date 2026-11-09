@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_title">Fotocamere</string>
+    <string name="camera_subtitle">Elenco Camera2, anteprima, scatto, flash e torcia</string>
+</resources>

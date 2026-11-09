@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sensors_title">Sensori</string>
+    <string name="sensors_subtitle">Valori in tempo reale, grafici e plausibilità</string>
+</resources>

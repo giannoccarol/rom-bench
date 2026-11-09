@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="device_title">Riepilogo dispositivo</string>
+    <string name="device_subtitle">Build, kernel, SELinux, patch, proprietà</string>
+</resources>

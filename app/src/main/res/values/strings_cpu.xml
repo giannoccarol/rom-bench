@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cpu_title">CPU, GPU &amp; thermal</string>
+    <string name="cpu_subtitle">Cores, frequencies, governors, temperatures</string>
+</resources>

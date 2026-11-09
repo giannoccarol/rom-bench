@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="device_title">Device summary</string>
+    <string name="device_subtitle">Build, kernel, SELinux, patch level, props</string>
+</resources>

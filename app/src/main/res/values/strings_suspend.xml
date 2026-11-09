@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="suspend_title">Suspend &amp; wakelocks</string>
+    <string name="suspend_subtitle">Deep sleep, alarms from suspend, doze</string>
+</resources>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_tests">Prove hardware</string>
+
+    <string name="group_connectivity">Connettività</string>
+    <string name="group_media">Multimedia e input</string>
+    <string name="group_system">Sistema</string>
+
+    <string name="status_pass">OK</string>
+    <string name="status_warn">Attenzione</string>
+    <string name="status_fail">Errore</string>
+    <string name="status_info">Info</string>
+    <string name="status_skip">Saltato</string>
+
+    <string name="back">Indietro</string>
+    <string name="cancel">Annulla</string>
+    <string name="save">Salva</string>
+    <string name="clear">Cancella</string>
+    <string name="delete">Elimina</string>
+    <string name="stop">Ferma</string>
+    <string name="copy">Copia</string>
+    <string name="copied">Copiato</string>
+    <string name="share">Condividi</string>
+    <string name="save_file">Salva su file</string>
+    <string name="loading">Caricamento…</string>
+    <string name="history">Report salvati</string>
+    <string name="settings">Impostazioni</string>
+    <string name="report">Report</string>
+    <string name="compare">Confronta</string>
+
+    <string name="dash_no_results">Ancora nessun risultato.</string>
+    <string name="dash_run_all">Avvia prove automatiche</string>
+    <string name="dash_run_hint">Circa %1$d min. Le prove guidate (suono, touch, tasti…) sono dentro ogni area.</string>
+    <string name="dash_running">%1$s (%2$d di %3$d)</string>
+    <string name="tile_not_tested">Non provato</string>
+    <plurals name="tile_checks">
+        <item quantity="one">%1$d prova</item>
+        <item quantity="other">%1$d prove</item>
+    </plurals>
+    <string name="clear_title">Cancellare tutti i risultati?</string>
+    <string name="clear_body">Vengono rimossi i risultati automatici e guidati di questa sessione. I report salvati restano.</string>
+    <string name="preflight_title">Permessi per le prove</string>
+    <string name="preflight_body">Alcune prove richiedono un permesso. Niente esce dal telefono: i risultati restano nell\'app finché non esporti un report.</string>
+    <string name="preflight_grant">Concedi e avvia</string>
+    <string name="preflight_skip">Avvia senza</string>
+
+    <string name="area_auto_title">Prove automatiche</string>
+    <string name="area_auto_sub">Girano senza toccare il telefono; risultati qui sotto.</string>
+    <string name="area_run">Avvia prove</string>
+    <string name="area_running">In corso…</string>
+    <string name="area_no_results">Non ancora eseguite.</string>
+    <string name="auto_timeout">Nessuna risposta entro %1$d s</string>
+    <string name="auto_timeout_reason">La prova è stata fermata. Un HAL o un servizio che non risponde spesso indica un blob mancante o una chiamata bloccata da SELinux: guarda il logcat.</string>
+    <string name="auto_crash">La prova si è bloccata con un errore</string>
+    <string name="skip_permission">Non eseguita: manca un permesso</string>
+    <string name="skip_permission_reason">Concedi %1$s nella schermata dell\'area e riprova.</string>
+
+    <string name="guided">Prova guidata</string>
+    <string name="guided_ok">Funziona, confermato da chi prova</string>
+    <string name="guided_problem">Problema segnalato da chi prova</string>
+    <string name="guided_na">Non applicabile</string>
+    <string name="guided_btn_ok">Funziona</string>
+    <string name="guided_btn_problem">Problema</string>
+    <string name="guided_btn_na">N/D</string>
+    <string name="guided_note_title">Cosa non va?</string>
+    <string name="guided_note_hint">Nota facoltativa, es. \"gracchia, solo canale sinistro\"</string>
+
+    <string name="perm_title">Serve un permesso</string>
+    <string name="perm_grant">Concedi</string>
+    <string name="perm_settings">Apri impostazioni dell\'app</string>
+    <string name="perm_location">Posizione</string>
+    <string name="perm_location_why">Android mostra risultati della scansione Wi-Fi, identità delle celle, scansioni Bluetooth e satelliti GNSS solo alle app con accesso alla posizione.</string>
+    <string name="perm_bt_scan">Dispositivi vicini: scansione</string>
+    <string name="perm_bt_scan_why">Serve per trovare i dispositivi Bluetooth intorno a te.</string>
+    <string name="perm_bt_connect">Dispositivi vicini: connessione</string>
+    <string name="perm_bt_connect_why">Serve per leggere nome, indirizzo e dispositivi associati dell\'adattatore e per accendere il Bluetooth.</string>
+    <string name="perm_phone">Telefono</string>
+    <string name="perm_phone_why">Legge stato della SIM, registrazione alla rete, segnale e stato delle chiamate. L\'app non effettua chiamate.</string>
+    <string name="perm_sms_send">Invio SMS</string>
+    <string name="perm_sms_send_why">Solo per la prova SMS, che invia un messaggio al numero che scrivi.</string>
+    <string name="perm_sms_receive">Ricezione SMS</string>
+    <string name="perm_sms_receive_why">Permette alla prova SMS di accorgersi quando il messaggio torna a questo telefono.</string>
+    <string name="perm_mic">Microfono</string>
+    <string name="perm_mic_why">Registra pochi secondi da ogni microfono per controllare il livello e riascoltarli. Niente viene salvato.</string>
+    <string name="perm_camera">Fotocamera</string>
+    <string name="perm_camera_why">Apre ogni fotocamera per verificare che arrivino i fotogrammi e mostrare l\'anteprima.</string>
+    <string name="perm_notifications">Notifiche</string>
+    <string name="perm_notifications_why">Usate dalla prova del LED di notifica e per mostrare l\'avanzamento.</string>
+
+    <string name="report_saved">Report salvato</string>
+    <string name="report_details">Includi i dettagli tecnici</string>
+    <string name="report_save_hint">Conserva questo report per confrontarlo con la build successiva.</string>
+    <string name="report_saved_as">Salvato come %1$s</string>
+    <string name="report_keep">Conserva</string>
+    <string name="report_saved_file">File salvato</string>
+    <string name="history_empty">Nessun report salvato. Un report viene salvato dopo ogni \"Avvia prove automatiche\" e quando tocchi Conserva nel report.</string>
+    <string name="history_hint">Tocca un report per aprirlo, selezionane due per confrontare le build.</string>
+    <string name="delete_report_title">Eliminare questo report?</string>
+    <string name="compare_builds">Build</string>
+    <string name="compare_old">Più vecchio</string>
+    <string name="compare_new">Più recente</string>
+    <string name="compare_show_same">Invariati (%1$d)</string>
+    <string name="change_regression">Regressioni</string>
+    <string name="change_improvement">Risolti</string>
+    <string name="change_changed">Cambiati</string>
+    <string name="change_same">Invariati</string>
+    <string name="change_only_old">Solo nel vecchio</string>
+    <string name="change_only_new">Solo nel nuovo</string>
+
+    <string name="set_report">Report</string>
+    <string name="set_redact">Nascondi gli identificativi</string>
+    <string name="set_redact_sub">Indirizzi MAC, IMEI, seriale, SSID, numeri di telefono e simili vengono sostituiti nei report esportati.</string>
+    <string name="set_english">Report in inglese</string>
+    <string name="set_english_sub">Ideale per XDA e i bug tracker. Spento: la lingua del telefono.</string>
+    <string name="set_props">Includi tutte le proprietà</string>
+    <string name="set_props_sub">Aggiunge l\'output completo di getprop (senza le proprietà identificative quando gli identificativi sono nascosti).</string>
+    <string name="set_network">Prove di rete</string>
+    <string name="set_network_sub">Facoltative: ogni prova funziona anche offline e riporta cosa non ha raggiunto.</string>
+    <string name="set_ping">Host per il ping</string>
+    <string name="set_probe">URL di verifica della connessione</string>
+    <string name="set_speed">URL per la prova di download</string>
+    <string name="set_look">Aspetto</string>
+    <string name="set_dynamic">Colori di sistema</string>
+    <string name="set_dynamic_sub">Usa la tavolozza dello sfondo (Android 12 e successivi).</string>
+    <string name="set_adb">Da PC (adb)</string>
+    <string name="set_adb_sub">Tocca un comando per copiarlo.</string>
+    <string name="set_adb_grant">Permessi extra per ROM userdebug: DUMP %1$s, READ_LOGS %2$s. Abilitano dettagli basati su dumpsys e logcat.</string>
+    <string name="set_adb_autorun">Esegui tutte le prove automatiche e scarica il report:</string>
+    <string name="about">Informazioni</string>
+    <string name="about_body">Banco di prova hardware per il porting di ROM custom. Funziona offline e senza Google Play Services. Software libero sotto GNU GPL v3 o successiva.</string>
+    <string name="about_credits">Realizzata con Jetpack Compose, Material 3 e le icone Material Symbols (Apache License 2.0) dell\'Android Open Source Project e di Google.</string>
+</resources>

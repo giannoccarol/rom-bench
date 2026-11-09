@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="telephony_title">Telefonia</string>
+    <string name="telephony_subtitle">SIM, registrazione, segnale, IMS, dati, chiamate e SMS</string>
+</resources>

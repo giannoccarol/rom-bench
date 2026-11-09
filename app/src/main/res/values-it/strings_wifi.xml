@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wifi_title">Wi-Fi</string>
+    <string name="wifi_subtitle">Scansione, segnale, banda, collegamento e ping</string>
+</resources>

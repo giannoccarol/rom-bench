@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="usb_title">USB &amp; OTG</string>
+    <string name="usb_subtitle">Port state, host mode and attached devices</string>
+</resources>

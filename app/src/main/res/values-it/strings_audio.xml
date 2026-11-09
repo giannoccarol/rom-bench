@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="audio_title">Uscita audio</string>
+    <string name="audio_subtitle">Altoparlante, capsula, cuffie, rotte e volume</string>
+</resources>

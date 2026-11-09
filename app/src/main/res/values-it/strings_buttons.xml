@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="buttons_title">Tasti, vibrazione, LED</string>
+    <string name="buttons_subtitle">Tasti fisici, vibrazione, LED di notifica</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mic_title">Microphones</string>
+    <string name="mic_subtitle">Record and play back every source, live level</string>
+</resources>

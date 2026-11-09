@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="display_title">Display &amp; touch</string>
+    <string name="display_subtitle">Multitouch, grid, colours, brightness, refresh rate</string>
+</resources>
