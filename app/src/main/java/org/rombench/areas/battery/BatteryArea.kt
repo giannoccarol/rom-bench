@@ -109,7 +109,9 @@ object BatteryArea : Area {
         val curDetails = listOf(d("Samples (µA)", currents.joinToString()), d("Status", statusName(s.status)), d("Plugged", pluggedName(s.plugged)), d("sysfs current_now", bat?.values?.get("current_now")))
         out += when {
             cur == null -> result("current", txt(R.string.battery_r_current), Status.WARN, txt(R.string.battery_not_reported), txt(R.string.battery_current_missing_why), curDetails)
-            looksLikeMilliamps(cur) -> result("current", txt(R.string.battery_r_current), Status.WARN, raw("$cur"), txt(R.string.battery_current_ma_why), curDetails)
+            // One small reading is legitimate (nearly full battery, light load): call it mA only when
+            // every sample of the run is that small.
+            looksLikeMilliamps(cur) && currents.all { looksLikeMilliamps(it) } -> result("current", txt(R.string.battery_r_current), Status.WARN, raw("$cur"), txt(R.string.battery_current_ma_why), curDetails)
             s.status == BatteryManager.BATTERY_STATUS_CHARGING && cur < 0 ->
                 result("current", txt(R.string.battery_r_current), Status.INFO, raw("${fmt1(cur / 1000.0)} mA"), txt(R.string.battery_current_sign_why), curDetails)
             s.status == BatteryManager.BATTERY_STATUS_DISCHARGING && cur > 0 ->

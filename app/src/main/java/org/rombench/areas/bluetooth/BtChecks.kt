@@ -151,10 +151,14 @@ private fun BluetoothArea.addressCheck(ctx: Context, a: BluetoothAdapter, canCon
         d("bdaddr_path", pathProp),
         d("bdaddr file", fromPath ?: pathProp?.let { "(not readable)" }, sensitive = true),
     )
-    val real = listOfNotNull(api, secure, boot, persist, fromPath).map { it.trim() }.firstOrNull { it.isNotEmpty() && !it.equals(BtUtil.DUMMY_ADDRESS, true) }
+    // A placeholder in one source (often ro.boot.btmacaddr, left at zero by the bootloader) does not
+    // matter when another source, such as the bdaddr file the stack reads, holds a real address.
+    val known = listOfNotNull(api, secure, boot, persist, fromPath).map { it.trim() }
+        .filter { it.isNotEmpty() && !it.equals(BtUtil.DUMMY_ADDRESS, true) }
+    val real = known.firstOrNull { !BtUtil.placeholder(it) }
     return when {
-        real == null -> result("address", title, Status.INFO, txt(R.string.bluetooth_s_addr_hidden), txt(R.string.bluetooth_r_addr_hidden), details)
-        BtUtil.placeholder(real) -> result("address", title, Status.WARN, txt(R.string.bluetooth_s_addr_placeholder), txt(R.string.bluetooth_r_addr_placeholder), details)
+        known.isEmpty() -> result("address", title, Status.INFO, txt(R.string.bluetooth_s_addr_hidden), txt(R.string.bluetooth_r_addr_hidden), details)
+        real == null -> result("address", title, Status.WARN, txt(R.string.bluetooth_s_addr_placeholder), txt(R.string.bluetooth_r_addr_placeholder), details)
         else -> result("address", title, Status.PASS, txt(R.string.bluetooth_s_addr_ok), null, details)
     }
 }
